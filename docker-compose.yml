@@ -25,17 +25,6 @@ services:
     ports:
       - 3306:3306
 
-  postgres:
-    image: postgres:10
-    environment:
-      - POSTGRES_PASSWORD=developer
-      - POSTGRES_USER=developer
-      - PGDATA=/var/lib/postgresql/data/pgdata
-    volumes:
-      - postgres:/var/lib/postgresql/data
-    ports:
-      - 5432:5432
-
   elasticsearch:
     image: elasticsearch:7.9.1
     environment:
@@ -72,6 +61,5 @@ services:
 volumes:
   dev:
   mysql:
-  postgres:
   elasticsearch:
   redis:
