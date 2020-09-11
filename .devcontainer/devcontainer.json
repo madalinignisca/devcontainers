@@ -13,6 +13,7 @@
       "EditorConfig.EditorConfig",
       "eamodio.gitlens",
       "ikappas.phpcs",
+      "ecodes.vscode-phpmd",
       "dbaeumer.vscode-eslint"
     ],
     "remoteUser": "developer"
