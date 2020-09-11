@@ -1,0 +1,19 @@
+{
+    "name": "PHPNODE",
+    "dockerComposeFile": "../docker-compose.yml",
+    "service": "dev",
+    "workspaceFolder": "/workspace",
+    "shutdownAction": "stopCompose",
+    "settings": {
+      "terminal.integrated.shell.linux": "/bin/bash"
+    },
+    "extensions": [
+      "felixfbecker.php-intellisense",
+      "felixfbecker.php-debug",
+      "EditorConfig.EditorConfig",
+      "eamodio.gitlens",
+      "ikappas.phpcs",
+      "dbaeumer.vscode-eslint"
+    ],
+    "remoteUser": "developer"
+  }
