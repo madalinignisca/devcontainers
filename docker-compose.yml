@@ -6,7 +6,6 @@ services:
     image: 16nsk/devcontainer-php
     build: .
     volumes:
-      - ./.ssh:/home/developer/.ssh
       - dev:/workspace
     command: sleep infinity
     ports:
