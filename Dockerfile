@@ -60,7 +60,7 @@ RUN groupadd --gid ${USER_GID} ${USERNAME} \
     && chown ${USER_UID}:${USER_GID} /workspace
 
 VOLUME /workspace
-VOLUME /home/laravel
+VOLUME /home/${USERNAME}
 
 WORKDIR /workspace
 HEALTHCHECK NONE
