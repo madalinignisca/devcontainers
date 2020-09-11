@@ -1,0 +1,77 @@
+version: "3.8"
+
+services:
+
+  dev:
+    image: 16nsk/devcontainer-php
+    build: .
+    volumes:
+      - ./.ssh:/home/developer/.ssh
+      - dev:/workspace
+    command: sleep infinity
+    ports:
+      - "3000:3000"
+      - "8000:8000"
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORDD=root
+      - MYSQL_DATABASE=mydb
+      - MYSQL_USER=developer
+      - MYSQL_PASSWORD=developer
+    volumes:
+      - mysql:/var/lib/mysql
+    ports:
+      - 3306:3306
+
+  postgres:
+    image: postgres:10
+    environment:
+      - POSTGRES_PASSWORD=developer
+      - POSTGRES_USER=developer
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  elasticsearch:
+    image: elasticsearch:7.9.1
+    environment:
+      discovery.type: single-node
+    volumes:
+      - elasticsearch:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+
+  kibana:
+    image: kibana:7.9.1
+    ports:
+      - 5601:5601
+    environment:
+      ELASTICSEARCH_HOSTS: http://elasticsearch
+
+  redis:
+    image: "redis:alpine"
+    command: redis-server --appendonly yes
+    ports:
+      - 6379:6379
+    volumes:
+      - redis:/data
+
+  mail:
+    image: 'mailhog/mailhog'
+    environment:
+      MH_STORAGE: maildir
+    volumes:
+      - ./.docker/maildir:/maildir
+    ports:
+      - 8025:8025
+
+volumes:
+  dev:
+  mysql:
+  postgres:
+  elasticsearch:
+  redis:
