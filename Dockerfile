@@ -2,7 +2,7 @@ FROM ubuntu:20.04
 
 LABEL maintainer="Madalin Ignisca"
 LABEL version="1.0"
-LABEL description="Development environment for the joy and pleasure of php and nodejs developers"
+LABEL description="Development environment for the joy and pleasure of web developers"
 LABEL repo="https://github.com/madalinignisca/devcontainer-php"
 
 ARG USERNAME=developer
@@ -14,7 +14,12 @@ RUN groupadd --gid ${USER_GID} ${USERNAME} \
     && useradd --create-home --shell /bin/bash --uid ${USER_UID} --gid ${USER_GID} ${USERNAME} \
     && apt-get update \
     && apt-get install -y \
+      ant \
+      build-essential \
       composer \
+      default-jdk-headless \
+      default-jdk-doc \
+      default-mysql-client \
       git \
       git-crypt \
       git-doc \
@@ -29,9 +34,12 @@ RUN groupadd --gid ${USER_GID} ${USERNAME} \
       git-restore-mtime \
       git-secrets \
       git-sizer \
+      gradle \
+      gradle-completion \
+      gradle-doc \
       language-pack-en \
       libpng-dev \
-      mysql-client \
+      maven \
       nano \
       nodejs \
       npm \
@@ -47,7 +55,20 @@ RUN groupadd --gid ${USER_GID} ${USERNAME} \
       php-sqlite3 \
       php-xdebug \
       php-xml \
-      vim \
+      vim-airline \
+      vim-airline-themes \
+      vim-command-t \
+      vim-ctrlp \
+      vim-doc \
+      vim-editorconfig \
+      vim-fugitive \
+      vim-haproxy \
+      vim-lastplace \
+      vim-nox \
+      vim-scripts \
+      vim-snippets \
+      vim-syntastic \
+      vim-syntax-docker \
     && echo "xdebug.remote_enable=1\n" >> /etc/php/7.4/cli/conf.d/docker-php-ext-xdebug.ini \
          "xdebug.default_enable=1\n" >> /etc/php/7.4/cli/conf.d/docker-php-ext-xdebug.ini \
          "xdebug.remote_autostart=1\n" >> /etc/php/7.4/cli/conf.d/docker-php-ext-xdebug.ini \
