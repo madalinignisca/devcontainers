@@ -40,6 +40,7 @@ RUN groupadd --gid ${USER_GID} ${USERNAME} \
       language-pack-en \
       libpng-dev \
       maven \
+      mc \
       nano \
       nodejs \
       npm \
