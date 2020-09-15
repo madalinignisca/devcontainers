@@ -26,8 +26,8 @@ This will generate a new project in the workspace.
 When you serve, pass `--host=0.0.0.0`. App will be accessible at http://127.0.0.1:8000 in your browser.
 
 Or generate a ssh key with `ssh-keygen`. Copy the public key to your git account.
-Clone the project in the workspace `git clone [git-repo] .`
+Clone the project in the workspace `git clone [git-repo] .`.
 
 Use git, edit as expected, use debug for php, nodejs etc.
 
-Access the database at host `db`
+Access the database at host `db`, user and password `developer`.
