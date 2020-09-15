@@ -12,7 +12,7 @@ services:
       - "3000:3000"
       - "8000:8000"
 
-  mysql:
+  db:
     image: mysql:8.0
     environment:
       - MYSQL_ROOT_PASSWORD=root
@@ -23,22 +23,6 @@ services:
       - mysql:/var/lib/mysql
     ports:
       - 3306:3306
-
-  elasticsearch:
-    image: elasticsearch:7.9.1
-    environment:
-      discovery.type: single-node
-    volumes:
-      - elasticsearch:/usr/share/elasticsearch/data
-    ports:
-      - 9200:9200
-
-  kibana:
-    image: kibana:7.9.1
-    ports:
-      - 5601:5601
-    environment:
-      ELASTICSEARCH_HOSTS: http://elasticsearch
 
   redis:
     image: "redis:alpine"
