@@ -14,11 +14,8 @@ RUN groupadd --gid ${USER_GID} ${USERNAME} \
     && useradd --create-home --shell /bin/bash --uid ${USER_UID} --gid ${USER_GID} ${USERNAME} \
     && apt-get update \
     && apt-get install -y \
-      ant \
       build-essential \
       composer \
-      default-jdk-headless \
-      default-jdk-doc \
       default-mysql-client \
       git \
       git-crypt \
@@ -34,18 +31,15 @@ RUN groupadd --gid ${USER_GID} ${USERNAME} \
       git-restore-mtime \
       git-secrets \
       git-sizer \
-      gradle \
-      gradle-completion \
-      gradle-doc \
       language-pack-en \
       libpng-dev \
-      maven \
       mc \
       nano \
       nodejs \
       npm \
       postgresql-client \
       php-cli \
+      openssh-client \
       openssl \
       php-bcmath \
       php-curl \
