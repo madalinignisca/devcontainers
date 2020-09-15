@@ -3,7 +3,7 @@ Devcontainers or Codespace with optimizations for PHP and Nodejs development. La
 
 ## Getting started:
 
-Download a zip of this repo (clone only for contributions).
+[Download a zip of this repo](https://github.com/madalinignisca/devcontainer-php/archive/master.zip) (clone only for contributions).
 
 Rename the directory with something suitable for your project
 (will be used by docker!)
