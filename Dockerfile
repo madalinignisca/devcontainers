@@ -13,6 +13,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN groupadd --gid ${USER_GID} ${USERNAME} \
     && useradd --create-home --shell /bin/bash --uid ${USER_UID} --gid ${USER_GID} ${USERNAME} \
     && apt-get update \
+    && apt-get upgrade -y \
     && apt-get install -y \
       build-essential \
       composer \
