@@ -11,10 +11,7 @@
       "felixfbecker.php-intellisense",
       "felixfbecker.php-debug",
       "EditorConfig.EditorConfig",
-      "eamodio.gitlens",
-      "ikappas.phpcs",
-      "ecodes.vscode-phpmd",
-      "dbaeumer.vscode-eslint"
+      "eamodio.gitlens"
     ],
     "remoteUser": "developer"
   }
