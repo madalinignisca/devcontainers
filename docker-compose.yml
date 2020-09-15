@@ -20,29 +20,10 @@ services:
       - MYSQL_USER=developer
       - MYSQL_PASSWORD=developer
     volumes:
-      - mysql:/var/lib/mysql
+      - db:/var/lib/mysql
     ports:
       - 3306:3306
 
-  redis:
-    image: "redis:alpine"
-    command: redis-server --appendonly yes
-    ports:
-      - 6379:6379
-    volumes:
-      - redis:/data
-
-  mail:
-    image: 'mailhog/mailhog'
-    environment:
-      MH_STORAGE: maildir
-    volumes:
-      - ./.docker/maildir:/maildir
-    ports:
-      - 8025:8025
-
 volumes:
   dev:
-  mysql:
-  elasticsearch:
-  redis:
+  db:
