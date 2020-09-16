@@ -4,7 +4,6 @@ services:
 
   dev:
     image: 16nsk/devcontainer-php
-    build: .
     volumes:
       - dev:/workspace
     command: sleep infinity
