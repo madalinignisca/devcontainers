@@ -45,6 +45,7 @@ RUN groupadd --gid ${USER_GID} ${USERNAME} \
       php-bcmath \
       php-curl \
       php-gd \
+      php-imagick \
       php-mbstring \
       php-mysql \
       php-pgsql \
