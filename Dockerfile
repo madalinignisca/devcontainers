@@ -10,11 +10,17 @@ ARG USER_UID=1000
 ARG USER_GID=${USER_UID}
 ARG DEBIAN_FRONTEND=noninteractive
 
-RUN groupadd --gid ${USER_GID} ${USERNAME} \
+ADD unminimize /tmp/unminimize.auto
+
+RUN chmod 700 /tmp/unminimize.auto \
+    && /tmp/unminimize.auto \
+    && rm /tmp/unminimize.auto \
+    && groupadd --gid ${USER_GID} ${USERNAME} \
     && useradd --create-home --shell /bin/bash --uid ${USER_UID} --gid ${USER_GID} ${USERNAME} \
     && apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y \
+      bash-completion \
       build-essential \
       composer \
       default-mysql-client \
@@ -82,6 +88,8 @@ VOLUME /home/${USERNAME}
 
 WORKDIR /workspace
 HEALTHCHECK NONE
+
+ENV LANG en_US.utf8
 
 EXPOSE 3000
 EXPOSE 8000

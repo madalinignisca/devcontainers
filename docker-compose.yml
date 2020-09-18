@@ -6,6 +6,7 @@ services:
     image: 16nsk/devcontainer-php
     volumes:
       - dev:/workspace
+      - user:/home/developer
     command: sleep infinity
     ports:
       - "3000:3000"
@@ -26,4 +27,5 @@ services:
 
 volumes:
   dev:
+  user:
   db:
