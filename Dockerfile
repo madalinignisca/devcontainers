@@ -40,6 +40,8 @@ RUN chmod 700 /tmp/unminimize.auto \
       git-sizer \
       language-pack-en \
       libpng-dev \
+      man-db \
+      manpages \
       mc \
       nano \
       nodejs \
