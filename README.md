@@ -12,6 +12,12 @@ Change name in `.devcontainer/devcontainer.json` for your project.
 
 Open it in Visual Studio Code ([install the remote containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)).
 
+Install [Git](https://git-scm.com/) and make [Identity config](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup).
+
+Generate youd [ssh key](https://docs.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent),
+but follow next for ssh-agent.
+
+Follow the ssh integration help [Using ssh keys](https://code.visualstudio.com/docs/remote/containers#_using-ssh-keys).
 VSCode will automatically use ssh keys if were previously generated locally and are available.
 
 Enjoy :)
