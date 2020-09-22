@@ -60,6 +60,7 @@ RUN chmod 700 /tmp/unminimize.auto \
       php-sqlite3 \
       php-xdebug \
       php-xml \
+      sudo \
       vim-airline \
       vim-airline-themes \
       vim-command-t \
@@ -74,6 +75,8 @@ RUN chmod 700 /tmp/unminimize.auto \
       vim-snippets \
       vim-syntastic \
       vim-syntax-docker \
+    && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME} \
+    && chmod 0440 /etc/sudoers.d/${USERNAME} \
     && echo "xdebug.remote_enable=1\n" >> /etc/php/7.4/cli/conf.d/docker-php-ext-xdebug.ini \
          "xdebug.default_enable=1\n" >> /etc/php/7.4/cli/conf.d/docker-php-ext-xdebug.ini \
          "xdebug.remote_autostart=1\n" >> /etc/php/7.4/cli/conf.d/docker-php-ext-xdebug.ini \
