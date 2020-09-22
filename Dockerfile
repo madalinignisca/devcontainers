@@ -10,11 +10,11 @@ ARG USER_UID=1000
 ARG USER_GID=${USER_UID}
 ARG DEBIAN_FRONTEND=noninteractive
 
-ADD unminimize /tmp/unminimize.auto
+ADD unminimize /tmp/unminimize
 
-RUN chmod 700 /tmp/unminimize.auto \
-    && /tmp/unminimize.auto \
-    && rm /tmp/unminimize.auto \
+RUN chmod 700 /tmp/unminimize \
+    && /tmp/unminimize \
+    && rm /tmp/unminimize \
     && groupadd --gid ${USER_GID} ${USERNAME} \
     && useradd --create-home --shell /bin/bash --uid ${USER_UID} --gid ${USER_GID} ${USERNAME} \
     && apt-get update \
