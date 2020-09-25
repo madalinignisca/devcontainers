@@ -57,6 +57,7 @@ RUN chmod 700 /tmp/unminimize \
       php-mbstring \
       php-mysql \
       php-pgsql \
+      php-redis \
       php-sqlite3 \
       php-xdebug \
       php-xml \
