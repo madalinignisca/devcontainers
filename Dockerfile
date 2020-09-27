@@ -93,12 +93,6 @@ RUN chmod 700 /tmp/unminimize \
          "xdebug.remote_log='/tmp/xdebug.log'\n" >> /etc/php/7.4/cli/conf.d/docker-php-ext-xdebug.ini \
          "xdebug.idekey=\"PHPIDE\"\n" >> /etc/php/7.4/cli/conf.d/docker-php-ext-xdebug.ini \
          "xdebug.remote_port=9000\n" >> /etc/php/7.4/cli/conf.d/docker-php-ext-xdebug.ini \
-    && wget -O phive.phar https://phar.io/releases/phive.phar \
-    && wget -O phive.phar.asc https://phar.io/releases/phive.phar.asc \
-    && gpg --keyserver pool.sks-keyservers.net --recv-keys 0x9D8A98B29B2D5D79 \
-    && gpg --verify phive.phar.asc phive.phar \
-    && chmod +x phive.phar \
-    && mv phive.phar /usr/local/bin/phive \
     && mkdir /workspace \
     && chown ${USER_UID}:${USER_GID} /workspace
 
@@ -112,5 +106,6 @@ ENV LANG en_US.utf8
 
 EXPOSE 3000
 EXPOSE 8000
+EXPOSE 8080
 
 USER ${USERNAME}
