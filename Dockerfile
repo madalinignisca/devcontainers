@@ -50,10 +50,14 @@ RUN chmod 700 /tmp/unminimize \
       php-cli \
       openssh-client \
       openssl \
+      php-apcu \
       php-bcmath \
+      php-bz2 \
       php-curl \
       php-gd \
       php-imagick \
+      php-intl \
+      php-json \
       php-mbstring \
       php-mysql \
       php-pgsql \
@@ -61,6 +65,7 @@ RUN chmod 700 /tmp/unminimize \
       php-sqlite3 \
       php-xdebug \
       php-xml \
+      php-zip \
       sudo \
       vim-airline \
       vim-airline-themes \
