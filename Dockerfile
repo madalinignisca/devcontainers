@@ -38,6 +38,7 @@ RUN chmod 700 /tmp/unminimize \
       git-restore-mtime \
       git-secrets \
       git-sizer \
+      iputils-ping \
       language-pack-en \
       libpng-dev \
       man-db \
