@@ -40,6 +40,7 @@ RUN chmod 700 /tmp/unminimize \
       git-sizer \
       iproute2 \
       iputils-ping \
+      iputils-tracepath \
       language-pack-en \
       libpng-dev \
       man-db \
