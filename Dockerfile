@@ -69,6 +69,7 @@ RUN chmod 700 /tmp/unminimize \
       php-xdebug \
       php-xml \
       php-zip \
+      redis-tools \
       sudo \
       vim-airline \
       vim-airline-themes \
