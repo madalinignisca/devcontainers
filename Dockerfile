@@ -112,7 +112,7 @@ RUN chmod 700 /tmp/unminimize \
     && sed -i 's/^# DISABLE_UPDATE_PROMPT="true"/DISABLE_UPDATE_PROMPT="true"/g' /home/developer/.zshrc \
     && sed -i 's/^plugins.*/plugins=(git git-flow-avh dotenv composer cake drush laravel npm redis-cli symfony wp-cli yarn yii)/g' /home/developer/.zshrc \
     && sed -i '12 a # DEVCONTAINER\n' /home/developer/.zshrc \
-    && sed -i '/^# DEVCONTAINER/ a ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME\/.cache}\/ohmyzsh"' /home/developer/.zshrc \
+    && sed -i '/^# DEVCONTAINER/ a ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME\/.cache}\/ohmyzsh"' /home/developer/.zshrc
 
 VOLUME /workspace
 VOLUME /home/${USERNAME}
