@@ -13,19 +13,83 @@ services:
       - "8000:8000"
       - "8080:8080"
 
-  db:
+  mysql:
     image: mysql:8.0
     environment:
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=mydb
+      - MYSQL_DATABASE=developer
       - MYSQL_USER=developer
       - MYSQL_PASSWORD=developer
     volumes:
-      - db:/var/lib/mysql
+      - mysql:/var/lib/mysql
     ports:
       - 3306:3306
+
+  # postgres:
+  #   image: postgres:13.0
+  #   environment:
+  #     - POSTGRES_PASSWORD=developer
+  #     - POSTGRES_USER=developer
+  #     - POSTGRES_DB=developer
+  #     - PGDATA=/var/lib/postgresql/data/pgdata
+  #   ports:
+  #     - 5432:5432
+  #   volumes:
+  #     - postgres:/var/lib/postgresql/data
+  # 
+  # mongo:
+  #   image: mongo:4.4
+  #   environment:
+  #     - MONGO_INITDB_ROOT_USERNAME=root
+  #     - MONGO_INITDB_ROOT_PASSWORD=root
+  #     - MONGO_INITDB_DATABASE=developer
+  #   ports:
+  #     - 27017:27017
+  #   volumes:
+  #     - mongo:/data/db
+  # 
+  # elasticsearch:
+  #   image: elasticsearch:7.9.2
+  #   environment:
+  #     - discovery.type=single-node
+  #   ports:
+  #     - 9200:9200
+  #     - 9300:9300
+  #   volumes:
+  #     - elasticsearch:/usr/share/elasticsearch/data
+  # 
+  # redis:
+  #   image: redis:6.0-alpine
+  # 
+  # memcached:
+  #   image: memcached:1.6-alpine
+  # 
+  # mailhog:
+  #   image: mailhog/mailhog
+  #   ports:
+  #     - 8025:8025
+  # 
+  # minio:
+  #   image: minio/minio
+  #   environment:
+  #     - MINIO_ACCESS_KEY=minio
+  #     - MINIO_SECRET_KEY=minio123
+  #   command: server
+  #   ports:
+  #     - 9000:9000
+  #   volumes:
+  #     - minio:/data
+  #   healthcheck:
+  #     test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+  #     interval: 30s
+  #     timeout: 20s
+  #     retries: 3
 
 volumes:
   dev:
   user:
-  db:
+  mysql:
+  # postgres:
+  # mongo:
+  # elasticsearch:
+  # minio:
