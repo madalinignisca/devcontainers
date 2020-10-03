@@ -109,7 +109,7 @@ RUN chmod 700 /tmp/unminimize \
     && sed -i 's/^export ZSH=.*/export ZSH="\/usr\/local\/share\/oh-my-zsh"/g' /home/developer/.zshrc \
     && sed -i 's/^# DISABLE_AUTO_UPDATE="true"/DISABLE_AUTO_UPDATE="true"/g' /home/developer/.zshrc \
     && sed -i 's/^# DISABLE_UPDATE_PROMPT="true"/DISABLE_UPDATE_PROMPT="true"/g' /home/developer/.zshrc \
-    && sed -i 's/^plugins.*/plugins=(git git-flow-avh dot-env cake drush laravel npm redis-cli symfony wp-cli yarn yii)/g' /home/developer/.zshrc
+    && sed -i 's/^plugins.*/plugins=(git git-flow-avh dotenv cake drush laravel npm redis-cli symfony wp-cli yarn yii)/g' /home/developer/.zshrc
 
 VOLUME /workspace
 VOLUME /home/${USERNAME}
