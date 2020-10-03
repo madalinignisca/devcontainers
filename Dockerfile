@@ -88,6 +88,8 @@ RUN chmod 700 /tmp/unminimize \
       vim-syntax-docker \
       wget \
       whois \
+      yarnpkg \
+      zsh \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME} \
     && chmod 0440 /etc/sudoers.d/${USERNAME} \
     && echo "xdebug.remote_enable=1\n" >> /etc/php/7.4/cli/conf.d/docker-php-ext-xdebug.ini \
@@ -99,7 +101,10 @@ RUN chmod 700 /tmp/unminimize \
          "xdebug.idekey=\"PHPIDE\"\n" >> /etc/php/7.4/cli/conf.d/docker-php-ext-xdebug.ini \
          "xdebug.remote_port=9000\n" >> /etc/php/7.4/cli/conf.d/docker-php-ext-xdebug.ini \
     && mkdir /workspace \
-    && chown ${USER_UID}:${USER_GID} /workspace
+    && chown ${USER_UID}:${USER_GID} /workspace \
+    && chsh -s /bin/zsh developer \
+    && sudo -u developer sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended \
+    && sed -i 's/^plugins.*/plugins=(git git-flow-avh dot-env cake drush laravel npm redis-cli symfony wp-cli yarn yii)/g' /home/developer/.zshrc
 
 VOLUME /workspace
 VOLUME /home/${USERNAME}
