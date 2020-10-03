@@ -53,21 +53,25 @@ RUN chmod 700 /tmp/unminimize \
       openssh-client \
       openssl \
       postgresql-client \
+      php-amqp \
       php-apcu \
       php-bcmath \
       php-bz2 \
       php-cli \
       php-curl \
       php-gd \
+      php-gmp \
       php-imagick \
       php-intl \
       php-json \
       php-mbstring \
       php-memcached \
+      php-mongodb \
       php-mysql \
       php-pgsql \
       php-redis \
       php-sqlite3 \
+      php-uuid \
       php-xdebug \
       php-xml \
       php-zip \
