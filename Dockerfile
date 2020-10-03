@@ -49,13 +49,13 @@ RUN chmod 700 /tmp/unminimize \
       nano \
       nodejs \
       npm \
-      postgresql-client \
-      php-cli \
       openssh-client \
       openssl \
+      postgresql-client \
       php-apcu \
       php-bcmath \
       php-bz2 \
+      php-cli \
       php-curl \
       php-gd \
       php-imagick \
