@@ -41,6 +41,7 @@ RUN chmod 700 /tmp/unminimize \
       iproute2 \
       iputils-ping \
       iputils-tracepath \
+      jq \
       language-pack-en \
       libpng-dev \
       man-db \
