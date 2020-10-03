@@ -62,6 +62,7 @@ RUN chmod 700 /tmp/unminimize \
       php-intl \
       php-json \
       php-mbstring \
+      php-memcached \
       php-mysql \
       php-pgsql \
       php-redis \
