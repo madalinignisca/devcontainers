@@ -11,7 +11,8 @@
       "felixfbecker.php-intellisense",
       "felixfbecker.php-debug",
       "EditorConfig.EditorConfig",
-      "eamodio.gitlens"
+      "eamodio.gitlens",
+      "esbenp.prettier-vscode
     ],
     "remoteUser": "developer"
   }

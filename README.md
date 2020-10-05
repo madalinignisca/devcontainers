@@ -10,6 +10,8 @@ Rename the directory with something suitable for your project
 
 Change name in `.devcontainer/devcontainer.json` for your project.
 
+Uncomment/add needed services in `docker-compose.yml`
+
 Open it in Visual Studio Code ([install the remote containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)).
 
 Install [Git](https://git-scm.com/) and make [Identity config](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup).
@@ -21,6 +23,9 @@ Follow the ssh integration help [Using ssh keys](https://code.visualstudio.com/d
 VSCode will automatically use ssh keys if were previously generated locally and are available.
 
 Enjoy :)
+
+To use [Prettier] with php once you have your project setup, run `npm install --save-dev prettier @prettier/plugin-php`
+to install the php plugin for the extension to consume it. Config your settings as you like.
 
 PS. Turn off services that might use 8000, 8080, 3000, 3306 ports on uour local. This are needed for Docker to map ports
 in the containers.
