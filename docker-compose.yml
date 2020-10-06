@@ -12,6 +12,7 @@ services:
       - "3000:3000"
       - "8000:8000"
       - "8080:8080"
+      - "4200:4200"
 
   mysql:
     image: mysql:8.0
@@ -22,8 +23,8 @@ services:
       - MYSQL_PASSWORD=developer
     volumes:
       - mysql:/var/lib/mysql
-    ports:
-      - 3306:3306
+  #  ports:
+  #    - 3306:3306
 
   # postgres:
   #   image: postgres:13.0
