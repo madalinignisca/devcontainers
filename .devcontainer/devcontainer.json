@@ -5,7 +5,7 @@
     "workspaceFolder": "/workspace",
     "shutdownAction": "stopCompose",
     "settings": {
-      "terminal.integrated.shell.linux": "/bin/bash"
+      "terminal.integrated.shell.linux": "/usr/bin/zsh"
     },
     "extensions": [
       "felixfbecker.php-intellisense",
