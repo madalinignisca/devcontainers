@@ -70,6 +70,7 @@ RUN chmod 700 /tmp/unminimize \
       php-mysql \
       php-pgsql \
       php-redis \
+      php-soap \
       php-sqlite3 \
       php-uuid \
       php-xdebug \
