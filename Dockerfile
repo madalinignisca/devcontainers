@@ -3,7 +3,7 @@ FROM ubuntu:20.04
 LABEL maintainer="Madalin Ignisca"
 LABEL version="1.0"
 LABEL description="Development environment for the joy and pleasure of web developers"
-LABEL repo="https://github.com/madalinignisca/devcontainer-php"
+LABEL repo="https://github.com/madalinignisca/devcontainers"
 
 ARG USERNAME=developer
 ARG USER_UID=1000
