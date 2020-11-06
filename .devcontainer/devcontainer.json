@@ -11,6 +11,7 @@
     "extensions": [
       "felixfbecker.php-intellisense",
       "felixfbecker.php-debug",
+      "calebporzio.better-phpunit",
       "EditorConfig.EditorConfig",
       "eamodio.gitlens",
       "esbenp.prettier-vscode"
