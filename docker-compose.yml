@@ -87,7 +87,7 @@ services:
   #   environment:
   #     - MINIO_ACCESS_KEY=minio
   #     - MINIO_SECRET_KEY=minio123
-  #   command: server
+  #   command: minio server /data
   #   ports:
   #     - 9000:9000
   #   volumes:
