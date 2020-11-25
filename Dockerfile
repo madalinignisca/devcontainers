@@ -3,7 +3,7 @@ FROM ubuntu:20.04
 LABEL maintainer="Madalin Ignisca"
 LABEL version="1.0"
 LABEL description="Development environment for the joy and pleasure of web developers"
-LABEL repo="https://github.com/madalinignisca/devcontainer-php"
+LABEL repo="https://github.com/madalinignisca/devcontainers"
 
 ARG USERNAME=developer
 ARG USER_UID=1000
@@ -38,6 +38,10 @@ RUN chmod 700 /tmp/unminimize \
       git-restore-mtime \
       git-secrets \
       git-sizer \
+      iproute2 \
+      iputils-ping \
+      iputils-tracepath \
+      jq \
       language-pack-en \
       libpng-dev \
       man-db \
@@ -46,21 +50,33 @@ RUN chmod 700 /tmp/unminimize \
       nano \
       nodejs \
       npm \
-      postgresql-client \
-      php-cli \
       openssh-client \
       openssl \
+      postgresql-client \
+      php-amqp \
+      php-apcu \
       php-bcmath \
+      php-bz2 \
+      php-cli \
       php-curl \
       php-gd \
+      php-gmp \
       php-imagick \
+      php-intl \
+      php-json \
       php-mbstring \
+      php-memcached \
+      php-mongodb \
       php-mysql \
       php-pgsql \
       php-redis \
+      php-soap \
       php-sqlite3 \
+      php-uuid \
       php-xdebug \
       php-xml \
+      php-zip \
+      redis-tools \
       sudo \
       vim-airline \
       vim-airline-themes \
@@ -78,6 +94,8 @@ RUN chmod 700 /tmp/unminimize \
       vim-syntax-docker \
       wget \
       whois \
+      yarnpkg \
+      zsh \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME} \
     && chmod 0440 /etc/sudoers.d/${USERNAME} \
     && echo "xdebug.remote_enable=1\n" >> /etc/php/7.4/cli/conf.d/docker-php-ext-xdebug.ini \
@@ -88,14 +106,18 @@ RUN chmod 700 /tmp/unminimize \
          "xdebug.remote_log='/tmp/xdebug.log'\n" >> /etc/php/7.4/cli/conf.d/docker-php-ext-xdebug.ini \
          "xdebug.idekey=\"PHPIDE\"\n" >> /etc/php/7.4/cli/conf.d/docker-php-ext-xdebug.ini \
          "xdebug.remote_port=9000\n" >> /etc/php/7.4/cli/conf.d/docker-php-ext-xdebug.ini \
-    && wget -O phive.phar https://phar.io/releases/phive.phar \
-    && wget -O phive.phar.asc https://phar.io/releases/phive.phar.asc \
-    && gpg --keyserver pool.sks-keyservers.net --recv-keys 0x9D8A98B29B2D5D79 \
-    && gpg --verify phive.phar.asc phive.phar \
-    && chmod +x phive.phar \
-    && mv phive.phar /usr/local/bin/phive \
     && mkdir /workspace \
-    && chown ${USER_UID}:${USER_GID} /workspace
+    && chown ${USER_UID}:${USER_GID} /workspace \
+    && chsh -s /bin/zsh developer \
+    && git clone https://github.com/ohmyzsh/ohmyzsh.git /usr/local/share/oh-my-zsh \
+    && cp /usr/local/share/oh-my-zsh/templates/zshrc.zsh-template /home/developer/.zshrc \
+    && chown developer:developer /home/developer/.zshrc \
+    && sed -i 's/^export ZSH=.*/export ZSH="\/usr\/local\/share\/oh-my-zsh"/g' /home/developer/.zshrc \
+    && sed -i 's/^# DISABLE_AUTO_UPDATE="true"/DISABLE_AUTO_UPDATE="true"/g' /home/developer/.zshrc \
+    && sed -i 's/^# DISABLE_UPDATE_PROMPT="true"/DISABLE_UPDATE_PROMPT="true"/g' /home/developer/.zshrc \
+    && sed -i 's/^plugins.*/plugins=(git git-flow-avh composer cake drush laravel npm redis-cli symfony wp-cli yarn yii)/g' /home/developer/.zshrc \
+    && sed -i '12 a # DEVCONTAINER\n' /home/developer/.zshrc \
+    && sed -i '/^# DEVCONTAINER/ a ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME\/.cache}\/ohmyzsh"' /home/developer/.zshrc
 
 VOLUME /workspace
 VOLUME /home/${USERNAME}
@@ -107,5 +129,6 @@ ENV LANG en_US.utf8
 
 EXPOSE 3000
 EXPOSE 8000
+EXPOSE 8080
 
 USER ${USERNAME}

@@ -5,13 +5,38 @@
     "workspaceFolder": "/workspace",
     "shutdownAction": "stopCompose",
     "settings": {
-      "terminal.integrated.shell.linux": "/bin/bash"
+        "terminal.integrated.shell.linux": "/usr/bin/zsh",
+        "php.suggest.basic": false,
+        "css.validate": false,
+        "less.validate": false,
+        "scss.validate": false,
+        "stylelint.validate": [
+            "css",
+            "html",
+            "less",
+            "markdown",
+            "postcss",
+            "sass",
+            "scss",
+            "source.css.styled",
+            "source.markdown.math",
+            "styled-css",
+            "sugarss",
+            "xml",
+            "xsl"
+        ]
     },
     "extensions": [
-      "felixfbecker.php-intellisense",
-      "felixfbecker.php-debug",
-      "EditorConfig.EditorConfig",
-      "eamodio.gitlens"
+        "EditorConfig.EditorConfig",
+        "visualstudioexptteam.vscodeintellicode",
+        "calebporzio.better-phpunit",
+        "dbaeumer.vscode-eslint",
+        "eamodio.gitlens",
+        "esbenp.prettier-vscode",
+        "felixfbecker.php-intellisense",
+        "felixfbecker.php-debug",
+        "redhat.vscode-yaml",
+        "stylelint.vscode-stylelint"
     ],
     "remoteUser": "developer"
-  }
+}
