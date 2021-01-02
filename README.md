@@ -45,6 +45,10 @@ _Optional_: To use [Prettier](https://prettier.io/) with php once you have your 
 `npm install --save-dev prettier @prettier/plugin-php`
 to install the php plugin for the extension to consume it. Config your settings as you like.
 
+_Add another related project/folder to the workspace_: in `/projects` create a folder for the additional project and add this folder to the workspace
+in Visual Studio Code like you do for local. I use this setup to have the frontend main client in the main `/projects/workspace` folder and
+`/projects/api` for the api as an example.
+
 _Advanced extra settings_: Once a project has been initiated, the developer user folder is mounted as a docker volume.
 If you need to make changes in the configuration of devcontainer that should change the workspace,
 possible you might need to close the project, remove main container and the user volume.
