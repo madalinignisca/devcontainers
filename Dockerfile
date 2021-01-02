@@ -92,7 +92,7 @@ RUN chmod 700 /tmp/unminimize \
          "xdebug.idekey=\"PHPIDE\"\n" >> /etc/php/7.4/cli/conf.d/docker-php-ext-xdebug.ini \
          "xdebug.remote_port=9000\n" >> /etc/php/7.4/cli/conf.d/docker-php-ext-xdebug.ini \
     && mkdir -p /projects/workspace \
-    && chown -r ${USER_UID}:${USER_GID} /projects
+    && chown -R ${USER_UID}:${USER_GID} /projects
 
 VOLUME /projects
 VOLUME /home/${USERNAME}
