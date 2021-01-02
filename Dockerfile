@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
 
 LABEL maintainer="Madalin Ignisca"
-LABEL version="1.0"
+LABEL version="1.3.0"
 LABEL description="Development environment for the joy and pleasure of web developers"
 LABEL repo="https://github.com/madalinignisca/devcontainers"
 
@@ -78,24 +78,9 @@ RUN chmod 700 /tmp/unminimize \
       php-zip \
       redis-tools \
       sudo \
-      vim-airline \
-      vim-airline-themes \
-      vim-command-t \
-      vim-ctrlp \
-      vim-doc \
-      vim-editorconfig \
-      vim-fugitive \
-      vim-haproxy \
-      vim-lastplace \
-      vim-nox \
-      vim-scripts \
-      vim-snippets \
-      vim-syntastic \
-      vim-syntax-docker \
       wget \
       whois \
       yarnpkg \
-      zsh \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME} \
     && chmod 0440 /etc/sudoers.d/${USERNAME} \
     && echo "xdebug.remote_enable=1\n" >> /etc/php/7.4/cli/conf.d/docker-php-ext-xdebug.ini \
@@ -106,29 +91,15 @@ RUN chmod 700 /tmp/unminimize \
          "xdebug.remote_log='/tmp/xdebug.log'\n" >> /etc/php/7.4/cli/conf.d/docker-php-ext-xdebug.ini \
          "xdebug.idekey=\"PHPIDE\"\n" >> /etc/php/7.4/cli/conf.d/docker-php-ext-xdebug.ini \
          "xdebug.remote_port=9000\n" >> /etc/php/7.4/cli/conf.d/docker-php-ext-xdebug.ini \
-    && mkdir /workspace \
-    && chown ${USER_UID}:${USER_GID} /workspace \
-    && chsh -s /bin/zsh developer \
-    && git clone https://github.com/ohmyzsh/ohmyzsh.git /usr/local/share/oh-my-zsh \
-    && cp /usr/local/share/oh-my-zsh/templates/zshrc.zsh-template /home/developer/.zshrc \
-    && chown developer:developer /home/developer/.zshrc \
-    && sed -i 's/^export ZSH=.*/export ZSH="\/usr\/local\/share\/oh-my-zsh"/g' /home/developer/.zshrc \
-    && sed -i 's/^# DISABLE_AUTO_UPDATE="true"/DISABLE_AUTO_UPDATE="true"/g' /home/developer/.zshrc \
-    && sed -i 's/^# DISABLE_UPDATE_PROMPT="true"/DISABLE_UPDATE_PROMPT="true"/g' /home/developer/.zshrc \
-    && sed -i 's/^plugins.*/plugins=(git git-flow-avh composer cake drush laravel npm redis-cli symfony wp-cli yarn yii)/g' /home/developer/.zshrc \
-    && sed -i '12 a # DEVCONTAINER\n' /home/developer/.zshrc \
-    && sed -i '/^# DEVCONTAINER/ a ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME\/.cache}\/ohmyzsh"' /home/developer/.zshrc
+    && mkdir -p /projects/workspace \
+    && chown -r ${USER_UID}:${USER_GID} /projects
 
-VOLUME /workspace
+VOLUME /projects
 VOLUME /home/${USERNAME}
 
-WORKDIR /workspace
+WORKDIR /projects/workspace
 HEALTHCHECK NONE
 
 ENV LANG en_US.utf8
-
-EXPOSE 3000
-EXPOSE 8000
-EXPOSE 8080
 
 USER ${USERNAME}
