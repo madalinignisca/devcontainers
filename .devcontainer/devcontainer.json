@@ -2,10 +2,9 @@
     "name": "PHPNODE",
     "dockerComposeFile": "../docker-compose.yml",
     "service": "dev",
-    "workspaceFolder": "/workspace",
+    "workspaceFolder": "/projects/workspace",
     "shutdownAction": "stopCompose",
     "settings": {
-        "terminal.integrated.shell.linux": "/usr/bin/zsh",
         "php.suggest.basic": false,
         "css.validate": false,
         "less.validate": false,
