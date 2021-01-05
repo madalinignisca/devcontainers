@@ -8,11 +8,8 @@ services:
       - dev:/workspace
       - user:/home/developer
     command: sleep infinity
-    # ports:
-    #   - "3000:3000"
-    #   - "8000:8000"
-    #   - "8080:8080"
-    #   - "4200:4200"
+    ports:
+      - "${APP_PORT:-8000}:8000"
 
   # mariadb:
   #   image: mariadb:10.5
@@ -24,7 +21,7 @@ services:
   #   volumes:
   #     - mysql:/var/lib/mysql
   #   ports:
-  #     - 3306:3306
+  #     - "${FORWARD_DB_PORT:-3306}:3306"
 
   # mysql:
   #   image: mysql:8.0
@@ -33,10 +30,10 @@ services:
   #     - MYSQL_DATABASE=developer
   #     - MYSQL_USER=developer
   #     - MYSQL_PASSWORD=developer
+  #   ports:
+  #     - "${FORWARD_DB_PORT:-3306}:3306"
   #   volumes:
   #     - mysql:/var/lib/mysql
-  #  ports:
-  #    - 3306:3306
 
   # postgres:
   #   image: postgres:13.0
@@ -46,7 +43,7 @@ services:
   #     - POSTGRES_DB=developer
   #     - PGDATA=/var/lib/postgresql/data/pgdata
   #   ports:
-  #     - 5432:5432
+  #     - "${FORWARD_DB_PORT:-5432}:5432"
   #   volumes:
   #     - postgres:/var/lib/postgresql/data
   #
@@ -57,7 +54,7 @@ services:
   #     - MONGO_INITDB_ROOT_PASSWORD=root
   #     - MONGO_INITDB_DATABASE=developer
   #   ports:
-  #     - 27017:27017
+  #     - "${FORWARD_MONGO_PORT:-27017}:27017"
   #   volumes:
   #     - mongo:/data/db
 
@@ -66,8 +63,7 @@ services:
   #   environment:
   #     - discovery.type=single-node
   #   ports:
-  #     - 9200:9200
-  #     - 9300:9300
+  #     - "${FORWARD_DB_PORT:-9200}:9200"
   #   volumes:
   #     - elasticsearch:/usr/share/elasticsearch/data
   #
@@ -80,7 +76,7 @@ services:
   # mailhog:
   #   image: mailhog/mailhog
   #   ports:
-  #     - 8025:8025
+  #     - "${FORWARD_MAILHOG_PORT:-8025}:8025"
 
   # minio:
   #   image: minio/minio
@@ -89,7 +85,7 @@ services:
   #     - MINIO_SECRET_KEY=minio123
   #   command: minio server /data
   #   ports:
-  #     - 9000:9000
+  #     - "${FORWARD_MINIO_PORT:-9000}:9000"
   #   volumes:
   #     - minio:/data
   #   healthcheck:
@@ -103,7 +99,7 @@ services:
   #   environment:
   #     - ADMINER_DEFAULT_SERVER=mariadb
   #   ports:
-  #     - 8888:8080
+  #     - "${FORWARD_ADMINER_PORT:-8080}:8080"
 
 volumes:
   dev:
