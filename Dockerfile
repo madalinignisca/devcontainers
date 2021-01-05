@@ -11,6 +11,7 @@ ARG USER_GID=${USER_UID}
 ARG DEBIAN_FRONTEND=noninteractive
 
 ADD unminimize /tmp/unminimize
+ADD https://getcomposer.org/download/2.0.8/composer.phar /usr/local/bin/composer2
 
 RUN chmod 700 /tmp/unminimize \
     && /tmp/unminimize \
@@ -93,7 +94,8 @@ RUN chmod 700 /tmp/unminimize \
          "xdebug.idekey=\"PHPIDE\"\n" >> /etc/php/7.4/cli/conf.d/docker-php-ext-xdebug.ini \
          "xdebug.remote_port=9000\n" >> /etc/php/7.4/cli/conf.d/docker-php-ext-xdebug.ini \
     && mkdir -p /projects/workspace \
-    && chown -R ${USER_UID}:${USER_GID} /projects
+    && chown -R ${USER_UID}:${USER_GID} /projects \
+    && chmod 755 /usr/local/bin/composer2
 
 VOLUME /projects
 VOLUME /home/${USERNAME}
