@@ -68,6 +68,7 @@ RUN chmod 700 /tmp/unminimize \
       php-memcached \
       php-mongodb \
       php-mysql \
+      php-pcov \
       php-pgsql \
       php-redis \
       php-soap \
