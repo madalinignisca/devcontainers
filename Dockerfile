@@ -9,6 +9,7 @@ ARG USERNAME=developer
 ARG USER_UID=1000
 ARG USER_GID=${USER_UID}
 ARG DEBIAN_FRONTEND=noninteractive
+ARG DISTRO=focal
 ARG NODE_VERSION=node_14.x
 
 ADD unminimize /tmp/unminimize
@@ -25,7 +26,6 @@ RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y gnupg \
     && apt-key add /tmp/nodesource.gpg.key \
-    && DISTRO="$(lsb_release -s -c)" \
     && echo "deb https://deb.nodesource.com/$NODE_VERSION $DISTRO main" | sudo tee /etc/apt/sources.list.d/nodesource.list \
     && LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php
 
