@@ -9,6 +9,7 @@ ARG USERNAME=developer
 ARG USER_UID=1000
 ARG USER_GID=${USER_UID}
 ARG DEBIAN_FRONTEND=noninteractive
+ARG NODE_VERSION=node_14.x
 
 ADD unminimize /tmp/unminimize
 ADD https://getcomposer.org/download/2.0.8/composer.phar /usr/local/bin/composer2
@@ -18,6 +19,10 @@ RUN chmod 700 /tmp/unminimize \
     && rm /tmp/unminimize \
     && groupadd --gid ${USER_GID} ${USERNAME} \
     && useradd --create-home --shell /bin/bash --uid ${USER_UID} --gid ${USER_GID} ${USERNAME} \
+    && curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - \
+    && DISTRO="$(lsb_release -s -c)" \
+    && echo "deb https://deb.nodesource.com/$NODE_VERSION $DISTRO main" | sudo tee /etc/apt/sources.list.d/nodesource.list \
+    && LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php \
     && apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y \
