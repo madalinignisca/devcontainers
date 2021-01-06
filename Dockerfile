@@ -11,6 +11,7 @@ ARG USER_GID=${USER_UID}
 ARG DEBIAN_FRONTEND=noninteractive
 ARG DISTRO=focal
 ARG NODE_VERSION=node_12.x
+ARG PHP_VERSION=7.4
 
 ADD unminimize /tmp/unminimize
 ADD https://getcomposer.org/download/2.0.8/composer.phar /usr/local/bin/composer
@@ -34,21 +35,9 @@ RUN apt-get update \
 RUN apt-get install -y \
       bash-completion \
       build-essential \
+      curl \
       default-mysql-client \
       git \
-      git-crypt \
-      git-doc \
-      git-extras \
-      git-flow \
-      git-lfs \
-      git-publish \
-      git-quick-stats \
-      git-reintegrate \
-      git-remote-gcrypt \
-      git-repair \
-      git-restore-mtime \
-      git-secrets \
-      git-sizer \
       iproute2 \
       iputils-ping \
       iputils-tracepath \
@@ -63,44 +52,44 @@ RUN apt-get install -y \
       openssh-client \
       openssl \
       postgresql-client \
-      php-amqp \
-      php-apcu \
-      php-bcmath \
-      php-bz2 \
-      php-cli \
-      php-curl \
-      php-gd \
-      php-gmp \
-      php-imagick \
-      php-intl \
-      php-json \
-      php-mbstring \
-      php-memcached \
-      php-mongodb \
-      php-mysql \
-      php-pcov \
-      php-pgsql \
-      php-redis \
-      php-soap \
-      php-sqlite3 \
-      php-uuid \
-      php-xdebug \
-      php-xml \
-      php-zip \
+      php${PHP_VERSION}-amqp \
+      php${PHP_VERSION}-apcu \
+      php${PHP_VERSION}-bcmath \
+      php${PHP_VERSION}-bz2 \
+      php${PHP_VERSION}-cli \
+      php${PHP_VERSION}-curl \
+      php${PHP_VERSION}-gd \
+      php${PHP_VERSION}-gmp \
+      php${PHP_VERSION}-imagick \
+      php${PHP_VERSION}-intl \
+      php${PHP_VERSION}-json \
+      php${PHP_VERSION}-mbstring \
+      php${PHP_VERSION}-memcached \
+      php${PHP_VERSION}-mongodb \
+      php${PHP_VERSION}-mysql \
+      php${PHP_VERSION}-pcov \
+      php${PHP_VERSION}-pgsql \
+      php${PHP_VERSION}-redis \
+      php${PHP_VERSION}-soap \
+      php${PHP_VERSION}-sqlite3 \
+      php${PHP_VERSION}-uuid \
+      php${PHP_VERSION}-xdebug \
+      php${PHP_VERSION}-xml \
+      php${PHP_VERSION}-zip \
       redis-tools \
       sudo \
       wget \
       whois \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME} \
     && chmod 0440 /etc/sudoers.d/${USERNAME} \
-    && echo "xdebug.remote_enable=1\n" >> /etc/php/8.0/cli/conf.d/docker-php-ext-xdebug.ini \
-         "xdebug.default_enable=1\n" >> /etc/php/8.0/cli/conf.d/docker-php-ext-xdebug.ini \
-         "xdebug.remote_autostart=1\n" >> /etc/php/8.0/cli/conf.d/docker-php-ext-xdebug.ini \
-         "xdebug.coverage_enable=1\n" >> /etc/php/8.0/cli/conf.d/docker-php-ext-xdebug.ini \
-         "xdebug.remote_connect_back=0\n" >> /etc/php/8.0/cli/conf.d/docker-php-ext-xdebug.ini \
-         "xdebug.remote_log='/tmp/xdebug.log'\n" >> /etc/php/8.0/cli/conf.d/docker-php-ext-xdebug.ini \
-         "xdebug.idekey=\"PHPIDE\"\n" >> /etc/php/8.0/cli/conf.d/docker-php-ext-xdebug.ini \
-         "xdebug.remote_port=9000\n" >> /etc/php/8.0/cli/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.remote_enable=1\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/docker-php-ext-xdebug.ini \
+         "xdebug.default_enable=1\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/docker-php-ext-xdebug.ini \
+         "xdebug.remote_autostart=1\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/docker-php-ext-xdebug.ini \
+         "xdebug.coverage_enable=1\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/docker-php-ext-xdebug.ini \
+         "xdebug.remote_connect_back=0\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/docker-php-ext-xdebug.ini \
+         "xdebug.remote_log='/tmp/xdebug.log'\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/docker-php-ext-xdebug.ini \
+         "xdebug.idekey=\"PHPIDE\"\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/docker-php-ext-xdebug.ini \
+         "xdebug.remote_port=9000\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/docker-php-ext-xdebug.ini \
     && mkdir -p /projects/workspace \
     && chown -R ${USER_UID}:${USER_GID} /projects \
     && chmod 755 /usr/local/bin/composer
