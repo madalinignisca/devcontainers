@@ -10,7 +10,7 @@ ARG USER_UID=1000
 ARG USER_GID=${USER_UID}
 ARG DEBIAN_FRONTEND=noninteractive
 ARG DISTRO=focal
-ARG NODE_VERSION=node_14.x
+ARG NODE_VERSION=node_12.x
 
 ADD unminimize /tmp/unminimize
 ADD https://getcomposer.org/download/2.0.8/composer.phar /usr/local/bin/composer
@@ -60,7 +60,6 @@ RUN apt-get install -y \
       mc \
       nano \
       nodejs \
-      npm \
       openssh-client \
       openssl \
       postgresql-client \
