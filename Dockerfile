@@ -26,7 +26,7 @@ RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y gnupg \
     && apt-key add /tmp/nodesource.gpg.key \
-    && echo "deb https://deb.nodesource.com/$NODE_VERSION $DISTRO main" | sudo tee /etc/apt/sources.list.d/nodesource.list \
+    && echo "deb https://deb.nodesource.com/$NODE_VERSION $DISTRO main" | tee /etc/apt/sources.list.d/nodesource.list \
     && LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php
 
 RUN apt-get install -y \
