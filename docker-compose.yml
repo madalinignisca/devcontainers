@@ -5,7 +5,7 @@ services:
   dev:
     image: 16nsk/devcontainers
     volumes:
-      - dev:/workspace
+      - projects:/projects
       - user:/home/developer
     command: sleep infinity
     ports:
@@ -102,7 +102,7 @@ services:
   #     - "${FORWARD_ADMINER_PORT:-8080}:8080"
 
 volumes:
-  dev:
+  projects:
   user:
   # mysql:
   # postgres:
