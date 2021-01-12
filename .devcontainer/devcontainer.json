@@ -5,9 +5,9 @@
     "workspaceFolder": "/projects/workspace",
     "shutdownAction": "stopCompose",
     "settings": {
-        "php.suggest.basic": false,
         "css.validate": false,
         "less.validate": false,
+        "php.suggest.basic": false,
         "scss.validate": false,
         "stylelint.validate": [
             "css",
@@ -23,7 +23,8 @@
             "sugarss",
             "xml",
             "xsl"
-        ]
+        ],
+        "terminal.integrated.shellArgs.linux": ["-l"]
     },
     "extensions": [
         "EditorConfig.EditorConfig",
