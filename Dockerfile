@@ -77,6 +77,7 @@ RUN apt-get install -y \
       php${PHP_VERSION}-xdebug \
       php${PHP_VERSION}-xml \
       php${PHP_VERSION}-zip \
+      python \
       redis-tools \
       sudo \
       wget \
