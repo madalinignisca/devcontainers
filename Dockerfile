@@ -14,7 +14,7 @@ ARG NODE_VERSION=node_12.x
 ARG PHP_VERSION=7.4
 
 ADD unminimize /tmp/unminimize
-ADD https://getcomposer.org/download/2.0.8/composer.phar /usr/local/bin/composer
+ADD https://getcomposer.org/composer-stable.phar /usr/local/bin/composer
 ADD https://deb.nodesource.com/gpgkey/nodesource.gpg.key /tmp/nodesource.gpg.key
 
 RUN chmod 700 /tmp/unminimize \
