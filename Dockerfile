@@ -16,6 +16,7 @@ ARG PHP_VERSION=7.4
 ADD unminimize /tmp/unminimize
 ADD https://getcomposer.org/composer-stable.phar /usr/local/bin/composer
 ADD https://deb.nodesource.com/gpgkey/nodesource.gpg.key /tmp/nodesource.gpg.key
+ADD https://dl.min.io/client/mc/release/linux-amd64/mc /usr/local/bin/minio
 
 RUN chmod 700 /tmp/unminimize \
     && /tmp/unminimize
@@ -94,7 +95,8 @@ RUN apt-get install -y \
          "xdebug.remote_port=9000\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/docker-php-ext-xdebug.ini \
     && mkdir -p /projects/workspace \
     && chown -R ${USER_UID}:${USER_GID} /projects \
-    && chmod 755 /usr/local/bin/composer
+    && chmod 755 /usr/local/bin/composer \
+    && chmod 755 /usr/local/bin/minio
 
 VOLUME /projects
 VOLUME /home/${USERNAME}
