@@ -93,6 +93,23 @@ services:
   #     interval: 30s
   #     timeout: 20s
   #     retries: 3
+  
+  # createbuckets:
+  # image: minio/mc
+  # depends_on:
+  #     - minio
+  # entrypoint: >
+  #     /bin/sh -c "
+  #     /usr/bin/mc config host add minio http://minio:9000 minio minio123;
+
+  #     /usr/bin/mc mb minio/private;
+  #     /usr/bin/mc policy none minio/private;
+
+  #     /usr/bin/mc mb minio/public;
+  #     /usr/bin/mc policy download minio/public;
+
+  #     exit 0;
+  #     "
 
   # adminer:
   #   image: adminer
