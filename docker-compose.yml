@@ -46,6 +46,19 @@ services:
   #     - "${FORWARD_DB_PORT:-5432}:5432"
   #   volumes:
   #     - postgres:/var/lib/postgresql/data
+  
+  # This is Postgresql with Postgis preenabled
+  # postgis:
+  #   image: postgis/postgis:13-3.1
+  #   environment:
+  #     - POSTGRES_PASSWORD=developer
+  #     - POSTGRES_USER=developer
+  #     - POSTGRES_DB=developer
+  #     - PGDATA=/var/lib/postgresql/data/pgdata
+  #   ports:
+  #     - "${FORWARD_DB_PORT:-5432}:5432"
+  #   volumes:
+  #     - postgres:/var/lib/postgresql/data
   #
   # mongo:
   #   image: mongo:4.4
@@ -59,20 +72,20 @@ services:
   #     - mongo:/data/db
 
   # elasticsearch:
-  #   image: elasticsearch:7.9.2
+  #   image: elasticsearch:7.10.1
   #   environment:
   #     - discovery.type=single-node
   #   ports:
   #     - "${FORWARD_DB_PORT:-9200}:9200"
   #   volumes:
   #     - elasticsearch:/usr/share/elasticsearch/data
-  #
+  
   # redis:
   #   image: redis:6.0-alpine
-  #
+  
   # memcached:
   #   image: memcached:1.6-alpine
-  #
+  
   # mailhog:
   #   image: mailhog/mailhog
   #   ports:
@@ -101,13 +114,10 @@ services:
   # entrypoint: >
   #     /bin/sh -c "
   #     /usr/bin/mc config host add minio http://minio:9000 minio minio123;
-
   #     /usr/bin/mc mb minio/private;
   #     /usr/bin/mc policy none minio/private;
-
   #     /usr/bin/mc mb minio/public;
   #     /usr/bin/mc policy download minio/public;
-
   #     exit 0;
   #     "
 
