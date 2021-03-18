@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
 
 LABEL maintainer="Madalin Ignisca"
-LABEL version="2.0.0"
+LABEL version="3.0.0"
 LABEL description="Development environment for the joy and pleasure of web developers"
 LABEL repo="https://github.com/madalinignisca/devcontainers"
 
@@ -10,8 +10,8 @@ ARG USER_UID=1000
 ARG USER_GID=${USER_UID}
 ARG DEBIAN_FRONTEND=noninteractive
 ARG DISTRO=focal
-ARG NODE_VERSION=node_12.x
-ARG PHP_VERSION=7.4
+ARG NODE_VERSION=node_14.x
+ARG PHP_VERSION=8.0
 
 ADD unminimize /tmp/unminimize
 ADD https://getcomposer.org/composer-stable.phar /usr/local/bin/composer
@@ -85,14 +85,9 @@ RUN apt-get install -y \
       whois \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME} \
     && chmod 0440 /etc/sudoers.d/${USERNAME} \
-    && echo "xdebug.remote_enable=1\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/docker-php-ext-xdebug.ini \
-         "xdebug.default_enable=1\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/docker-php-ext-xdebug.ini \
-         "xdebug.remote_autostart=1\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/docker-php-ext-xdebug.ini \
-         "xdebug.coverage_enable=1\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/docker-php-ext-xdebug.ini \
-         "xdebug.remote_connect_back=0\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/docker-php-ext-xdebug.ini \
-         "xdebug.remote_log='/tmp/xdebug.log'\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/docker-php-ext-xdebug.ini \
-         "xdebug.idekey=\"PHPIDE\"\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/docker-php-ext-xdebug.ini \
-         "xdebug.remote_port=9000\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.mode=debug\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/zz-ext-xdebug.ini \
+         "xdebug.start_with_request=yes\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/zz-ext-xdebug.ini \
+         "xdebug.client_port=9000\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/zz-ext-xdebug.ini \
     && mkdir -p /projects/workspace \
     && chown -R ${USER_UID}:${USER_GID} /projects \
     && chmod 755 /usr/local/bin/composer \
