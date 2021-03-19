@@ -37,7 +37,6 @@ RUN apt-get install -y \
       bash-completion \
       build-essential \
       curl \
-      default-mysql-client \
       git \
       iproute2 \
       iputils-ping \
@@ -47,6 +46,7 @@ RUN apt-get install -y \
       libpng-dev \
       man-db \
       manpages \
+      mariadb-client \
       mc \
       nano \
       nodejs \
@@ -98,7 +98,6 @@ RUN apt-get install -y \
       php${PHP_VERSION}-xhprof \
       php${PHP_VERSION}-xml \
       php${PHP_VERSION}-xmlrpc \
-      php${PHP_VERSION}-xsl \
       php${PHP_VERSION}-yac \
       php${PHP_VERSION}-yaml \
       php${PHP_VERSION}-zip \
