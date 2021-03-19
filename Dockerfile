@@ -98,7 +98,6 @@ RUN apt-get install -y \
       php${PHP_VERSION}-xhprof \
       php${PHP_VERSION}-xml \
       php${PHP_VERSION}-xmlrpc \
-      php${PHP_VERSION}-yac \
       php${PHP_VERSION}-yaml \
       php${PHP_VERSION}-zip \
       php${PHP_VERSION}-zstd \
