@@ -28,16 +28,12 @@
     },
     "extensions": [
         "EditorConfig.EditorConfig",
+        "bmewburn.vscode-intelephense-client",
         "calebporzio.better-phpunit",
         "dbaeumer.vscode-eslint",
         "eamodio.gitlens",
         "esbenp.prettier-vscode",
-        "felixfbecker.php-intellisense",
         "felixfbecker.php-debug",
-        "mtxr.sqltools",
-        "mtxr.sqltools-driver-mysql",
-        "mtxr.sqltools-driver-pg",
-        "mtxr.sqltools-driver-sqlite",
         "redhat.vscode-yaml",
         "stylelint.vscode-stylelint",
         "visualstudioexptteam.vscodeintellicode"
