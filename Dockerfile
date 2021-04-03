@@ -109,7 +109,7 @@ RUN apt-get install -y \
 RUN echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME} \
     && chmod 0440 /etc/sudoers.d/${USERNAME} \
     && echo "xdebug.mode=debug\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/zz-ext-xdebug.ini \
-         "xdebug.start_with_request=yes\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/zz-ext-xdebug.ini \
+         "xdebug.start_with_request=no\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/zz-ext-xdebug.ini \
          "xdebug.client_port=9000\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/zz-ext-xdebug.ini \
     && mkdir -p /projects/workspace \
     && chown -R ${USER_UID}:${USER_GID} /projects \
