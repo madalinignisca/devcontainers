@@ -37,11 +37,13 @@ RUN apt-get install -y \
       bash-completion \
       build-essential \
       curl \
+      gifsicle \
       git \
       iproute2 \
       iputils-ping \
       iputils-tracepath \
       jq \
+      jpegoptim \
       language-pack-en \
       libpng-dev \
       man-db \
@@ -52,6 +54,7 @@ RUN apt-get install -y \
       nodejs \
       openssh-client \
       openssl \
+      optipng \
       postgresql-client \
       php${PHP_VERSION}-amqp \
       php${PHP_VERSION}-apcu \
@@ -101,6 +104,7 @@ RUN apt-get install -y \
       php${PHP_VERSION}-yaml \
       php${PHP_VERSION}-zip \
       php${PHP_VERSION}-zstd \
+      pngquant \
       python \
       redis-tools \
       sudo \
