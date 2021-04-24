@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
 
 LABEL maintainer="Madalin Ignisca"
-LABEL version="3.0.0"
+LABEL version="2.1.0"
 LABEL description="Development environment for the joy and pleasure of web developers"
 LABEL repo="https://github.com/madalinignisca/devcontainers"
 
@@ -11,7 +11,7 @@ ARG USER_GID=${USER_UID}
 ARG DEBIAN_FRONTEND=noninteractive
 ARG DISTRO=focal
 ARG NODE_VERSION=node_14.x
-ARG PHP_VERSION=8.0
+ARG PHP_VERSION=7.4
 
 ADD unminimize /tmp/unminimize
 ADD https://getcomposer.org/composer-stable.phar /usr/local/bin/composer
@@ -50,6 +50,8 @@ RUN apt-get install -y \
       manpages \
       mariadb-client \
       mc \
+      mongo-tools \
+      mongodb-clients \
       nano \
       nodejs \
       openssh-client \
@@ -107,6 +109,7 @@ RUN apt-get install -y \
       pngquant \
       python \
       redis-tools \
+      sqlite3 \
       sudo \
       wget \
       whois
