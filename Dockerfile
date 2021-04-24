@@ -86,6 +86,7 @@ RUN apt-get install -y \
       php${PHP_VERSION}-oauth \
       php${PHP_VERSION}-pcov \
       php${PHP_VERSION}-pgsql \
+      php${PHP_VERSION}-propro \
       php${PHP_VERSION}-protobuf \
       php${PHP_VERSION}-psr \
       php${PHP_VERSION}-raphf \
