@@ -12,7 +12,7 @@ services:
       - "${APP_PORT:-8000}:8000"
 
   # mariadb:
-  #   image: mariadb:10.5
+  #   image: mariadb:10.3
   #   environment:
   #     - MYSQL_ROOT_PASSWORD=root
   #     - MYSQL_DATABASE=developer
@@ -22,21 +22,9 @@ services:
   #     - mysql:/var/lib/mysql
   #   ports:
   #     - "${FORWARD_DB_PORT:-3306}:3306"
-
-  # mysql:
-  #   image: mysql:8.0
-  #   environment:
-  #     - MYSQL_ROOT_PASSWORD=root
-  #     - MYSQL_DATABASE=developer
-  #     - MYSQL_USER=developer
-  #     - MYSQL_PASSWORD=developer
-  #   ports:
-  #     - "${FORWARD_DB_PORT:-3306}:3306"
-  #   volumes:
-  #     - mysql:/var/lib/mysql
 
   # postgres:
-  #   image: postgres:13.0
+  #   image: postgres:9.6
   #   environment:
   #     - POSTGRES_PASSWORD=developer
   #     - POSTGRES_USER=developer
@@ -49,7 +37,7 @@ services:
   
   # This is Postgresql with Postgis preenabled
   # postgis:
-  #   image: postgis/postgis:13-3.1
+  #   image: postgis/postgis:9.6-3.1-alpine
   #   environment:
   #     - POSTGRES_PASSWORD=developer
   #     - POSTGRES_USER=developer
@@ -59,9 +47,9 @@ services:
   #     - "${FORWARD_DB_PORT:-5432}:5432"
   #   volumes:
   #     - postgres:/var/lib/postgresql/data
-  #
+
   # mongo:
-  #   image: mongo:4.4
+  #   image: mongo:3.6
   #   environment:
   #     - MONGO_INITDB_ROOT_USERNAME=root
   #     - MONGO_INITDB_ROOT_PASSWORD=root
@@ -72,7 +60,7 @@ services:
   #     - mongo:/data/db
 
   # elasticsearch:
-  #   image: elasticsearch:7.10.1
+  #   image: elasticsearch:7.12
   #   environment:
   #     - discovery.type=single-node
   #   ports:
@@ -81,10 +69,10 @@ services:
   #     - elasticsearch:/usr/share/elasticsearch/data
   
   # redis:
-  #   image: redis:6.0-alpine
+  #   image: redis:5
   
   # memcached:
-  #   image: memcached:1.6-alpine
+  #   image: memcached:1-alpine
   
   # mailhog:
   #   image: mailhog/mailhog
