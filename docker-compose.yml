@@ -4,6 +4,7 @@ services:
 
   dev:
     image: 16nsk/devcontainers
+    build: .
     volumes:
       - projects:/projects
       - user:/home/developer
