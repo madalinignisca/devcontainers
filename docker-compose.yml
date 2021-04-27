@@ -1,4 +1,4 @@
-version: "3.8"
+version: "2.4"
 
 services:
 
@@ -10,6 +10,9 @@ services:
     command: sleep infinity
     ports:
       - "${APP_PORT:-8000}:8000"
+    cpu_count: 2
+    mem_limit: 4000000000
+    mem_swappiness: 0
 
   # mariadb:
   #   image: mariadb:10.3
@@ -22,6 +25,9 @@ services:
   #     - mysql:/var/lib/mysql
   #   ports:
   #     - "${FORWARD_DB_PORT:-3306}:3306"
+  #   cpu_count: 1
+  #   mem_limit: 1000000000
+  #   mem_swappiness: 0
 
   # postgres:
   #   image: postgres:9.6
@@ -34,6 +40,9 @@ services:
   #     - "${FORWARD_DB_PORT:-5432}:5432"
   #   volumes:
   #     - postgres:/var/lib/postgresql/data
+  #   cpu_count: 1
+  #   mem_limit: 1000000000
+  #   mem_swappiness: 0
   
   # This is Postgresql with Postgis preenabled
   # postgis:
@@ -47,6 +56,9 @@ services:
   #     - "${FORWARD_DB_PORT:-5432}:5432"
   #   volumes:
   #     - postgres:/var/lib/postgresql/data
+  #   cpu_count: 1
+  #   mem_limit: 1000000000
+  #   mem_swappiness: 0
 
   # mongo:
   #   image: mongo:3.6
@@ -67,17 +79,29 @@ services:
   #     - "${FORWARD_DB_PORT:-9200}:9200"
   #   volumes:
   #     - elasticsearch:/usr/share/elasticsearch/data
+  #   cpu_count: 1
+  #   mem_limit: 1000000000
+  #   mem_swappiness: 0
   
   # redis:
   #   image: redis:5
+  #   cpu_count: 1
+  #   mem_limit: 100000000
+  #   mem_swappiness: 0
   
   # memcached:
   #   image: memcached:1-alpine
+  #   cpu_count: 1
+  #   mem_limit: 100000000
+  #   mem_swappiness: 0
   
   # mailhog:
   #   image: mailhog/mailhog
   #   ports:
   #     - "${FORWARD_MAILHOG_PORT:-8025}:8025"
+  #   cpu_count: 1
+  #   mem_limit: 500000000
+  #   mem_swappiness: 0
 
   # minio:
   #   image: minio/minio
@@ -94,20 +118,9 @@ services:
   #     interval: 30s
   #     timeout: 20s
   #     retries: 3
-  
-  # createbuckets:
-  # image: minio/mc
-  # depends_on:
-  #     - minio
-  # entrypoint: >
-  #     /bin/sh -c "
-  #     /usr/bin/mc config host add minio http://minio:9000 minio minio123;
-  #     /usr/bin/mc mb minio/private;
-  #     /usr/bin/mc policy none minio/private;
-  #     /usr/bin/mc mb minio/public;
-  #     /usr/bin/mc policy download minio/public;
-  #     exit 0;
-  #     "
+  #   cpu_count: 1
+  #   mem_limit: 1000000000
+  #   mem_swappiness: 0
 
   # adminer:
   #   image: adminer
@@ -115,6 +128,9 @@ services:
   #     - ADMINER_DEFAULT_SERVER=mariadb
   #   ports:
   #     - "${FORWARD_ADMINER_PORT:-8080}:8080"
+  #   cpu_count: 1
+  #   mem_limit: 500000000
+  #   mem_swappiness: 0
 
 volumes:
   projects:
