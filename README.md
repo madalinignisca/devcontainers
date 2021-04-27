@@ -16,10 +16,17 @@ Change name in `.devcontainer/devcontainer.json` for your project.
 (This will keep your projects storage isolated between them)
 
 Uncomment/add needed services in `docker-compose.yml`.
+Tweak the cpu and memory limits to your needs. The defaults are sensible enough for Laravel, Drupal, Magento, Prestashop
+on medium to large applications. I've provided them, as I sometimes had problems when using multiple databases and an
+elasticsearch instance at same time on 16GB of ram.
 
 You need to have [Docker](https://docs.docker.com/get-docker/)
 installed and working on your computer
 (remote can also be used, this setup does not use local volume binds).
+
+_A note on remote docker_: Windows and Macos Docker, probably not wanted by who want to run Visual Studio Code on a light computer
+and connect to a monster server, so you should look to install docker-cli using [Chocolatey](https://chocolatey.org/) on Windows
+and [Brew](https://brew.sh/) on MacOS.
 
 _One time_: Generate your [ssh key](https://docs.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent),
 but follow next for ssh-agent.
