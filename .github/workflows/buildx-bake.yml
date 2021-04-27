@@ -27,7 +27,29 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
+        name: Generate bake file
+        run: |
+          cat <<'EOF' > docker-bake.hcl
+          variable "TAG" {default="" }
+
+          group "default" {
+              targets = [
+                  "devcontainer",
+              ]
+          }
+
+          target "devcontainer" {
+              context="."
+              dockerfile="Dockerfile"
+              tags = [
+                  "16nsk/devcontainers:latest",
+                  notequal("",TAG) ? "16nsk/devcontainers:${TAG}": "",
+              ]
+          }
+          EOF
+      -
         name: Build and push
         uses: docker/bake-action@master
         with:
           push: true
+          files: docker-bake.hcl
