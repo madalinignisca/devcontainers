@@ -1,8 +1,6 @@
 name: buildx
 
 on:
-  pull_request:
-    branches: master
   push:
     branches: master
     tags: '*'
@@ -29,8 +27,13 @@ jobs:
       -
         name: Generate bake file
         run: |
+          if [ "$GITHUB_REF" != "master" ]
+              export TAG = $GITHUB_REF
+          fi
           cat <<'EOF' > docker-bake.hcl
-          variable "TAG" {default="" }
+          variable "TAG" {
+              default="latest"
+          }
 
           group "default" {
               targets = [
