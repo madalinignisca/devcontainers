@@ -27,8 +27,8 @@ jobs:
       -
         name: Generate bake file
         run: |
-          if [ "$GITHUB_REF" != "master" ]
-              export TAG = $GITHUB_REF
+          if [ "$GITHUB_REF" != "master" ]; then
+              export TAG=$GITHUB_REF
           fi
           cat <<'EOF' > docker-bake.hcl
           variable "TAG" {
