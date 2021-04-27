@@ -44,7 +44,7 @@ jobs:
               tags = [
                   "16nsk/devcontainers:latest",
                   notequal("",TAG) ? "16nsk/devcontainers:${TAG}": "",
-              ],
+              ]
               platforms = [
                   "linux/amd64",
                   "linux/arm64"
