@@ -30,6 +30,7 @@ jobs:
           if [ "$GITHUB_REF" != "master" ]; then
               export TAG=$GITHUB_REF
           fi
+          echo $TAG
           cat <<'EOF' > docker-bake.hcl
           variable "TAG" {
               default="latest"
@@ -54,9 +55,9 @@ jobs:
               ]
           }
           EOF
-      -
-        name: Build and push
-        uses: docker/bake-action@master
-        with:
-          push: true
-          files: docker-bake.hcl
+#       -
+#         name: Build and push
+#         uses: docker/bake-action@master
+#         with:
+#           push: true
+#           files: docker-bake.hcl
