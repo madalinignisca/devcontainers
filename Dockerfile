@@ -26,14 +26,14 @@ RUN groupadd --gid ${USER_GID} ${USERNAME} \
 
 RUN apt-get update \
     && apt-get upgrade -y \
-    && apt-get install -y \
+    && apt-get install --no-install-recommends -y \
       gnupg \
       software-properties-common \
     && apt-key add /tmp/nodesource.gpg.key \
     && echo "deb https://deb.nodesource.com/node_${NODE_VERSION}.x $DISTRO main" | tee /etc/apt/sources.list.d/nodesource.list \
     && LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php
 
-RUN apt-get install -y \
+RUN apt-get install --no-install-recommends -y \
       bash-completion \
       build-essential \
       curl \
@@ -124,7 +124,7 @@ RUN echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME} \
     && chmod 755 /usr/local/bin/composer \
     && chmod 755 /usr/local/bin/minio
 
-RUN if [[ $PHP_VERSION == 7* ]]; then apt install -y php${PHP_VERSION}-propro; fi
+RUN if [[ $PHP_VERSION == 7* ]]; then apt install --no-install-recommends -y php${PHP_VERSION}-propro; fi
 
 VOLUME /projects
 VOLUME /home/${USERNAME}
