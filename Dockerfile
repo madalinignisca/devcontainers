@@ -125,7 +125,7 @@ RUN echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME} \
     && chmod 755 /usr/local/bin/composer \
     && chmod 755 /usr/local/bin/minio
 
-RUN if [[ $PHP_VERSION == 7* ]]; then apt install --no-install-recommends -y php${PHP_VERSION}-propro; fi
+RUN if [ $PHP_VERSION == 7* ]; then apt install --no-install-recommends -y php${PHP_VERSION}-propro; fi
 
 VOLUME /projects
 VOLUME /home/${USERNAME}
