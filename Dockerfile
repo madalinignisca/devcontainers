@@ -1,17 +1,17 @@
 FROM ubuntu:20.04
 
-LABEL maintainer="Madalin Ignisca"
-LABEL version="2.1.0"
-LABEL description="Development environment for the joy and pleasure of web developers"
-LABEL repo="https://github.com/madalinignisca/devcontainers"
-
 ARG USERNAME=developer
 ARG USER_UID=1000
 ARG USER_GID=${USER_UID}
 ARG DEBIAN_FRONTEND=noninteractive
 ARG DISTRO=focal
-ARG NODE_VERSION=node_14.x
+ARG NODE_VERSION=14
 ARG PHP_VERSION=7.4
+
+LABEL maintainer="Madalin Ignisca"
+LABEL version="2.1.0"
+LABEL description="Development environment for the joy and pleasure of web developers"
+LABEL repo="https://github.com/madalinignisca/devcontainers"
 
 ADD unminimize /tmp/unminimize
 ADD https://getcomposer.org/composer-stable.phar /usr/local/bin/composer
@@ -30,7 +30,7 @@ RUN apt-get update \
       gnupg \
       software-properties-common \
     && apt-key add /tmp/nodesource.gpg.key \
-    && echo "deb https://deb.nodesource.com/$NODE_VERSION $DISTRO main" | tee /etc/apt/sources.list.d/nodesource.list \
+    && echo "deb https://deb.nodesource.com/node_${NODE_VERSION}.x $DISTRO main" | tee /etc/apt/sources.list.d/nodesource.list \
     && LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php
 
 RUN apt-get install -y \
@@ -86,7 +86,6 @@ RUN apt-get install -y \
       php${PHP_VERSION}-oauth \
       php${PHP_VERSION}-pcov \
       php${PHP_VERSION}-pgsql \
-      php${PHP_VERSION}-propro \
       php${PHP_VERSION}-protobuf \
       php${PHP_VERSION}-psr \
       php${PHP_VERSION}-raphf \
@@ -114,6 +113,7 @@ RUN apt-get install -y \
       sudo \
       wget \
       whois
+
 RUN echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME} \
     && chmod 0440 /etc/sudoers.d/${USERNAME} \
     && echo "xdebug.mode=debug\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/zz-ext-xdebug.ini \
@@ -123,6 +123,10 @@ RUN echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME} \
     && chown -R ${USER_UID}:${USER_GID} /projects \
     && chmod 755 /usr/local/bin/composer \
     && chmod 755 /usr/local/bin/minio
+
+RUN if [ $PHP_VERSION == 7* ]; then \
+        apt install -y php${PHP_VERSION}-propro \
+    fi
 
 VOLUME /projects
 VOLUME /home/${USERNAME}
