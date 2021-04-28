@@ -45,6 +45,7 @@ RUN apt-get install --no-install-recommends -y \
       jq \
       jpegoptim \
       language-pack-en \
+      less \
       libpng-dev \
       man-db \
       manpages \
