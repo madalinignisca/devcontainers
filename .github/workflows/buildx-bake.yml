@@ -3,7 +3,6 @@ name: buildx
 on:
   push:
     branches: master
-    tags: '*'
 
 jobs:
   buildx:
@@ -30,15 +29,7 @@ jobs:
       -
         name: Generate bake file
         run: |
-          if [ "$GITHUB_REF" != "refs/heads/master" ]; then
-              export TAG=${GITHUB_REF#refs/tags/}
-          fi
-          echo $TAG
           cat <<'EOF' > docker-bake.hcl
-          variable "TAG" {
-              default=""
-          }
-
           group "default" {
               targets = [
                   "8.0-16",
@@ -61,7 +52,6 @@ jobs:
               tags = [
                   "16nsk/devcontainers:latest",
                   "16nsk/devcontainers:8.0-16",
-                  notequal("",TAG) ? "16nsk/devcontainers:8.0-16-${TAG}": "",
               ]
               args = {
                   PHP_VERSION="8.0",
@@ -73,7 +63,6 @@ jobs:
               inherits=["default"]
               tags = [
                   "16nsk/devcontainers:7.4-14",
-                  notequal("",TAG) ? "16nsk/devcontainers:7.4-14-${TAG}": "",
               ]
               args = {
                   PHP_VERSION="7.4",
@@ -85,7 +74,6 @@ jobs:
               inherits=["default"]
               tags = [
                   "16nsk/devcontainers:7.3-12",
-                  notequal("",TAG) ? "16nsk/devcontainers:7.3-12-${TAG}": "",
               ]
               args = {
                   PHP_VERSION="7.3",
