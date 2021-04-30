@@ -2,7 +2,7 @@ name: buildx
 
 on:
   push:
-    branches: master
+    branches: develop
 
 jobs:
   buildx:
@@ -14,9 +14,6 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v2
-      -
-        name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
       -  
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
@@ -34,7 +31,6 @@ jobs:
               targets = [
                   "8.0-16",
                   "7.4-14",
-                  "7.3-12",
               ]
           }
 
@@ -43,15 +39,13 @@ jobs:
               dockerfile="Dockerfile"
               platforms = [
                   "linux/amd64",
-                  "linux/arm64"
               ]
           }
           
           target "8.0-16" {
               inherits=["default"]
               tags = [
-                  "16nsk/devcontainers:latest",
-                  "16nsk/devcontainers:8.0-16",
+                  "16nsk/devcontainers:8.0-16-dev",
               ]
               args = {
                   PHP_VERSION="8.0",
@@ -62,22 +56,11 @@ jobs:
           target "7.4-14" {
               inherits=["default"]
               tags = [
-                  "16nsk/devcontainers:7.4-14",
+                  "16nsk/devcontainers:7.4-14-dev",
               ]
               args = {
                   PHP_VERSION="7.4",
                   NODE_VERSION="14",
-              }
-          }
-          
-          target "7.3-12" {
-              inherits=["default"]
-              tags = [
-                  "16nsk/devcontainers:7.3-12",
-              ]
-              args = {
-                  PHP_VERSION="7.3",
-                  NODE_VERSION="12",
               }
           }
           EOF
