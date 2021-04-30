@@ -1,21 +1,21 @@
-version: "3.8"
+version: "2.4"
 
 services:
 
   dev:
     image: 16nsk/devcontainers
     volumes:
-      - dev:/workspace
+      - projects:/projects
       - user:/home/developer
     command: sleep infinity
-    # ports:
-    #   - "3000:3000"
-    #   - "8000:8000"
-    #   - "8080:8080"
-    #   - "4200:4200"
+    ports:
+      - "${APP_PORT:-8000}:8000"
+   cpu_count: 2
+   mem_limit: 4000000000
+   mem_swappiness: 0
 
   # mariadb:
-  #   image: mariadb:10.5
+  #   image: mariadb:10
   #   environment:
   #     - MYSQL_ROOT_PASSWORD=root
   #     - MYSQL_DATABASE=developer
@@ -24,63 +24,87 @@ services:
   #   volumes:
   #     - mysql:/var/lib/mysql
   #   ports:
-  #     - 3306:3306
-
-  # mysql:
-  #   image: mysql:8.0
-  #   environment:
-  #     - MYSQL_ROOT_PASSWORD=root
-  #     - MYSQL_DATABASE=developer
-  #     - MYSQL_USER=developer
-  #     - MYSQL_PASSWORD=developer
-  #   volumes:
-  #     - mysql:/var/lib/mysql
-  #  ports:
-  #    - 3306:3306
+  #     - "${FORWARD_DB_PORT:-3306}:3306"
+  #   cpu_count: 1
+  #   mem_limit: 1000000000
+  #   mem_swappiness: 0
 
   # postgres:
-  #   image: postgres:13.0
+  #   image: postgres:13
   #   environment:
   #     - POSTGRES_PASSWORD=developer
   #     - POSTGRES_USER=developer
   #     - POSTGRES_DB=developer
   #     - PGDATA=/var/lib/postgresql/data/pgdata
   #   ports:
-  #     - 5432:5432
+  #     - "${FORWARD_DB_PORT:-5432}:5432"
   #   volumes:
   #     - postgres:/var/lib/postgresql/data
-  #
+  #   cpu_count: 1
+  #   mem_limit: 1000000000
+  #   mem_swappiness: 0
+  
+  # This is Postgresql with Postgis preenabled
+  # postgis:
+  #   image: postgis/postgis:13-3.0-alpine
+  #   environment:
+  #     - POSTGRES_PASSWORD=developer
+  #     - POSTGRES_USER=developer
+  #     - POSTGRES_DB=developer
+  #     - PGDATA=/var/lib/postgresql/data/pgdata
+  #   ports:
+  #     - "${FORWARD_DB_PORT:-5432}:5432"
+  #   volumes:
+  #     - postgres:/var/lib/postgresql/data
+  #   cpu_count: 1
+  #   mem_limit: 1000000000
+  #   mem_swappiness: 0
+
   # mongo:
-  #   image: mongo:4.4
+  #   image: mongo:4
   #   environment:
   #     - MONGO_INITDB_ROOT_USERNAME=root
   #     - MONGO_INITDB_ROOT_PASSWORD=root
   #     - MONGO_INITDB_DATABASE=developer
   #   ports:
-  #     - 27017:27017
+  #     - "${FORWARD_MONGO_PORT:-27017}:27017"
   #   volumes:
   #     - mongo:/data/db
+  #   cpu_count: 1
+  #   mem_limit: 1000000000
+  #   mem_swappiness: 0
 
   # elasticsearch:
-  #   image: elasticsearch:7.9.2
+  #   image: elasticsearch:7.12.0
   #   environment:
   #     - discovery.type=single-node
   #   ports:
-  #     - 9200:9200
-  #     - 9300:9300
+  #     - "${FORWARD_DB_PORT:-9200}:9200"
   #   volumes:
   #     - elasticsearch:/usr/share/elasticsearch/data
-  #
+  #   cpu_count: 1
+  #   mem_limit: 1000000000
+  #   mem_swappiness: 0
+  
   # redis:
-  #   image: redis:6.0-alpine
-  #
+  #   image: redis:6-alpine
+  #   cpu_count: 1
+  #   mem_limit: 500000000
+  #   mem_swappiness: 0
+  
   # memcached:
-  #   image: memcached:1.6-alpine
-  #
+  #   image: memcached:1-alpine
+  #   cpu_count: 1
+  #   mem_limit: 500000000
+  #   mem_swappiness: 0
+  
   # mailhog:
   #   image: mailhog/mailhog
   #   ports:
-  #     - 8025:8025
+  #     - "${FORWARD_MAILHOG_PORT:-8025}:8025"
+  #   cpu_count: 1
+  #   mem_limit: 500000000
+  #   mem_swappiness: 0
 
   # minio:
   #   image: minio/minio
@@ -89,7 +113,7 @@ services:
   #     - MINIO_SECRET_KEY=minio123
   #   command: minio server /data
   #   ports:
-  #     - 9000:9000
+  #     - "${FORWARD_MINIO_PORT:-9000}:9000"
   #   volumes:
   #     - minio:/data
   #   healthcheck:
@@ -97,16 +121,22 @@ services:
   #     interval: 30s
   #     timeout: 20s
   #     retries: 3
+  #   cpu_count: 1
+  #   mem_limit: 1000000000
+  #   mem_swappiness: 0
 
   # adminer:
   #   image: adminer
   #   environment:
   #     - ADMINER_DEFAULT_SERVER=mariadb
   #   ports:
-  #     - 8888:8080
+  #     - "${FORWARD_ADMINER_PORT:-8080}:8080"
+  #   cpu_count: 1
+  #   mem_limit: 500000000
+  #   mem_swappiness: 0
 
 volumes:
-  dev:
+  projects:
   user:
   # mysql:
   # postgres:

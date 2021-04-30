@@ -2,13 +2,12 @@
     "name": "PHPNODE",
     "dockerComposeFile": "../docker-compose.yml",
     "service": "dev",
-    "workspaceFolder": "/workspace",
+    "workspaceFolder": "/projects/workspace",
     "shutdownAction": "stopCompose",
     "settings": {
-        "terminal.integrated.shell.linux": "/usr/bin/zsh",
-        "php.suggest.basic": false,
         "css.validate": false,
         "less.validate": false,
+        "php.suggest.basic": false,
         "scss.validate": false,
         "stylelint.validate": [
             "css",
@@ -24,19 +23,20 @@
             "sugarss",
             "xml",
             "xsl"
-        ]
+        ],
+        "terminal.integrated.shellArgs.linux": ["-l"]
     },
     "extensions": [
         "EditorConfig.EditorConfig",
-        "visualstudioexptteam.vscodeintellicode",
+        "bmewburn.vscode-intelephense-client",
         "calebporzio.better-phpunit",
         "dbaeumer.vscode-eslint",
         "eamodio.gitlens",
         "esbenp.prettier-vscode",
-        "felixfbecker.php-intellisense",
         "felixfbecker.php-debug",
         "redhat.vscode-yaml",
-        "stylelint.vscode-stylelint"
+        "stylelint.vscode-stylelint",
+        "visualstudioexptteam.vscodeintellicode"
     ],
     "remoteUser": "developer"
 }
