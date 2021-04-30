@@ -6,7 +6,6 @@ services:
     image: 16nsk/devcontainers
     volumes:
       - projects:/projects
-      - user:/home/developer
     command: sleep infinity
     ports:
       - "${APP_PORT:-8000}:8000"
