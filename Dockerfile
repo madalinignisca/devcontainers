@@ -9,14 +9,14 @@ ARG NODE_VERSION=14
 ARG PHP_VERSION=7.4
 
 LABEL maintainer="Madalin Ignisca"
-LABEL version="2.1.0"
+LABEL version="3.x"
 LABEL description="Development environment for the joy and pleasure of web developers"
 LABEL repo="https://github.com/madalinignisca/devcontainers"
 
 ADD unminimize /tmp/unminimize
-ADD https://getcomposer.org/composer-stable.phar /usr/local/bin/composer
+ADD https://getcomposer.org/composer-stable.phar /usr/bin/composer
 ADD https://deb.nodesource.com/gpgkey/nodesource.gpg.key /tmp/nodesource.gpg.key
-ADD https://dl.min.io/client/mc/release/linux-amd64/mc /usr/local/bin/minio
+ADD https://dl.min.io/client/mc/release/linux-amd64/mc /usr/bin/minio
 
 RUN chmod 700 /tmp/unminimize \
     && /tmp/unminimize
@@ -127,10 +127,11 @@ RUN echo "xdebug.mode=debug\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/zz-ext-xdeb
 RUN mkdir -p /projects/workspace \
     && chown -R ${USER_UID}:${USER_GID} /projects \
     && chown -R ${USERNAME}:${USERNAME} /usr/local \
-    && chmod 755 /usr/local/bin/composer \
-    && chmod 755 /usr/local/bin/minio
+    && chmod 755 /usr/bin/composer \
+    && chmod 755 /usr/bin/minio
 
 VOLUME /projects
+VOLUME /usr/local
 
 WORKDIR /projects/workspace
 HEALTHCHECK NONE
