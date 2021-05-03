@@ -131,6 +131,7 @@ RUN mkdir -p /projects/workspace \
     && chmod 755 /usr/local/bin/minio
 
 VOLUME /projects
+VOLUME /home/${USERNAME}/.config
 
 WORKDIR /projects/workspace
 HEALTHCHECK NONE
