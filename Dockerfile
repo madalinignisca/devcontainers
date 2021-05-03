@@ -112,6 +112,7 @@ RUN apt-get install --no-install-recommends -y \
       redis-tools \
       sqlite3 \
       sudo \
+      unzip \
       wget \
       whois
 
