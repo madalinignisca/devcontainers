@@ -130,6 +130,9 @@ RUN mkdir -p /projects/workspace \
     && chmod 755 /usr/bin/composer \
     && chmod 755 /usr/bin/minio
 
+RUN SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=/projects/.bash_history" \
+    && echo $SNIPPET >> "/home/${USERNAME}/.bashrc"
+
 VOLUME /projects
 VOLUME /usr/local
 
