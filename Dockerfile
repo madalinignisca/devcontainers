@@ -131,9 +131,7 @@ RUN if [ "$PHP_VERSION" = "7.4" ] || [ "$PHP_VERSION" = "7.3" ] ; then apt insta
 RUN echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME} \
     && chmod 0440 /etc/sudoers.d/${USERNAME}
 
-RUN echo "xdebug.mode=debug\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/zz-ext-xdebug.ini \
-         "xdebug.start_with_request=no\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/zz-ext-xdebug.ini \
-         "xdebug.client_port=9000\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/zz-ext-xdebug.ini
+RUN echo "xdebug.mode=debug\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/20-xdebug.ini
 
 RUN mkdir -p /projects/workspace \
     && chown -R ${USER_UID}:${USER_GID} /projects \
@@ -147,6 +145,7 @@ RUN SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=/projects/.ba
 COPY bashprompt /tmp/bashprompt
 
 RUN echo /tmp/bashprompt >> /home/${USERNAME}/.bashrc \
+    && echo 'export PROMPT_DIRTRIM=4' >> /home/${USERNAME}/.bashrc \
     && rm /tmp/bashprompt
 
 VOLUME /projects
