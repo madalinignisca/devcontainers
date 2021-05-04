@@ -25,7 +25,7 @@ RUN groupadd --gid ${USER_GID} ${USERNAME} \
     && useradd --create-home --shell /bin/bash --uid ${USER_UID} --gid ${USER_GID} ${USERNAME}
 
 RUN apt-get update \
-    && apt-get upgrade -y \
+    && apt-get upgrade --no-install-recommends -y \
     && apt-get install --no-install-recommends -y \
       gnupg \
       software-properties-common \
@@ -36,9 +36,12 @@ RUN apt-get update \
 RUN apt-get install --no-install-recommends -y \
       bash-completion \
       build-essential \
+      ca-certificates \
       curl \
       gifsicle \
       git \
+      gnupg2 \
+      htop \
       iproute2 \
       iputils-ping \
       iputils-tracepath \
@@ -47,6 +50,7 @@ RUN apt-get install --no-install-recommends -y \
       language-pack-en \
       less \
       libpng-dev \
+      lsof \
       man-db \
       manpages \
       mariadb-client \
@@ -54,6 +58,7 @@ RUN apt-get install --no-install-recommends -y \
       mongo-tools \
       mongodb-clients \
       nano \
+      net-tools \
       nodejs \
       openssh-client \
       openssl \
@@ -108,12 +113,18 @@ RUN apt-get install --no-install-recommends -y \
       php${PHP_VERSION}-zip \
       php${PHP_VERSION}-zstd \
       pngquant \
+      procps \
+      psmisc \
       python \
       redis-tools \
+      rsync \
       sqlite3 \
       sudo \
+      unzip \
+      vim-nox \
       wget \
-      whois
+      whois \
+      zip
 
 RUN if [ "$PHP_VERSION" = "7.4" ] || [ "$PHP_VERSION" = "7.3" ] ; then apt install --no-install-recommends -y php"${PHP_VERSION}"-propro; fi
 
@@ -132,6 +143,35 @@ RUN mkdir -p /projects/workspace \
 
 RUN SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=/projects/.bash_history" \
     && echo $SNIPPET >> "/home/${USERNAME}/.bashrc"
+
+RUN CUSTOM_BASH_PROMPT="$(cat \
+    <<'EOF'
+    # bash prompt theme
+    __bash_prompt() {
+        local userpart='`export XIT=$? \
+            && echo -n "\[\033[0;32m\]\u " \
+            && [ "$XIT" -ne "0" ] && echo -n "\[\033[1;31m\]➜" || echo -n "\[\033[0m\]➜"`'
+        local gitbranch='`\
+            export BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null); \
+            if [ "${BRANCH}" = "HEAD" ]; then \
+                export BRANCH=$(git describe --contains --all HEAD 2>/dev/null); \
+            fi; \
+            if [ "${BRANCH}" != "" ]; then \
+                echo -n "\[\033[0;36m\](\[\033[1;31m\]${BRANCH}" \
+                && if git ls-files --error-unmatch -m --directory --no-empty-directory -o --exclude-standard ":/*" > /dev/null 2>&1; then \
+                        echo -n " \[\033[1;33m\]✗"; \
+                fi \
+                && echo -n "\[\033[0;36m\]) "; \
+            fi`'
+        local lightblue='\[\033[1;34m\]'
+        local removecolor='\[\033[0m\]'
+        PS1="${userpart} ${lightblue}\w ${gitbranch}${removecolor}\$ "
+        unset -f __bash_prompt
+    }
+    __bash_prompt
+    EOF
+    )" \
+    && echo "${CODESPACES_BASH}" >> "${USER_RC_PATH}/.bashrc"
 
 VOLUME /projects
 VOLUME /usr/local
