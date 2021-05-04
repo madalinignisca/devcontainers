@@ -14,9 +14,9 @@ LABEL description="Development environment for the joy and pleasure of web devel
 LABEL repo="https://github.com/madalinignisca/devcontainers"
 
 ADD unminimize /tmp/unminimize
-ADD https://getcomposer.org/composer-stable.phar /usr/bin/composer
+ADD https://getcomposer.org/composer-stable.phar /usr/local/bin/composer
+ADD https://dl.min.io/client/mc/release/linux-amd64/mc /usr/local/bin/minio
 ADD https://deb.nodesource.com/gpgkey/nodesource.gpg.key /tmp/nodesource.gpg.key
-ADD https://dl.min.io/client/mc/release/linux-amd64/mc /usr/bin/minio
 
 RUN chmod 700 /tmp/unminimize \
     && /tmp/unminimize
@@ -30,6 +30,7 @@ RUN apt-get update \
       gnupg \
       software-properties-common \
     && apt-key add /tmp/nodesource.gpg.key \
+    && rm /tmp/nodesource.gpg.key \
     && echo "deb https://deb.nodesource.com/node_${NODE_VERSION}.x $DISTRO main" | tee /etc/apt/sources.list.d/nodesource.list \
     && LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php
 
@@ -40,7 +41,6 @@ RUN apt-get install --no-install-recommends -y \
       curl \
       gifsicle \
       git \
-      gnupg2 \
       htop \
       iproute2 \
       iputils-ping \
@@ -135,9 +135,8 @@ RUN echo "xdebug.mode=debug\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/20-xdebug.i
 
 RUN mkdir -p /projects/workspace \
     && chown -R ${USER_UID}:${USER_GID} /projects \
-    && chown -R ${USERNAME}:${USERNAME} /usr/local \
-    && chmod 755 /usr/bin/composer \
-    && chmod 755 /usr/bin/minio
+    && chmod 755 /usr/local/bin/composer \
+    && chmod 755 /usr/local/bin/minio
 
 RUN SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=/projects/.bash_history" \
     && echo $SNIPPET >> "/home/${USERNAME}/.bashrc"
@@ -149,7 +148,7 @@ RUN echo /tmp/bashprompt >> /home/${USERNAME}/.bashrc \
     && rm /tmp/bashprompt
 
 VOLUME /projects
-VOLUME /usr/local
+VOLUME /home/${USERNAME}/.config
 
 WORKDIR /projects/workspace
 HEALTHCHECK NONE
