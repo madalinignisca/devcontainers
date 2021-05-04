@@ -144,7 +144,7 @@ RUN mkdir -p /projects/workspace \
 RUN SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=/projects/.bash_history" \
     && echo $SNIPPET >> "/home/${USERNAME}/.bashrc"
 
-RUN CUSTOM_BASH_PROMPT="$(cat \
+RUN export CUSTOM_BASH_PROMPT="$(cat \
     <<'EOF'
     # bash prompt theme
     __bash_prompt() {
@@ -171,7 +171,7 @@ RUN CUSTOM_BASH_PROMPT="$(cat \
     __bash_prompt
     EOF
     )" \
-    && echo "${CODESPACES_BASH}" >> "${USER_RC_PATH}/.bashrc"
+    && echo "${CUSTOM_BASH_PROMPT}" >> "/home/${USERNAME}/.bashrc"
 
 VOLUME /projects
 VOLUME /usr/local
