@@ -9,14 +9,14 @@ ARG NODE_VERSION=14
 ARG PHP_VERSION=7.4
 
 LABEL maintainer="Madalin Ignisca"
-LABEL version="2.1.0"
+LABEL version="3.x"
 LABEL description="Development environment for the joy and pleasure of web developers"
 LABEL repo="https://github.com/madalinignisca/devcontainers"
 
 ADD unminimize /tmp/unminimize
 ADD https://getcomposer.org/composer-stable.phar /usr/local/bin/composer
-ADD https://deb.nodesource.com/gpgkey/nodesource.gpg.key /tmp/nodesource.gpg.key
 ADD https://dl.min.io/client/mc/release/linux-amd64/mc /usr/local/bin/minio
+ADD https://deb.nodesource.com/gpgkey/nodesource.gpg.key /tmp/nodesource.gpg.key
 
 RUN chmod 700 /tmp/unminimize \
     && /tmp/unminimize
@@ -25,20 +25,23 @@ RUN groupadd --gid ${USER_GID} ${USERNAME} \
     && useradd --create-home --shell /bin/bash --uid ${USER_UID} --gid ${USER_GID} ${USERNAME}
 
 RUN apt-get update \
-    && apt-get upgrade -y \
+    && apt-get upgrade --no-install-recommends -y \
     && apt-get install --no-install-recommends -y \
       gnupg \
       software-properties-common \
     && apt-key add /tmp/nodesource.gpg.key \
+    && rm /tmp/nodesource.gpg.key \
     && echo "deb https://deb.nodesource.com/node_${NODE_VERSION}.x $DISTRO main" | tee /etc/apt/sources.list.d/nodesource.list \
     && LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php
 
 RUN apt-get install --no-install-recommends -y \
       bash-completion \
       build-essential \
+      ca-certificates \
       curl \
       gifsicle \
       git \
+      htop \
       iproute2 \
       iputils-ping \
       iputils-tracepath \
@@ -47,6 +50,7 @@ RUN apt-get install --no-install-recommends -y \
       language-pack-en \
       less \
       libpng-dev \
+      lsof \
       man-db \
       manpages \
       mariadb-client \
@@ -54,6 +58,7 @@ RUN apt-get install --no-install-recommends -y \
       mongo-tools \
       mongodb-clients \
       nano \
+      net-tools \
       nodejs \
       openssh-client \
       openssl \
@@ -108,28 +113,39 @@ RUN apt-get install --no-install-recommends -y \
       php${PHP_VERSION}-zip \
       php${PHP_VERSION}-zstd \
       pngquant \
+      procps \
+      psmisc \
       python \
       redis-tools \
+      rsync \
       sqlite3 \
       sudo \
       unzip \
+      vim-nox \
       wget \
-      whois
+      whois \
+      zip
 
 RUN if [ "$PHP_VERSION" = "7.4" ] || [ "$PHP_VERSION" = "7.3" ] ; then apt install --no-install-recommends -y php"${PHP_VERSION}"-propro; fi
 
 RUN echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME} \
     && chmod 0440 /etc/sudoers.d/${USERNAME}
 
-RUN echo "xdebug.mode=debug\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/zz-ext-xdebug.ini \
-         "xdebug.start_with_request=no\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/zz-ext-xdebug.ini \
-         "xdebug.client_port=9000\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/zz-ext-xdebug.ini
+RUN echo "xdebug.mode=debug\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/20-xdebug.ini
 
 RUN mkdir -p /projects/workspace \
     && chown -R ${USER_UID}:${USER_GID} /projects \
-    && chown -R ${USERNAME}:${USERNAME} /usr/local \
     && chmod 755 /usr/local/bin/composer \
     && chmod 755 /usr/local/bin/minio
+
+RUN SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=/projects/.bash_history" \
+    && echo $SNIPPET >> "/home/${USERNAME}/.bashrc"
+    
+COPY bashprompt /tmp/bashprompt
+
+RUN echo /tmp/bashprompt >> /home/${USERNAME}/.bashrc \
+    && echo 'export PROMPT_DIRTRIM=4' >> /home/${USERNAME}/.bashrc \
+    && rm /tmp/bashprompt
 
 VOLUME /projects
 VOLUME /home/${USERNAME}/.config
