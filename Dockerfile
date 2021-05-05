@@ -143,9 +143,12 @@ RUN SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=/projects/.ba
     
 COPY bashprompt /tmp/bashprompt
 
-RUN echo /tmp/bashprompt >> /home/${USERNAME}/.bashrc \
+RUN cat /tmp/bashprompt >> /home/${USERNAME}/.bashrc \
     && echo 'export PROMPT_DIRTRIM=4' >> /home/${USERNAME}/.bashrc \
     && rm /tmp/bashprompt
+
+RUN mkdir -p /home/${USERNAME}/.config \
+    && chown ${USERNAME}:${USERNAME} /home/${USERNAME}/.config
 
 VOLUME /projects
 VOLUME /home/${USERNAME}/.config
