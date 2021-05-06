@@ -8,6 +8,8 @@ ARG DISTRO=focal
 ARG NODE_VERSION=14
 ARG PHP_VERSION=7.4
 
+ENV MC_HOST_local=http://minio:minio123@minio:9000
+
 LABEL maintainer="Madalin Ignisca"
 LABEL version="3.x"
 LABEL description="Development environment for the joy and pleasure of web developers"
