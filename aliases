@@ -1,0 +1,9 @@
+alias artisan="php artisan"
+alias quasar="npx quasar"
+alias ng="npx -p @angular/cli ng"
+alias yarn="npx yarn"
+
+alias gco="git checkout"
+alias grb="git branch"
+alias gst="git status"
+alias gci="git commit"
