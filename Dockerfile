@@ -160,4 +160,7 @@ HEALTHCHECK NONE
 
 ENV LANG en_US.utf8
 
+COPY ./docker-entrypoint.sh /
+ENTRYPOINT ["/docker-entrypoint.sh"]
+
 USER ${USERNAME}
