@@ -5,9 +5,9 @@ set -euo pipefail
 # password is limited by 8 characters
 : ${DEVELOPER_USERID:=1000}
 
-usermod -u $DEVELOPER_USERID developer
-groupmod -g $DEVELOPER_USERID developer
+sudo usermod -u $DEVELOPER_USERID developer
+sudo groupmod -g $DEVELOPER_USERID developer
 
-chown -R developer:developer /workspace
+sudo chown -R developer:developer /projects /home/developer
 
 exec "$@"
