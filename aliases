@@ -1,5 +1,5 @@
 alias artisan="php artisan"
-alias quasar="npx quasar"
+alias quasar="npx -p @quasar/cli quasar"
 alias ng="npx -p @angular/cli ng"
 alias yarn="npx yarn"
 
