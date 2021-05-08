@@ -7,9 +7,9 @@ services:
     command: sleep infinity
     ports:
       - "${APP_PORT:-8000}:8000"
-   cpu_count: 2
-   mem_limit: 4000000000
-   mem_swappiness: 0
+    cpu_count: 2
+    mem_limit: 4000000000
+    mem_swappiness: 0
 
   # mariadb:
   #   image: mariadb:10
