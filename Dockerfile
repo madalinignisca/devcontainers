@@ -148,6 +148,9 @@ COPY bashprompt /tmp/bashprompt
 RUN cat /tmp/bashprompt >> /home/${USERNAME}/.bashrc \
     && echo 'export PROMPT_DIRTRIM=4' >> /home/${USERNAME}/.bashrc \
     && rm /tmp/bashprompt
+    
+COPY aliases /home/${USERNAME}/.bash_aliases
+RUN chown ${USERNAME}:${USERNAME} /home/${USERNAME}/.bash_aliases
 
 RUN mkdir -p /home/${USERNAME}/.config \
     && chown ${USERNAME}:${USERNAME} /home/${USERNAME}/.config
