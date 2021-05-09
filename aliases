@@ -1,4 +1,5 @@
 alias artisan="php artisan"
+alias ace = "node ace"
 alias quasar="npx -p @quasar/cli quasar"
 alias ng="npx -p @angular/cli ng"
 alias yarn="npx yarn"
