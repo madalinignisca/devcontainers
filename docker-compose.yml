@@ -5,6 +5,8 @@ services:
   dev:
     image: 16nsk/devcontainers
     command: sleep infinity
+    volumes:
+      - projects:/projects
     ports:
       - "${APP_PORT:-8000}:8000"
     cpu_count: 2
@@ -134,7 +136,6 @@ services:
 
 volumes:
   projects:
-  user:
   # mysql:
   # postgres:
   # mongo:
