@@ -27,6 +27,21 @@ services:
   #   cpu_count: 1
   #   mem_limit: 1000000000
   #   mem_swappiness: 0
+  
+  # mysql:
+  #   image: mysql:8
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=root
+  #     - MYSQL_DATABASE=developer
+  #     - MYSQL_USER=developer
+  #     - MYSQL_PASSWORD=developer
+  #   volumes:
+  #     - mysql:/var/lib/mysql
+  #   ports:
+  #     - "${FORWARD_DB_PORT:-3306}:3306"
+  #   cpu_count: 1
+  #   mem_limit: 1000000000
+  #   mem_swappiness: 0
 
   # postgres:
   #   image: postgres:13
@@ -45,7 +60,7 @@ services:
   
   # This is Postgresql with Postgis preenabled
   # postgis:
-  #   image: postgis/postgis:13-3.0-alpine
+  #   image: postgis/postgis:13-3.1-alpine
   #   environment:
   #     - POSTGRES_PASSWORD=developer
   #     - POSTGRES_USER=developer
@@ -74,16 +89,31 @@ services:
   #   mem_swappiness: 0
 
   # elasticsearch:
-  #   image: elasticsearch:7.12.0
+  #   image: elasticsearch:7.12.1
   #   environment:
   #     - discovery.type=single-node
   #   ports:
-  #     - "${FORWARD_DB_PORT:-9200}:9200"
+  #     - "${FORWARD_ES_PORT:-9200}:9200"
   #   volumes:
   #     - elasticsearch:/usr/share/elasticsearch/data
   #   cpu_count: 1
   #   mem_limit: 1000000000
   #   mem_swappiness: 0
+  
+  # kibana:
+  #   image: kibana:7.12.1
+  #   environment:
+  #     - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+  #   ports:
+  #     - "${FORWARD_KIBANA_PORT:-5601}:5601
+  #   cpu_count: 1
+  #   mem_limit: 1000000000
+  #   mem_swappiness: 0
+  
+  # rabbitmq:
+  #   image: rabbitmq:3-management-alpine
+  #   ports:
+  #     - "${FORWARD_RABBITMQ_PORT:-15672}:15672
   
   # redis:
   #   image: redis:6-alpine
