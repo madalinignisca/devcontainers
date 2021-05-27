@@ -27,7 +27,7 @@ services:
   #   cpu_count: 1
   #   mem_limit: 1000000000
   #   mem_swappiness: 0
-  
+
   # mysql:
   #   image: mysql:8
   #   environment:
@@ -57,7 +57,7 @@ services:
   #   cpu_count: 1
   #   mem_limit: 1000000000
   #   mem_swappiness: 0
-  
+
   # This is Postgresql with Postgis preenabled
   # postgis:
   #   image: postgis/postgis:13-3.1-alpine
@@ -99,7 +99,7 @@ services:
   #   cpu_count: 1
   #   mem_limit: 1000000000
   #   mem_swappiness: 0
-  
+
   # kibana:
   #   image: kibana:7.12.1
   #   environment:
@@ -109,24 +109,24 @@ services:
   #   cpu_count: 1
   #   mem_limit: 1000000000
   #   mem_swappiness: 0
-  
+
   # rabbitmq:
   #   image: rabbitmq:3-management-alpine
   #   ports:
   #     - "${FORWARD_RABBITMQ_PORT:-15672}:15672
-  
+
   # redis:
   #   image: redis:6-alpine
   #   cpu_count: 1
   #   mem_limit: 500000000
   #   mem_swappiness: 0
-  
+
   # memcached:
   #   image: memcached:1-alpine
   #   cpu_count: 1
   #   mem_limit: 500000000
   #   mem_swappiness: 0
-  
+
   # mailhog:
   #   image: mailhog/mailhog
   #   ports:
@@ -164,6 +164,31 @@ services:
   #   mem_limit: 500000000
   #   mem_swappiness: 0
 
+  # xhgui:
+  #   image: xhgui/xhgui:0.18.1
+  #   volumes:
+  #     - ./xhgui/config:/var/www/xhgui/config
+  #     - ./xhgui/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+  #   environment:
+  #     - XHGUI_MONGO_HOSTNAME=xhguidata
+  #     - XHGUI_MONGO_DATABASE=xhprof
+  #   ports:
+  #     - "8142:80"
+  #   cpu_count: 1
+  #   mem_limit: 500000000
+  #   mem_swappiness: 0
+
+  # xhguidata:
+  #   image: percona/percona-server-mongodb:3.6
+  #   environment:
+  #     - MONGO_INITDB_DATABASE=xhprof
+  #   volumes:
+  #     - ./xhgui/mongo.init.d:/docker-entrypoint-initdb.d
+  #     - xhguidata:/data/db
+  #   cpu_count: 1
+  #   mem_limit: 1000000000
+  #   mem_swappiness: 0
+
 volumes:
   projects:
   # mysql:
@@ -171,3 +196,4 @@ volumes:
   # mongo:
   # elasticsearch:
   # minio:
+  # xhguidata:

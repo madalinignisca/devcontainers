@@ -1,6 +1,6 @@
 {
     "name": "PHPNODE",
-    "dockerComposeFile": "docker-compose.yml",
+    "dockerComposeFile": "../docker-compose.yml",
     "service": "dev",
     "workspaceFolder": "/projects/workspace",
     "shutdownAction": "stopCompose",
