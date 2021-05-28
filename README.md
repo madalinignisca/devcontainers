@@ -15,6 +15,9 @@ Rename the directory with something suitable for your project
 Change name in `.devcontainer/devcontainer.json` for your project.
 (This will keep your projects storage isolated between them)
 
+Remove the `.github` directory. It contains automated build recipes for github, and will simply run
+them if you use github.
+
 Uncomment/add needed services in `docker-compose.yml`.
 Tweak the cpu and memory limits to your needs. The defaults are sensible enough for Laravel, Drupal, Magento, Prestashop
 on medium to large applications. I've provided them, as I sometimes had problems when using multiple databases and an
