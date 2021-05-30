@@ -140,6 +140,10 @@ RUN mkdir -p /projects/workspace \
     && chmod 755 /usr/local/bin/composer \
     && chmod 755 /usr/local/bin/minio
 
+RUN wget https://get.symfony.com/cli/installer -O - | bash \
+    && mv ~/.symfony/bin/symfony /usr/local/bin/symfony \
+    && rm -rf ~/.symfony
+
 RUN SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=/projects/.bash_history" \
     && echo $SNIPPET >> "/home/${USERNAME}/.bashrc"
     
