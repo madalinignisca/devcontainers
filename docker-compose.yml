@@ -117,6 +117,9 @@ services:
 
   # redis:
   #   image: redis:6-alpine
+  #   volumes:
+  #     - redis:/data
+  #   command: redis-server --appendonly yes
   #   cpu_count: 1
   #   mem_limit: 500000000
   #   mem_swappiness: 0
