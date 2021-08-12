@@ -159,8 +159,13 @@ RUN chown ${USERNAME}:${USERNAME} /home/${USERNAME}/.bash_aliases
 RUN mkdir -p /home/${USERNAME}/.config \
     && chown ${USERNAME}:${USERNAME} /home/${USERNAME}/.config
 
+RUN mkdir -p /home/${USERNAME}/.ssh \
+    && chown ${USERNAME}:${USERNAME} /home/${USERNAME}/.ssh \
+    && chmod 700 /home/${USERNAME}/.ssh
+
 VOLUME /projects
 VOLUME /home/${USERNAME}/.config
+VOLUME /home/${USERNAME}/.ssh
 
 WORKDIR /projects/workspace
 HEALTHCHECK NONE
