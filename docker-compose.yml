@@ -13,7 +13,7 @@ services:
     mem_limit: 4000000000
     mem_swappiness: 0
 
-  # mariadb:
+  # maria:
   #   image: mariadb:10
   #   environment:
   #     - MYSQL_ROOT_PASSWORD=root
@@ -21,45 +21,15 @@ services:
   #     - MYSQL_USER=developer
   #     - MYSQL_PASSWORD=developer
   #   volumes:
-  #     - mysql:/var/lib/mysql
+  #     - mariadb:/var/lib/mysql
   #   ports:
   #     - "${FORWARD_DB_PORT:-3306}:3306"
-  #   cpu_count: 1
-  #   mem_limit: 1000000000
-  #   mem_swappiness: 0
-
-  # mysql:
-  #   image: mysql:8
-  #   environment:
-  #     - MYSQL_ROOT_PASSWORD=root
-  #     - MYSQL_DATABASE=developer
-  #     - MYSQL_USER=developer
-  #     - MYSQL_PASSWORD=developer
-  #   volumes:
-  #     - mysql:/var/lib/mysql
-  #   ports:
-  #     - "${FORWARD_DB_PORT:-3306}:3306"
-  #   cpu_count: 1
-  #   mem_limit: 1000000000
-  #   mem_swappiness: 0
-
-  # postgres:
-  #   image: postgres:13
-  #   environment:
-  #     - POSTGRES_PASSWORD=developer
-  #     - POSTGRES_USER=developer
-  #     - POSTGRES_DB=developer
-  #     - PGDATA=/var/lib/postgresql/data/pgdata
-  #   ports:
-  #     - "${FORWARD_DB_PORT:-5432}:5432"
-  #   volumes:
-  #     - postgres:/var/lib/postgresql/data
   #   cpu_count: 1
   #   mem_limit: 1000000000
   #   mem_swappiness: 0
 
   # This is Postgresql with Postgis preenabled
-  # postgis:
+  # postgres:
   #   image: postgis/postgis:13-3.1-alpine
   #   environment:
   #     - POSTGRES_PASSWORD=developer
@@ -74,22 +44,8 @@ services:
   #   mem_limit: 1000000000
   #   mem_swappiness: 0
 
-  # mongo:
-  #   image: mongo:4
-  #   environment:
-  #     - MONGO_INITDB_ROOT_USERNAME=root
-  #     - MONGO_INITDB_ROOT_PASSWORD=root
-  #     - MONGO_INITDB_DATABASE=developer
-  #   ports:
-  #     - "${FORWARD_MONGO_PORT:-27017}:27017"
-  #   volumes:
-  #     - mongo:/data/db
-  #   cpu_count: 1
-  #   mem_limit: 1000000000
-  #   mem_swappiness: 0
-
   # elasticsearch:
-  #   image: elasticsearch:7.12.1
+  #   image: elasticsearch:7.14.0
   #   environment:
   #     - discovery.type=single-node
   #   ports:
@@ -97,35 +53,14 @@ services:
   #   volumes:
   #     - elasticsearch:/usr/share/elasticsearch/data
   #   cpu_count: 1
-  #   mem_limit: 1000000000
+  #   mem_limit: 2000000000
   #   mem_swappiness: 0
-
-  # kibana:
-  #   image: kibana:7.12.1
-  #   environment:
-  #     - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
-  #   ports:
-  #     - "${FORWARD_KIBANA_PORT:-5601}:5601
-  #   cpu_count: 1
-  #   mem_limit: 1000000000
-  #   mem_swappiness: 0
-
-  # rabbitmq:
-  #   image: rabbitmq:3-management-alpine
-  #   ports:
-  #     - "${FORWARD_RABBITMQ_PORT:-15672}:15672
 
   # redis:
   #   image: redis:6-alpine
   #   volumes:
   #     - redis:/data
   #   command: redis-server --appendonly yes
-  #   cpu_count: 1
-  #   mem_limit: 500000000
-  #   mem_swappiness: 0
-
-  # memcached:
-  #   image: memcached:1-alpine
   #   cpu_count: 1
   #   mem_limit: 500000000
   #   mem_swappiness: 0
@@ -138,65 +73,19 @@ services:
   #   mem_limit: 500000000
   #   mem_swappiness: 0
 
-  # minio:
-  #   image: minio/minio
-  #   environment:
-  #     - MINIO_ACCESS_KEY=minio
-  #     - MINIO_SECRET_KEY=minio123
-  #   command: minio server /data
-  #   ports:
-  #     - "${FORWARD_MINIO_PORT:-9000}:9000"
-  #   volumes:
-  #     - minio:/data
-  #   healthcheck:
-  #     test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
-  #     interval: 30s
-  #     timeout: 20s
-  #     retries: 3
-  #   cpu_count: 1
-  #   mem_limit: 1000000000
-  #   mem_swappiness: 0
-
   # adminer:
   #   image: adminer
   #   environment:
-  #     - ADMINER_DEFAULT_SERVER=mariadb
+  #     - ADMINER_DEFAULT_SERVER=maria
   #   ports:
   #     - "${FORWARD_ADMINER_PORT:-8080}:8080"
   #   cpu_count: 1
   #   mem_limit: 500000000
   #   mem_swappiness: 0
 
-  # xhgui:
-  #   image: xhgui/xhgui:0.18.1
-  #   volumes:
-  #     - ./xhgui/config:/var/www/xhgui/config
-  #     - ./xhgui/nginx.conf:/etc/nginx/conf.d/default.conf:ro
-  #   environment:
-  #     - XHGUI_MONGO_HOSTNAME=xhguidata
-  #     - XHGUI_MONGO_DATABASE=xhprof
-  #   ports:
-  #     - "8142:80"
-  #   cpu_count: 1
-  #   mem_limit: 500000000
-  #   mem_swappiness: 0
-
-  # xhguidata:
-  #   image: percona/percona-server-mongodb:3.6
-  #   environment:
-  #     - MONGO_INITDB_DATABASE=xhprof
-  #   volumes:
-  #     - ./xhgui/mongo.init.d:/docker-entrypoint-initdb.d
-  #     - xhguidata:/data/db
-  #   cpu_count: 1
-  #   mem_limit: 1000000000
-  #   mem_swappiness: 0
-
 volumes:
   projects:
-  # mysql:
+  # maria:
   # postgres:
-  # mongo:
+  # redis:
   # elasticsearch:
-  # minio:
-  # xhguidata:
