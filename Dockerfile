@@ -26,6 +26,10 @@ RUN chmod 700 /tmp/unminimize \
 RUN groupadd --gid ${USER_GID} ${USERNAME} \
     && useradd --create-home --shell /bin/bash --uid ${USER_UID} --gid ${USER_GID} ${USERNAME}
 
+ADD .editorconfig /home/${USERNAME}
+
+RUN chown ${USERNAME}:${USERNAME} /home/${USERNAME}/.editorconfig
+
 RUN apt-get update \
     && apt-get upgrade --no-install-recommends -y \
     && apt-get install --no-install-recommends -y \
@@ -124,11 +128,15 @@ RUN apt-get install --no-install-recommends -y \
       sudo \
       unzip \
       vim-nox \
+      vim-ctrlp \
+      vim-editorconfig \
       wget \
       whois \
       zip
 
 RUN if [ "$PHP_VERSION" = "7.4" ] || [ "$PHP_VERSION" = "7.3" ] ; then apt install --no-install-recommends -y php"${PHP_VERSION}"-propro; fi
+
+RUN vim-addon-manager -w install ctrlp editorconfig
 
 RUN echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME} \
     && chmod 0440 /etc/sudoers.d/${USERNAME}
