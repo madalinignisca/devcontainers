@@ -66,7 +66,7 @@ services:
   #   mem_swappiness: 0
 
   # mailhog:
-  #   image: mailhog/mailhog
+  #   image: 16nsk/mailhog
   #   ports:
   #     - "${FORWARD_MAILHOG_PORT:-8025}:8025"
   #   cpu_count: 1
