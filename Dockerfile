@@ -127,14 +127,23 @@ RUN apt-get install --no-install-recommends -y \
       sqlite3 \
       sudo \
       unzip \
-      vim-nox \
+      vim-addon-manager \
       vim-ctrlp \
       vim-editorconfig \
+      vim-nox \
       wget \
       whois \
       zip
 
 RUN if [ "$PHP_VERSION" = "7.4" ] || [ "$PHP_VERSION" = "7.3" ] ; then apt install --no-install-recommends -y php"${PHP_VERSION}"-propro; fi
+
+# COPY vim-setup.sh /usr/local/bin/vim-setup.sh
+
+# RUN chmod 755 /usr/local/bin/vim-setup.sh \
+#     && /usr/local/bin/vim-setup.sh \
+#     && rm /usr/local/bin/vim-setup.sh
+
+RUN vim-addon-manager -w install ctrlp editorconfig
 
 RUN echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME} \
     && chmod 0440 /etc/sudoers.d/${USERNAME}
