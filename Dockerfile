@@ -1,7 +1,5 @@
 FROM ubuntu:20.04
 
-SHELL ["/bin/bash", "-c"]
-
 ARG USERNAME=developer
 ARG USER_UID=1000
 ARG USER_GID=${USER_UID}
@@ -138,12 +136,17 @@ RUN apt-get install --no-install-recommends -y \
 
 RUN if [ "$PHP_VERSION" = "7.4" ] || [ "$PHP_VERSION" = "7.3" ] ; then apt install --no-install-recommends -y php"${PHP_VERSION}"-propro; fi
 
-RUN vim-addon-manager -w install ctrlp editorconfig
+COPY vim-setup.sh /usr/local/bin/vim-setup.sh
+
+RUN chmod 755 /usr/local/bin/vim-setup.sh \
+    && /usr/local/bin/vim-setup.sh \
+    && rm /usr/local/bin/vim-setup.sh
 
 RUN echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME} \
     && chmod 0440 /etc/sudoers.d/${USERNAME}
 
-RUN echo "xdebug.mode=debug\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/20-xdebug.ini
+RUN echo "xdebug.mode=debug\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/20-xdebug.ini \
+    && echo "xdebug.cli_color=1\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/20-xdebug.ini
 
 RUN mkdir -p /projects/workspace \
     && chown -R ${USER_UID}:${USER_GID} /projects \
