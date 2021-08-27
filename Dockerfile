@@ -1,5 +1,7 @@
 FROM ubuntu:20.04
 
+SHELL ["/bin/bash", "-c"]
+
 ARG USERNAME=developer
 ARG USER_UID=1000
 ARG USER_GID=${USER_UID}
