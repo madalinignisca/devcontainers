@@ -21,7 +21,7 @@ services:
   #     - MYSQL_USER=developer
   #     - MYSQL_PASSWORD=developer
   #   volumes:
-  #     - mariadb:/var/lib/mysql
+  #     - maria:/var/lib/mysql
   #   ports:
   #     - "${FORWARD_DB_PORT:-3306}:3306"
   #   cpu_count: 1
