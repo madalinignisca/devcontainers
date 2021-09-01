@@ -43,20 +43,26 @@ RUN apt-get update \
       gnupg \
       lsb-release \
       openssl \
-      software-properties-common \
-    && apt-key adv --fetch-keys 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key' \
-    && echo "deb https://deb.nodesource.com/node_${NODE_VERSION}.x $(lsb_release -cs) main" > /etc/apt/sources.list.d/nodesource.list  \
-    && apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc' \
-    && echo "deb  http://ftp.hosteurope.de/mirror/mariadb.org/repo/${MARIADB_VERSION}/${DISTRO} $(lsb_release -cs) main" > /etc/apt/sources.list.d/mariadb.list  \
-    && apt-key adv --fetch-keys 'https://www.postgresql.org/media/keys/ACCC4CF8.asc' \
-    && echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list \
-    && apt-key adv --fetch-keys "https://www.mongodb.org/static/pgp/server-${MONGODB_VERSION}.asc" \
-    && echo "deb https://repo.mongodb.org/apt/${DISTRO} $(lsb_release -cs)/mongodb-org/${MONGODB_VERSION} multiverse" > /etc/apt/sources.list.d/mongodb.list \
-    && add-apt-repository -n ppa:ondrej/php \
-    && add-apt-repository -n ppa:redislabs/redis \
-    && apt update
+      software-properties-common
+      
+RUN apt-key adv --fetch-keys 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key' \
+    && echo "deb https://deb.nodesource.com/node_${NODE_VERSION}.x $(lsb_release -cs) main" > /etc/apt/sources.list.d/nodesource.list
+    
+RUN apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc' \
+    && echo "deb  http://ftp.hosteurope.de/mirror/mariadb.org/repo/${MARIADB_VERSION}/${DISTRO} $(lsb_release -cs) main" > /etc/apt/sources.list.d/mariadb.list
 
-RUN apt-get install --no-install-recommends -y \
+RUN apt-key adv --fetch-keys 'https://www.postgresql.org/media/keys/ACCC4CF8.asc' \
+    && echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list
+
+RUN apt-key adv --fetch-keys "https://www.mongodb.org/static/pgp/server-${MONGODB_VERSION}.asc" \
+    && echo "deb https://repo.mongodb.org/apt/${DISTRO} $(lsb_release -cs)/mongodb-org/${MONGODB_VERSION} multiverse" > /etc/apt/sources.list.d/mongodb.list
+
+RUN add-apt-repository -n ppa:ondrej/php
+
+RUN add-apt-repository -n ppa:redislabs/redis
+
+RUN apt update \
+    && apt-get install --no-install-recommends -y \
       bash-completion \
       build-essential \
       gifsicle \
