@@ -79,11 +79,13 @@
     },
     "extensions": [
         "EditorConfig.EditorConfig",
+        "amiralizadeh9480.laravel-extra-intellisense,
         "bmewburn.vscode-intelephense-client",
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
         "felixfbecker.php-debug",
         "octref.vetur",
+        "ryannaddy.laravel-artisan",
         "stylelint.vscode-stylelint",
     ],
     "remoteUser": "developer"
