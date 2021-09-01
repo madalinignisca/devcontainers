@@ -1,14 +1,19 @@
-FROM ubuntu:20.04
-
+ARG DISTRO=ubuntu
+ARG VERSION=20.04
 ARG USERNAME=developer
 ARG USER_UID=1000
 ARG USER_GID=${USER_UID}
 ARG DEBIAN_FRONTEND=noninteractive
-ARG DISTRO=focal
+ARG MARIADB_VERSION=10.6
+ARG POSTGRESQL_VERSION=13
+ARG MONGODB_VERSION=5.0
 ARG NODE_VERSION=14
 ARG PHP_VERSION=7.4
 
+FROM ${DISTRO}:${VERSION}
+
 ENV MC_HOST_local=http://minio:minio123@minio:9000
+ENV LC_ALL=C.UTF-8
 
 LABEL maintainer="Madalin Ignisca"
 LABEL version="3.x"
@@ -18,7 +23,6 @@ LABEL repo="https://github.com/madalinignisca/devcontainers"
 ADD unminimize /tmp/unminimize
 ADD https://getcomposer.org/composer-stable.phar /usr/local/bin/composer
 ADD https://dl.min.io/client/mc/release/linux-amd64/mc /usr/local/bin/minio
-ADD https://deb.nodesource.com/gpgkey/nodesource.gpg.key /tmp/nodesource.gpg.key
 
 RUN chmod 700 /tmp/unminimize \
     && /tmp/unminimize
@@ -33,18 +37,27 @@ RUN chown ${USERNAME}:${USERNAME} /home/${USERNAME}/.editorconfig
 RUN apt-get update \
     && apt-get upgrade --no-install-recommends -y \
     && apt-get install --no-install-recommends -y \
+      ca-certificates \
+      curl \
       gnupg \
+      lsb-release \
+      openssl \
       software-properties-common \
-    && apt-key add /tmp/nodesource.gpg.key \
-    && rm /tmp/nodesource.gpg.key \
-    && echo "deb https://deb.nodesource.com/node_${NODE_VERSION}.x $DISTRO main" | tee /etc/apt/sources.list.d/nodesource.list \
-    && LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php
+    && apt-key adv --fetch-keys 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key' \
+    && echo "deb https://deb.nodesource.com/node_${NODE_VERSION}.x $(lsb_release -cs) main" > /etc/apt/sources.list.d/nodesource.list  \
+    && apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc' \
+    && echo "deb  http://ftp.hosteurope.de/mirror/mariadb.org/repo/${MARIADB_VERSION}/${DISTRO} $(lsb_release -cs) main" > /etc/apt/sources.list.d/mariadb.list  \
+    && apt-key adv --fetch-keys 'https://www.postgresql.org/media/keys/ACCC4CF8.asc' \
+    && echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list \
+    && apt-key adv --fetch-keys "https://www.mongodb.org/static/pgp/server-${MONGODB_VERSION}.asc" \
+    && echo "deb https://repo.mongodb.org/apt/${DISTRO} $(lsb_release -cs)/mongodb-org/${MONGODB_VERSION} multiverse" > /etc/apt/sources.list.d/mongodb.list \
+    && add-apt-repository -n ppa:ondrej/php \
+    && add-apt-repository -n ppa:redislabs/redis \
+    && apt update
 
 RUN apt-get install --no-install-recommends -y \
       bash-completion \
       build-essential \
-      ca-certificates \
-      curl \
       gifsicle \
       git \
       htop \
@@ -59,17 +72,15 @@ RUN apt-get install --no-install-recommends -y \
       lsof \
       man-db \
       manpages \
-      mariadb-client \
+      mariadb-client-${MARIADB_VERSION} \
       mc \
-      mongo-tools \
-      mongodb-clients \
+      mongodb-org-shell \
+      mongodb-org-tools \
       nano \
       net-tools \
       nodejs \
       openssh-client \
-      openssl \
       optipng \
-      postgresql-client \
       php${PHP_VERSION}-amqp \
       php${PHP_VERSION}-apcu \
       php${PHP_VERSION}-bcmath \
@@ -119,6 +130,7 @@ RUN apt-get install --no-install-recommends -y \
       php${PHP_VERSION}-zip \
       php${PHP_VERSION}-zstd \
       pngquant \
+      postgresql-client-${POSTGRESQL_VERSION} \
       procps \
       psmisc \
       python \
