@@ -76,17 +76,36 @@
                 "args": ["-l"]
             }
         },
+        "todohighlight.isEnable": true,
+        "todohighlight.include": [
+            "**/*.js",
+            "**/*.jsx",
+            "**/*.ts",
+            "**/*.tsx",
+            "**/*.html",
+            "**/*.php",
+            "**/*.css",
+            "**/*.sass",
+            "**/*.scss",
+            "**/*.vue"
+        ],
     },
     "extensions": [
         "EditorConfig.EditorConfig",
-        "amiralizadeh9480.laravel-extra-intellisense,
-        "bmewburn.vscode-intelephense-client",
-        "dbaeumer.vscode-eslint",
-        "esbenp.prettier-vscode",
-        "felixfbecker.php-debug",
-        "octref.vetur",
-        "ryannaddy.laravel-artisan",
+        // "amiralizadeh9480.laravel-extra-intellisense",
+        // "bmewburn.vscode-intelephense-client",
+        // "calebporzio.better-phpunit",
+        // "dbaeumer.vscode-eslint",
+        // "eamodio.gitlens",
+        // "esbenp.prettier-vscode",
+        // "felixfbecker.php-debug",
+        // "formulahendry.auto-close-tag",
+        // "formulahendry.auto-rename-tag",
+        // "octref.vetur",
+        // "redhat.vscode-yaml",
+        // "ryannaddy.laravel-artisan",
         "stylelint.vscode-stylelint",
+        // "wayou.vscode-todo-highlight",
     ],
     "remoteUser": "developer"
 }
