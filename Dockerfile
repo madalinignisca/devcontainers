@@ -146,6 +146,7 @@ RUN apt update \
       rsync \
       sqlite3 \
       sudo \
+      time \
       unzip \
       vim-addon-manager \
       vim-ctrlp \
