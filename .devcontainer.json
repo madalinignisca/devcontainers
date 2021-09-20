@@ -1,6 +1,6 @@
 {
     "name": "PHPNODE",
-    "dockerComposeFile": "../docker-compose.yml",
+    "dockerComposeFile": "docker-compose.yml",
     "service": "dev",
     "workspaceFolder": "/projects/workspace",
     "shutdownAction": "stopCompose",
@@ -50,9 +50,9 @@
         ],
         "css.validate": false,
         "editor.formatOnPaste": true,
-        "editor.formatOnSave": true,
+        "editor.formatOnSave": false,
         "editor.codeActionsOnSave": {
-            "source.fixAll": true
+            "source.fixAll": false
         },
         "less.validate": false,
         "php.suggest.basic": false,
@@ -73,7 +73,8 @@
         "terminal.integrated.profiles.linux": {
             "bash (login)": {
                 "path": "bash",
-                "args": ["-l"]
+                "args": ["-l"],
+                "icon": "terminal-ubuntu"
             }
         },
         "todohighlight.isEnable": true,
@@ -88,24 +89,22 @@
             "**/*.sass",
             "**/*.scss",
             "**/*.vue"
-        ],
+        ]
     },
     "extensions": [
         "EditorConfig.EditorConfig",
-        // "amiralizadeh9480.laravel-extra-intellisense",
-        // "bmewburn.vscode-intelephense-client",
-        // "calebporzio.better-phpunit",
-        // "dbaeumer.vscode-eslint",
-        // "eamodio.gitlens",
-        // "esbenp.prettier-vscode",
-        // "felixfbecker.php-debug",
-        // "formulahendry.auto-close-tag",
-        // "formulahendry.auto-rename-tag",
-        // "octref.vetur",
-        // "redhat.vscode-yaml",
-        // "ryannaddy.laravel-artisan",
+        "amiralizadeh9480.laravel-extra-intellisense",
+        "bmewburn.vscode-intelephense-client",
+        "calebporzio.better-phpunit",
+        "dbaeumer.vscode-eslint",
+        "eamodio.gitlens",
+        "esbenp.prettier-vscode",
+        "felixfbecker.php-debug",
+        "formulahendry.auto-close-tag",
+        "formulahendry.auto-rename-tag",
+        "octref.vetur",
+        "ryannaddy.laravel-artisan",
         "stylelint.vscode-stylelint",
-        // "wayou.vscode-todo-highlight",
-    ],
-    "remoteUser": "developer"
+        "wayou.vscode-todo-highlight"
+    ]
 }
