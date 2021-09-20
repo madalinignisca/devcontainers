@@ -34,9 +34,7 @@ jobs:
           cat <<'EOF' > docker-bake.hcl
           group "default" {
               targets = [
-                  "8.0-16",
-                  "7.4-14",
-                  "7.3-12"
+                  "8.0-16"
               ]
           }
 
@@ -58,28 +56,6 @@ jobs:
               args = {
                   PHP_VERSION="8.0",
                   NODE_VERSION="16"
-              }
-          }
-          
-          target "7.4-14" {
-              inherits=["default"]
-              tags = [
-                  "16nsk/devcontainers:7.4-14",
-              ]
-              args = {
-                  PHP_VERSION="7.4",
-                  NODE_VERSION="14",
-              }
-          }
-          
-          target "7.3-12" {
-              inherits=["default"]
-              tags = [
-                  "16nsk/devcontainers:7.3-12",
-              ]
-              args = {
-                  PHP_VERSION="7.3",
-                  NODE_VERSION="12",
               }
           }
           EOF
