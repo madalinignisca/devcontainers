@@ -50,7 +50,6 @@ jobs:
           target "5.6-4" {
               inherits=["default"]
               tags = [
-                  "16nsk/devcontainers:latest",
                   "16nsk/devcontainers:5.6-4",
               ]
               args = {
