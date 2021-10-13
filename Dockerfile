@@ -55,7 +55,7 @@ RUN curl 'https://mariadb.org/mariadb_release_signing_key.asc' | apt-key add - \
 RUN curl 'https://www.postgresql.org/media/keys/ACCC4CF8.asc' | apt-key add - \
     && echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 
-RUN curl 'https://www.mongodb.org/static/pgp/server-${MONGODB_VERSION}.asc' | apt-key add - \
+RUN curl "https://www.mongodb.org/static/pgp/server-${MONGODB_VERSION}.asc" | apt-key add - \
     && echo "deb https://repo.mongodb.org/apt/${DISTRO} $(lsb_release -cs)/mongodb-org/${MONGODB_VERSION} multiverse" > /etc/apt/sources.list.d/mongodb.list
 
 RUN add-apt-repository -n ppa:ondrej/php
