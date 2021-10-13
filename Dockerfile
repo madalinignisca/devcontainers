@@ -1,13 +1,21 @@
-FROM debian:10
+ARG IMAGE=debian
+ARG VERSION=11
 
+FROM ${IMAGE}:${VERSION}
+
+ARG DISTRO=debian
 ARG USERNAME=developer
 ARG USER_UID=1000
-ARG USER_GID=${USER_UID}
+ARG USER_GID=1000
 ARG DEBIAN_FRONTEND=noninteractive
+ARG MARIADB_VERSION=10.6
+ARG POSTGRESQL_VERSION=13
+ARG MONGODB_VERSION=5.0
 ARG NODE_VERSION=14
 ARG PHP_VERSION=7.4
 
 ENV MC_HOST_local=http://minio:minio123@minio:9000
+ENV LC_ALL=C.UTF-8
 
 LABEL maintainer="Madalin Ignisca"
 LABEL version="4.x"
@@ -26,18 +34,41 @@ RUN chmod 700 /tmp/unminimize \
 RUN groupadd --gid ${USER_GID} ${USERNAME} \
     && useradd --create-home --shell /bin/bash --uid ${USER_UID} --gid ${USER_GID} ${USERNAME}
 
+ADD .editorconfig /home/${USERNAME}
+
+RUN chown ${USERNAME}:${USERNAME} /home/${USERNAME}/.editorconfig
+
 RUN apt-get update \
     && apt-get upgrade --no-install-recommends -y \
     && apt-get install --no-install-recommends -y \
-      gnupg apt-transport-https lsb-release ca-certificates curl \
-    && echo "deb https://deb.nodesource.com/node_${NODE_VERSION}.x $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/nodesource.list \
-    && echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php.list
-
-RUN apt-get install --no-install-recommends -y \
-      bash-completion \
-      build-essential \
       ca-certificates \
       curl \
+      gnupg \
+      lsb-release \
+      openssl \
+      software-properties-common
+
+RUN gnupg apt-transport-https lsb-release ca-certificates curl \
+    && echo "deb https://deb.nodesource.com/node_${NODE_VERSION}.x $(lsb_release -sc) main" > /etc/apt/sources.list.d/nodesource.list \
+    && echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list
+    
+RUN apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc' \
+    && echo "deb  http://ftp.hosteurope.de/mirror/mariadb.org/repo/${MARIADB_VERSION}/${DISTRO} $(lsb_release -cs) main" > /etc/apt/sources.list.d/mariadb.list
+
+RUN apt-key adv --fetch-keys 'https://www.postgresql.org/media/keys/ACCC4CF8.asc' \
+    && echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list
+
+RUN apt-key adv --fetch-keys "https://www.mongodb.org/static/pgp/server-${MONGODB_VERSION}.asc" \
+    && echo "deb https://repo.mongodb.org/apt/${DISTRO} $(lsb_release -cs)/mongodb-org/${MONGODB_VERSION} multiverse" > /etc/apt/sources.list.d/mongodb.list
+
+RUN curl https://packages.redis.io/gpg | apt-key add - \
+    && echo "deb https://packages.redis.io/deb $(lsb_release -cs) main" > /etc/apt/sources.list.d/redis.list
+
+
+RUN apt update \
+    && apt-get install --no-install-recommends -y \
+      bash-completion \
+      build-essential \
       gifsicle \
       git \
       htop \
@@ -52,17 +83,15 @@ RUN apt-get install --no-install-recommends -y \
       lsof \
       man-db \
       manpages \
-      mariadb-client \
+      mariadb-client-${MARIADB_VERSION} \
       mc \
-      mongo-tools \
-      mongodb-clients \
+      mongodb-org-shell \
+      mongodb-org-tools \
       nano \
       net-tools \
       nodejs \
       openssh-client \
-      openssl \
       optipng \
-      postgresql-client \
       php${PHP_VERSION}-amqp \
       php${PHP_VERSION}-apcu \
       php${PHP_VERSION}-bcmath \
@@ -112,6 +141,7 @@ RUN apt-get install --no-install-recommends -y \
       php${PHP_VERSION}-zip \
       php${PHP_VERSION}-zstd \
       pngquant \
+      postgresql-client-${POSTGRESQL_VERSION} \
       procps \
       psmisc \
       python \
@@ -119,7 +149,11 @@ RUN apt-get install --no-install-recommends -y \
       rsync \
       sqlite3 \
       sudo \
+      time \
       unzip \
+      vim-addon-manager \
+      vim-ctrlp \
+      vim-editorconfig \
       vim-nox \
       wget \
       whois \
@@ -127,10 +161,13 @@ RUN apt-get install --no-install-recommends -y \
 
 RUN if [ "$PHP_VERSION" = "7.4" ] || [ "$PHP_VERSION" = "7.3" ] ; then apt install --no-install-recommends -y php"${PHP_VERSION}"-propro; fi
 
+RUN vim-addon-manager -w install ctrlp editorconfig
+
 RUN echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME} \
     && chmod 0440 /etc/sudoers.d/${USERNAME}
 
-RUN echo "xdebug.mode=debug\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/20-xdebug.ini
+RUN echo "xdebug.mode=debug\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/20-xdebug.ini \
+    && echo "xdebug.cli_color=1\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/20-xdebug.ini
 
 RUN mkdir -p /projects/workspace \
     && chown -R ${USER_UID}:${USER_GID} /projects \
@@ -156,8 +193,13 @@ RUN chown ${USERNAME}:${USERNAME} /home/${USERNAME}/.bash_aliases
 RUN mkdir -p /home/${USERNAME}/.config \
     && chown ${USERNAME}:${USERNAME} /home/${USERNAME}/.config
 
+RUN mkdir -p /home/${USERNAME}/.ssh \
+    && chown ${USERNAME}:${USERNAME} /home/${USERNAME}/.ssh \
+    && chmod 700 /home/${USERNAME}/.ssh
+
 VOLUME /projects
 VOLUME /home/${USERNAME}/.config
+VOLUME /home/${USERNAME}/.ssh
 
 WORKDIR /projects/workspace
 HEALTHCHECK NONE

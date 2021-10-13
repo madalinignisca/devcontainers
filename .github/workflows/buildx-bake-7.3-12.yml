@@ -7,7 +7,7 @@ on:
     branches: master
 
 jobs:
-  buildx:
+  buildx7312:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -34,7 +34,7 @@ jobs:
           cat <<'EOF' > docker-bake.hcl
           group "default" {
               targets = [
-                  "8.0-16"
+                  "7.3-12"
               ]
           }
 
@@ -47,15 +47,14 @@ jobs:
               ]
           }
           
-          target "8.0-16" {
+          target "7.3-12" {
               inherits=["default"]
               tags = [
-                  "16nsk/devcontainers:latest",
-                  "16nsk/devcontainers:8.0-16",
+                  "16nsk/devcontainers:7.3-12",
               ]
               args = {
-                  PHP_VERSION="8.0",
-                  NODE_VERSION="16"
+                  PHP_VERSION="7.3",
+                  NODE_VERSION="12",
               }
           }
           EOF

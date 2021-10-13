@@ -1,7 +1,7 @@
 # devcontainers
 Devcontainers or Codespace with optimizations for PHP and Nodejs development.
 
-Laravel, Symfony, NestJS, SailsJS, WordPress, Drupal, Magento,
+Laravel, Symfony, CakePHP, Codeigniter, AdonisJS, NestJS, SailsJS, WordPress, Drupal, Magento,
 Prestashop, Opencart compatible and possible any NodeJS and PHP project.
 
 ## Getting started:

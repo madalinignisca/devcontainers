@@ -1,4 +1,6 @@
 alias artisan="php artisan"
+alias phpdbgreq="php -dxdebug.mode=debug -dxdebug.start_with_request=yes -dxdebug.client_host=host.docker.internal"
+alias phpdbgcli="XDEBUG_SESSION=1 php -dxdebug.mode=debug -dxdebug.client_host=host.docker.internal"
 alias ace="node ace"
 alias quasar="npx -p @quasar/cli quasar"
 alias ng="npx -p @angular/cli ng"
