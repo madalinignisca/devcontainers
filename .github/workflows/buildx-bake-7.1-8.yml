@@ -7,7 +7,7 @@ on:
     branches: master
 
 jobs:
-  buildx70:
+  buildx71:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -55,6 +55,7 @@ jobs:
               args = {
                   PHP_VERSION="7.1",
                   NODE_VERSION="8",
+                  VERSION=18.04,
               }
           }
           EOF
