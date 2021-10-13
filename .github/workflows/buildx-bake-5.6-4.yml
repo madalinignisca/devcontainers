@@ -54,7 +54,8 @@ jobs:
               ]
               args = {
                   PHP_VERSION="5.6",
-                  NODE_VERSION="4"
+                  NODE_VERSION="4",
+                  VERSION=18.04,
               }
           }
           EOF
