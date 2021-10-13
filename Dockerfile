@@ -41,14 +41,13 @@ RUN chown ${USERNAME}:${USERNAME} /home/${USERNAME}/.editorconfig
 RUN apt-get update \
     && apt-get upgrade --no-install-recommends -y \
     && apt-get install --no-install-recommends -y \
+      apt-transport-https \
       ca-certificates \
       curl \
       gnupg \
       lsb-release \
       openssl \
-      software-properties-common
-
-RUN gnupg apt-transport-https lsb-release ca-certificates curl \
+      software-properties-common \
     && echo "deb https://deb.nodesource.com/node_${NODE_VERSION}.x $(lsb_release -sc) main" > /etc/apt/sources.list.d/nodesource.list \
     && echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list
     
