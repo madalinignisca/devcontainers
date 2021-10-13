@@ -60,7 +60,7 @@ RUN apt-key adv --fetch-keys 'https://www.postgresql.org/media/keys/ACCC4CF8.asc
     && echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 
 RUN apt-key adv --fetch-keys "https://www.mongodb.org/static/pgp/server-${MONGODB_VERSION}.asc" \
-    && echo "deb https://repo.mongodb.org/apt/${DISTRO} $(lsb_release -cs)/mongodb-org/${MONGODB_VERSION} multiverse" > /etc/apt/sources.list.d/mongodb.list
+    && echo "deb https://repo.mongodb.org/apt/${DISTRO} $(lsb_release -cs)/mongodb-org/${MONGODB_VERSION} main multiverse" > /etc/apt/sources.list.d/mongodb.list
 
 RUN curl https://packages.redis.io/gpg | apt-key add - \
     && echo "deb https://packages.redis.io/deb $(lsb_release -cs) main" > /etc/apt/sources.list.d/redis.list
@@ -78,7 +78,6 @@ RUN apt update \
       iputils-tracepath \
       jq \
       jpegoptim \
-      language-pack-en \
       less \
       libpng-dev \
       lsof \
