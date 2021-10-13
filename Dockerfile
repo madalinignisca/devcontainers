@@ -37,8 +37,8 @@ ADD .editorconfig /home/${USERNAME}
 RUN chown ${USERNAME}:${USERNAME} /home/${USERNAME}/.editorconfig
 
 RUN apt-get update \
-    && apt-get upgrade --no-install-recommends -y \
-    && apt-get install --no-install-recommends -y \
+    && apt-get upgrade -y \
+    && apt-get install -y \
       ca-certificates \
       curl \
       gnupg \
@@ -63,7 +63,7 @@ RUN add-apt-repository -n ppa:ondrej/php
 RUN add-apt-repository -n ppa:redislabs/redis
 
 RUN apt update \
-    && apt-get install --no-install-recommends -y \
+    && apt-get install -y \
       bash-completion \
       build-essential \
       gifsicle \
@@ -107,7 +107,6 @@ RUN apt update \
       php${PHP_VERSION}-ldap \
       php${PHP_VERSION}-lz4 \
       php${PHP_VERSION}-mailparse \
-      php${PHP_VERSION}-maxminddb \
       php${PHP_VERSION}-mbstring \
       php${PHP_VERSION}-mcrypt \
       php${PHP_VERSION}-memcached \
@@ -115,7 +114,6 @@ RUN apt update \
       php${PHP_VERSION}-msgpack \
       php${PHP_VERSION}-mysql \
       php${PHP_VERSION}-oauth \
-      php${PHP_VERSION}-pcov \
       php${PHP_VERSION}-pgsql \
       php${PHP_VERSION}-protobuf \
       php${PHP_VERSION}-psr \
@@ -156,7 +154,9 @@ RUN apt update \
       whois \
       zip
 
-RUN if [ "$PHP_VERSION" = "7.4" ] || [ "$PHP_VERSION" = "7.3" ] ; then apt install --no-install-recommends -y php"${PHP_VERSION}"-propro; fi
+RUN if [ "$PHP_VERSION" eq "7.4" ] || [ "$PHP_VERSION" eq "7.3" ] ; then apt install -y php"${PHP_VERSION}"-propro; fi
+
+RUN if [ "$PHP_VERSION" -eq "7.0" ] ; then apt install php"${PHP_VERSION}"-maxminddb php"${PHP_VERSION}"-pcov; fi
 
 # COPY vim-setup.sh /usr/local/bin/vim-setup.sh
 
