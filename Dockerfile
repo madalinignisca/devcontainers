@@ -46,16 +46,16 @@ RUN apt-get update \
       openssl \
       software-properties-common
       
-RUN apt-key adv --fetch-keys 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key' \
+RUN apt-key adv --fetch-keys 'http://deb.nodesource.com/gpgkey/nodesource.gpg.key' \
     && echo "deb https://deb.nodesource.com/node_${NODE_VERSION}.x $(lsb_release -cs) main" > /etc/apt/sources.list.d/nodesource.list
     
-RUN apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc' \
+RUN apt-key adv --fetch-keys 'http://mariadb.org/mariadb_release_signing_key.asc' \
     && echo "deb  http://ftp.hosteurope.de/mirror/mariadb.org/repo/${MARIADB_VERSION}/${DISTRO} $(lsb_release -cs) main" > /etc/apt/sources.list.d/mariadb.list
 
-RUN apt-key adv --fetch-keys 'https://www.postgresql.org/media/keys/ACCC4CF8.asc' \
+RUN apt-key adv --fetch-keys 'http://www.postgresql.org/media/keys/ACCC4CF8.asc' \
     && echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 
-RUN apt-key adv --fetch-keys "https://www.mongodb.org/static/pgp/server-${MONGODB_VERSION}.asc" \
+RUN apt-key adv --fetch-keys "http://www.mongodb.org/static/pgp/server-${MONGODB_VERSION}.asc" \
     && echo "deb https://repo.mongodb.org/apt/${DISTRO} $(lsb_release -cs)/mongodb-org/${MONGODB_VERSION} multiverse" > /etc/apt/sources.list.d/mongodb.list
 
 RUN add-apt-repository -n ppa:ondrej/php
