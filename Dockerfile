@@ -50,7 +50,7 @@ RUN apt-get update \
 RUN apt-key adv --fetch-keys 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key' \
     && echo "deb https://deb.nodesource.com/node_${NODE_VERSION}.x $(lsb_release -sc) main" > /etc/apt/sources.list.d/nodesource.list
 
-RUN apt-key adv --fetch-keys 'https://packages.sury.org/php/apt.gpg /etc/apt/trusted.gpg.d/php.gpg' \
+RUN apt-key adv --fetch-keys 'https://packages.sury.org/php/apt.gpg' \
     && echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list
     
 RUN apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc' \
