@@ -25,8 +25,6 @@ LABEL repo="https://github.com/madalinignisca/devcontainers"
 ADD unminimize /tmp/unminimize
 ADD https://getcomposer.org/composer-stable.phar /usr/local/bin/composer
 ADD https://dl.min.io/client/mc/release/linux-amd64/mc /usr/local/bin/minio
-ADD https://deb.nodesource.com/gpgkey/nodesource.gpg.key /etc/apt/trusted.gpg.d/nodesource.gpg
-ADD https://packages.sury.org/php/apt.gpg /etc/apt/trusted.gpg.d/php.gpg
 
 RUN chmod 700 /tmp/unminimize \
     && /tmp/unminimize
@@ -47,8 +45,12 @@ RUN apt-get update \
       gnupg \
       lsb-release \
       openssl \
-      software-properties-common \
-    && echo "deb https://deb.nodesource.com/node_${NODE_VERSION}.x $(lsb_release -sc) main" > /etc/apt/sources.list.d/nodesource.list \
+      software-properties-common
+
+RUN apt-key adv --fetch-keys 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key' \
+    && echo "deb https://deb.nodesource.com/node_${NODE_VERSION}.x $(lsb_release -sc) main" > /etc/apt/sources.list.d/nodesource.list
+
+RUN apt-key adv --fetch-keys 'https://packages.sury.org/php/apt.gpg /etc/apt/trusted.gpg.d/php.gpg' \
     && echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list
     
 RUN apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc' \
