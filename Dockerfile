@@ -161,6 +161,8 @@ RUN apt update \
 
 RUN if [ "$PHP_VERSION" = "7.4" ] || [ "$PHP_VERSION" = "7.3" ] ; then apt install --no-install-recommends -y php"${PHP_VERSION}"-propro; fi
 
+RUN if [ $(arch) -eq "aarch64" ] ; then apt install mongodb-org-shell mongodb-org-tools; fi
+
 RUN vim-addon-manager -w install ctrlp editorconfig
 
 RUN echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME} \
