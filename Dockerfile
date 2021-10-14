@@ -156,7 +156,7 @@ RUN if [ "$PHP_VERSION" eq "7.4" ] || [ "$PHP_VERSION" eq "7.3" ] ; then apt ins
 
 RUN if [ "$PHP_VERSION" -eq "7.0" ] ; then apt install php"${PHP_VERSION}"-maxminddb php"${PHP_VERSION}"-pcov; fi
 
-RUN if [ $(arch) eq "x86_64" ] ; then apt install mongodb-org-shell mongodb-org-tools; fi
+RUN if [ $(arch) -eq "aarch64" ] && [ "$DISTRO" -eq "debian" ] ; then apt install mongodb-org-shell mongodb-org-tools; fi
 
 # COPY vim-setup.sh /usr/local/bin/vim-setup.sh
 
