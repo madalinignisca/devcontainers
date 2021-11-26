@@ -9,16 +9,15 @@ ARG USER_UID=1000
 ARG USER_GID=1000
 ARG DEBIAN_FRONTEND=noninteractive
 ARG MARIADB_VERSION=10.6
-ARG POSTGRESQL_VERSION=13
-ARG MONGODB_VERSION=5.0
-ARG NODE_VERSION=14
-ARG PHP_VERSION=7.4
+ARG POSTGRESQL_VERSION=14
+ARG NODE_VERSION=16
+ARG PHP_VERSION=8.1
 
 ENV MC_HOST_local=http://minio:minio123@minio:9000
 ENV LC_ALL=C.UTF-8
 
 LABEL maintainer="Madalin Ignisca"
-LABEL version="3.x"
+LABEL version="4.x"
 LABEL description="Development environment for the joy and pleasure of web developers"
 LABEL repo="https://github.com/madalinignisca/devcontainers"
 
@@ -54,9 +53,6 @@ RUN curl 'https://mariadb.org/mariadb_release_signing_key.asc' | apt-key add - \
 
 RUN curl 'https://www.postgresql.org/media/keys/ACCC4CF8.asc' | apt-key add - \
     && echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list
-
-RUN curl "https://www.mongodb.org/static/pgp/server-${MONGODB_VERSION}.asc" | apt-key add - \
-    && echo "deb https://repo.mongodb.org/apt/${DISTRO} $(lsb_release -cs)/mongodb-org/${MONGODB_VERSION} multiverse" > /etc/apt/sources.list.d/mongodb.list
 
 RUN add-apt-repository -n ppa:ondrej/php
 
@@ -113,6 +109,8 @@ RUN apt update \
       php${PHP_VERSION}-mysql \
       php${PHP_VERSION}-oauth \
       php${PHP_VERSION}-pgsql \
+      php${PHP_VERSION}-maxminddb \
+      php${PHP_VERSION}-pcov \
       php${PHP_VERSION}-protobuf \
       php${PHP_VERSION}-psr \
       php${PHP_VERSION}-raphf \
@@ -152,17 +150,7 @@ RUN apt update \
       whois \
       zip
 
-RUN if [ "$PHP_VERSION" eq "7.4" ] || [ "$PHP_VERSION" eq "7.3" ] ; then apt install -y php"${PHP_VERSION}"-propro; fi
-
-RUN if [ "$PHP_VERSION" -eq "7.0" ] ; then apt install php"${PHP_VERSION}"-maxminddb php"${PHP_VERSION}"-pcov; fi
-
-RUN if [ $(arch) -eq "aarch64" ] && [ "$DISTRO" -eq "debian" ] ; then apt install mongodb-org-shell mongodb-org-tools; fi
-
-# COPY vim-setup.sh /usr/local/bin/vim-setup.sh
-
-# RUN chmod 755 /usr/local/bin/vim-setup.sh \
-#     && /usr/local/bin/vim-setup.sh \
-#     && rm /usr/local/bin/vim-setup.sh
+RUN if [ "$PHP_VERSION" eq "7.4" ] ; then apt install -y php"${PHP_VERSION}"-propro; fi
 
 RUN vim-addon-manager -w install ctrlp editorconfig
 
