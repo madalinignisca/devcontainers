@@ -1,4 +1,4 @@
-name: buildx
+name: buildx-7.4
 
 on:
   schedule:
@@ -34,7 +34,9 @@ jobs:
           cat <<'EOF' > docker-bake.hcl
           group "default" {
               targets = [
-                  "7.4-14"
+                  "7.4-12",
+                  "7.4-14",
+                  "7.4-16",
               ]
           }
 
@@ -43,8 +45,20 @@ jobs:
               dockerfile="Dockerfile"
               platforms = [
                   "linux/amd64",
-                  "linux/arm64"
+                  "linux/arm64",
+                  "linux/arm",
               ]
+          }
+          
+          target "7.4-12" {
+              inherits=["default"]
+              tags = [
+                  "16nsk/devcontainers:7.4-12",
+              ]
+              args = {
+                  PHP_VERSION="7.4",
+                  NODE_VERSION="12",
+              }
           }
           
           target "7.4-14" {
@@ -55,6 +69,17 @@ jobs:
               args = {
                   PHP_VERSION="7.4",
                   NODE_VERSION="14",
+              }
+          }
+          
+          target "7.4-16" {
+              inherits=["default"]
+              tags = [
+                  "16nsk/devcontainers:7.4-16",
+              ]
+              args = {
+                  PHP_VERSION="7.4",
+                  NODE_VERSION="16",
               }
           }
           EOF
