@@ -1,4 +1,4 @@
-name: buildx
+name: buildx-8.0
 
 on:
   schedule:
