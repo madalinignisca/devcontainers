@@ -8,8 +8,6 @@ ARG USERNAME=developer
 ARG USER_UID=1000
 ARG USER_GID=1000
 ARG DEBIAN_FRONTEND=noninteractive
-ARG MARIADB_VERSION=10.6
-ARG POSTGRESQL_VERSION=14
 ARG NODE_VERSION=16
 ARG PHP_VERSION=8.1
 
@@ -22,11 +20,14 @@ LABEL description="Development environment for the joy and pleasure of web devel
 LABEL repo="https://github.com/madalinignisca/devcontainers"
 
 ADD unminimize /tmp/unminimize
-ADD https://getcomposer.org/composer-stable.phar /usr/local/bin/composer
-ADD https://dl.min.io/client/mc/release/linux-amd64/mc /usr/local/bin/minio
-
 RUN chmod 700 /tmp/unminimize \
     && /tmp/unminimize
+
+ADD https://getcomposer.org/composer-stable.phar /usr/local/bin/composer
+RUN chmod 755 /usr/local/bin/composer
+
+ADD https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /usr/local/bin/wp
+RUN chmod 755 /usr/local/bin/wp
 
 RUN groupadd --gid ${USER_GID} ${USERNAME} \
     && useradd --create-home --shell /bin/bash --uid ${USER_UID} --gid ${USER_GID} ${USERNAME}
@@ -47,16 +48,8 @@ RUN apt-get update \
       
 RUN curl 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key' | apt-key add - \
     && echo "deb https://deb.nodesource.com/node_${NODE_VERSION}.x $(lsb_release -cs) main" > /etc/apt/sources.list.d/nodesource.list
-    
-RUN curl 'https://mariadb.org/mariadb_release_signing_key.asc' | apt-key add - \
-    && echo "deb  http://ftp.hosteurope.de/mirror/mariadb.org/repo/${MARIADB_VERSION}/${DISTRO} $(lsb_release -cs) main" > /etc/apt/sources.list.d/mariadb.list
-
-RUN curl 'https://www.postgresql.org/media/keys/ACCC4CF8.asc' | apt-key add - \
-    && echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 
 RUN add-apt-repository -n ppa:ondrej/php
-
-RUN add-apt-repository -n ppa:redislabs/redis
 
 RUN apt update \
     && apt-get install -y \
@@ -76,7 +69,7 @@ RUN apt update \
       lsof \
       man-db \
       manpages \
-      mariadb-client-${MARIADB_VERSION} \
+      mariadb-client \
       mc \
       nano \
       net-tools \
@@ -132,7 +125,7 @@ RUN apt update \
       php${PHP_VERSION}-zip \
       php${PHP_VERSION}-zstd \
       pngquant \
-      postgresql-client-${POSTGRESQL_VERSION} \
+      postgresql-client \
       procps \
       psmisc \
       python \
@@ -161,25 +154,15 @@ RUN echo "xdebug.mode=debug\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/20-xdebug.i
     && echo "xdebug.cli_color=1\n" >> /etc/php/${PHP_VERSION}/cli/conf.d/20-xdebug.ini
 
 RUN mkdir -p /projects/workspace \
-    && chown -R ${USER_UID}:${USER_GID} /projects \
-    && chmod 755 /usr/local/bin/composer \
-    && chmod 755 /usr/local/bin/minio
-
-RUN wget https://get.symfony.com/cli/installer -O - | bash \
-    && mv ~/.symfony/bin/symfony /usr/local/bin/symfony \
-    && rm -rf ~/.symfony
+    && chown -R ${USER_UID}:${USER_GID} /projects
 
 RUN SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=/projects/.bash_history" \
     && echo $SNIPPET >> "/home/${USERNAME}/.bashrc"
     
-COPY bashprompt /tmp/bashprompt
-
-RUN cat /tmp/bashprompt >> /home/${USERNAME}/.bashrc \
-    && echo 'export PROMPT_DIRTRIM=4' >> /home/${USERNAME}/.bashrc \
-    && rm /tmp/bashprompt
-    
+COPY bashprompt /home/${USERNAME}/.bashrc    
 COPY aliases /home/${USERNAME}/.bash_aliases
-RUN chown ${USERNAME}:${USERNAME} /home/${USERNAME}/.bash_aliases
+RUN chown ${USERNAME}:${USERNAME} /home/${USERNAME}/.bash_aliases \
+    && chown ${USERNAME}:${USERNAME} /home/${USERNAME}/.bash_aliases
 
 RUN mkdir -p /home/${USERNAME}/.config \
     && chown ${USERNAME}:${USERNAME} /home/${USERNAME}/.config
