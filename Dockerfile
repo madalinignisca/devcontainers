@@ -87,7 +87,6 @@ RUN apt update \
       php${PHP_VERSION}-gd \
       php${PHP_VERSION}-gmp \
       php${PHP_VERSION}-grpc \
-      php${PHP_VERSION}-http \
       php${PHP_VERSION}-imagick \
       php${PHP_VERSION}-imap \
       php${PHP_VERSION}-intl \
@@ -142,8 +141,6 @@ RUN apt update \
       wget \
       whois \
       zip
-
-RUN if [ "$PHP_VERSION" eq "7.4" ] ; then apt install -y php"${PHP_VERSION}"-propro; fi
 
 RUN vim-addon-manager -w install ctrlp editorconfig
 
