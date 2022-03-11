@@ -55,6 +55,7 @@ RUN apt update \
     && apt-get install -y \
       bash-completion \
       build-essential \
+      ffmpeg \
       git \
       htop \
       jq \
