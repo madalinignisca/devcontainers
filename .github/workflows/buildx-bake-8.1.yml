@@ -34,9 +34,9 @@ jobs:
           cat <<'EOF' > docker-bake.hcl
           group "default" {
               targets = [
-                  "8.1-12",
-                  "8.1-14",
-                  "8.1-16",
+                  "8_1-12",
+                  "8_1-14",
+                  "8_1-16",
               ]
           }
 
@@ -50,7 +50,7 @@ jobs:
               ]
           }
           
-          target "8.1-12" {
+          target "8_1-12" {
               inherits=["default"]
               tags = [
                   "16nsk/devcontainers:8.1-12",
@@ -61,7 +61,7 @@ jobs:
               }
           }
           
-          target "8.1-14" {
+          target "8_1-14" {
               inherits=["default"]
               tags = [
                   "16nsk/devcontainers:8.1-14",
@@ -72,7 +72,7 @@ jobs:
               }
           }
           
-          target "8.1-16" {
+          target "8_1-16" {
               inherits=["default"]
               tags = [
                   "16nsk/devcontainers:latest",
