@@ -9,7 +9,13 @@ Prestashop, Opencart compatible and possible any NodeJS and PHP project.
 Using a shell compatible prompt, download generate.sh and run it.
 
 PHP and Node combinations:
-...
+|    | 7.4 | 8.0 | 8.1 |
+|----|-----|-----|-----|
+| 14 | X   | X   |     |
+| 16 |     | X   | X   |
+| 18 |     |     | X   |
+
+ARM64 users, you might need to look for supported docker images alternatives for some services. Some official providers don't look into supporting ARM64 too soon.
 
 Continue with the [Wiki](https://github.com/madalinignisca/devcontainers/wiki) for advanced documentation.
 
