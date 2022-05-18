@@ -1,74 +1,10 @@
 {
     "name": "PHPNODE",
-    "dockerComposeFile": "docker-compose.yml",
+    "dockerComposeFile": "docker-compose.yaml",
     "service": "dev",
     "workspaceFolder": "/projects/workspace",
     "shutdownAction": "stopCompose",
     "settings": {
-        "attrsSorter.order": [
-            "is",
-            "v-for",
-            "v-if",
-            "v-else-if",
-            "v-else",
-            "v-show",
-            "v-cloak",
-            "v-once",
-            "v-pre",
-            "id",
-            "ref",
-            "key",
-            "v-slot",
-            "v-slot.+",
-            "#.*",
-            "slot",
-            "v-model",
-            "v-model.+",
-            "v-bind",
-            "v-bind.+",
-            ":.+",
-            "v-text",
-            "v-text.+",
-            "v-html",
-            "v-html.+",
-            "class",
-            "v-on.+",
-            "@.+",
-            "name",
-            "data-.+",
-            "ng-.+",
-            "src",
-            "for",
-            "type",
-            "href",
-            "values",
-            "title",
-            "alt",
-            "role",
-            "aria-.+",
-            "$unknown$"
-        ],
-        "css.validate": false,
-        "editor.formatOnPaste": true,
-        "editor.formatOnSave": false,
-        "editor.codeActionsOnSave": {
-            "source.fixAll": false
-        },
-        "less.validate": false,
-        "php.suggest.basic": false,
-        "vetur.format.defaultFormatter.html": "prettyhtml",
-        "vetur.format.defaultFormatter.js": "prettier-eslint",
-        "scss.validate": false,
-        "stylelint.validate": [
-            "css",
-            "html",
-            "markdown",
-            "postcss",
-            "sass",
-            "scss",
-            "xml",
-            "xsl"
-        ],
         "terminal.integrated.defaultProfile.linux": "bash (login)",
         "terminal.integrated.profiles.linux": {
             "bash (login)": {
@@ -76,35 +12,15 @@
                 "args": ["-l"],
                 "icon": "terminal-ubuntu"
             }
-        },
-        "todohighlight.isEnable": true,
-        "todohighlight.include": [
-            "**/*.js",
-            "**/*.jsx",
-            "**/*.ts",
-            "**/*.tsx",
-            "**/*.html",
-            "**/*.php",
-            "**/*.css",
-            "**/*.sass",
-            "**/*.scss",
-            "**/*.vue"
-        ]
+        }
     },
     "extensions": [
         "EditorConfig.EditorConfig",
-        "amiralizadeh9480.laravel-extra-intellisense",
         "bmewburn.vscode-intelephense-client",
         "calebporzio.better-phpunit",
         "dbaeumer.vscode-eslint",
         "eamodio.gitlens",
-        "esbenp.prettier-vscode",
-        "felixfbecker.php-debug",
-        "formulahendry.auto-close-tag",
-        "formulahendry.auto-rename-tag",
         "octref.vetur",
-        "ryannaddy.laravel-artisan",
-        "stylelint.vscode-stylelint",
-        "wayou.vscode-todo-highlight"
+        "xdebug.php-debug"
     ]
 }

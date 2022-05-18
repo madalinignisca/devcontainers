@@ -6,22 +6,16 @@ Prestashop, Opencart compatible and possible any NodeJS and PHP project.
 
 ## Getting started:
 
-[Download a zip of this repo](https://github.com/madalinignisca/devcontainers/archive/master.zip)
-(clone only for contributions).
+Using a shell compatible prompt, download generate.sh and run it.
 
-Rename the directory with something suitable for your project
-(will be used by docker as a namespace!)
+PHP and Node combinations:
+|    | 7.4 | 8.0 | 8.1 |
+|----|-----|-----|-----|
+| 14 | X   | X   |     |
+| 16 |     | X   | X   |
+| 18 |     |     | X   |
 
-Change name in `.devcontainer/devcontainer.json` for your project.
-(This will keep your projects storage isolated between them)
-
-Remove the `.github` directory. It contains automated build recipes for github, and will simply run
-them if you use github.
-
-Uncomment/add needed services in `docker-compose.yml`.
-Tweak the cpu and memory limits to your needs. The defaults are sensible enough for Laravel, Drupal, Magento, Prestashop
-on medium to large applications. I've provided them, as I sometimes had problems when using multiple databases and an
-elasticsearch instance at same time on 16GB of ram.
+ARM64 users, you might need to look for supported docker images alternatives for some services. Some official providers don't look into supporting ARM64 too soon.
 
 Continue with the [Wiki](https://github.com/madalinignisca/devcontainers/wiki) for advanced documentation.
 
