@@ -44,8 +44,8 @@ jobs:
               dockerfile="Dockerfile"
               platforms = [
                   "linux/amd64",
-                  "linux/arm64",
-              ],
+                  "linux/arm64"
+              ]
               args = {
                   VERSION="22.04"
               }
