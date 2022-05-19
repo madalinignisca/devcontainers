@@ -1,8 +1,10 @@
 # devcontainers
 Devcontainers or Codespace with optimizations for PHP and Nodejs development.
 
+[![buildx-8.1](https://github.com/madalinignisca/devcontainers/actions/workflows/buildx-bake-8.1.yml/badge.svg)](https://github.com/madalinignisca/devcontainers/actions/workflows/buildx-bake-8.1.yml) [![buildx-8.0](https://github.com/madalinignisca/devcontainers/actions/workflows/buildx-bake-8.0.yml/badge.svg)](https://github.com/madalinignisca/devcontainers/actions/workflows/buildx-bake-8.0.yml) [![buildx-7.4](https://github.com/madalinignisca/devcontainers/actions/workflows/buildx-bake-7.4.yml/badge.svg)](https://github.com/madalinignisca/devcontainers/actions/workflows/buildx-bake-7.4.yml)
+
 Laravel, Symfony, CakePHP, Codeigniter, AdonisJS, NestJS, SailsJS, WordPress, Drupal, Magento,
-Prestashop, Opencart compatible and possible any NodeJS and PHP project.
+Prestashop, Opencart compatible or any NodeJS and PHP project.
 
 ## Getting started:
 
@@ -16,6 +18,7 @@ PHP and Node combinations:
 | 18 |     |     | X   |
 
 ARM64 users, you might need to look for supported docker images alternatives for some services. Some official providers don't look into supporting ARM64 too soon.
+More on ARM64 soon.
 
 Continue with the [Wiki](https://github.com/madalinignisca/devcontainers/wiki) for advanced documentation.
 
