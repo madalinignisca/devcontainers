@@ -90,7 +90,6 @@ case $POSTGRESQL in
 esac
 
 if [[ -n $POSTGRESQL ]]; then
-VOLUMES=true
 echo "  pgsql:
     image: $POSTGRESQL
     environment:
@@ -130,7 +129,6 @@ case $MARIADB in
 esac
 
 if [[ -n $MARIADB ]]; then
-VOLUMES=true
 echo "  mariadb:
     image: mariadb:$MARIADB
     environment:
@@ -165,9 +163,8 @@ echo "  mailhog:
 " >> docker-compose.yaml
 fi
 
-if [[ $VOLUMES ]]; then
-echo "volumes:" >> docker-compose.yaml
-fi
+echo "volumes:
+  projects:" >> docker-compose.yaml
 
 if [[ -n $POSTGRESQL ]]; then
 echo "  postgres:" >> docker-compose.yaml
