@@ -201,4 +201,10 @@ echo "{
     ]
 }" > .devcontainer.json
 
+if hash docker-compose 2>/dev/null; then
+        docker-compose pull
+    else
+        docker compose pull
+fi
+
 echo "All done! Open the folder in Visual Studio Code and run in Containers."
