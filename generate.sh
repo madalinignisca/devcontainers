@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+if [[ $1 = selfupdate ]]; then
+  echo "I will update myself"
+  cp $(realpath "$0") $(realpath "$0").bak
+  curl -o $(realpath "$0") https://raw.githubusercontent.com/madalinignisca/devcontainers/master/generate.sh
+  chmod +x $(realpath "$0")
+  exit 0
+fi
+
 echo "Project name (must be a-z0-9):"
 read PRJNAME
 
