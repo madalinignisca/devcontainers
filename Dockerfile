@@ -10,12 +10,10 @@ ARG USER_GID=1000
 ARG DEBIAN_FRONTEND=noninteractive
 ARG NODE_VERSION=16
 ARG PHP_VERSION=8.1
-
-ENV MC_HOST_local=http://minio:minioadmin@minioadmin:9000
 ENV LC_ALL=C.UTF-8
 
 LABEL maintainer="Madalin Ignisca"
-LABEL version="5.x"
+LABEL version="5.1.0"
 LABEL description="Development environment for the joy and pleasure of web developers"
 LABEL repo="https://github.com/madalinignisca/devcontainers"
 
