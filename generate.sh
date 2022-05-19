@@ -165,9 +165,28 @@ echo "Want mailhog?"
 read MAILHOG
 if [[ -n $MAILHOG ]]; then
 echo "  mailhog:
-    image: mailhog/mailhog
+    image: 16nsk/mailhog
     ports:
       - \"${FORWARD_MAILHOG_PORT:-8025}:8025\"
+" >> docker-compose.yaml
+fi
+
+echo "Want memcached?"
+read MEMCACHED
+if [[ -n $MEMCACHED ]]; then
+echo "  memcached:
+    image: memcached:1.6-alpine
+" >> docker-compose.yaml
+fi
+
+echo "Want redis?"
+read REDIS
+if [[ -n $REDIS ]]; then
+echo "  redis:
+    image: redis:7.0-alpine
+    command: redis-server --save 60 1 --loglevel warning
+    volumes:
+      - redis:/data
 " >> docker-compose.yaml
 fi
 
@@ -180,6 +199,10 @@ fi
 
 if [[ -n $MARIADB ]]; then
 echo "  mariadb:" >> docker-compose.yaml
+fi
+
+if [[ -n $REDIS ]]; then
+echo "  redis:" >> docker-compose.yaml
 fi
 
 echo "{
