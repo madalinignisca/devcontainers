@@ -4,20 +4,48 @@ echo "services:
 
 " > docker-compose.yaml
 
-echo "PHP: [8.1]"
-read PHP
-if [[ -z $PHP ]]; then
-  PHP="8.1"
-fi
+echo "Pick a PHP-NodeJS combination":
+echo "[1]: PHP 8.1 / NodeJS 18"
+echo "[2]: PHP 8.1 / NodeJS 16 (default)"
+echo "[3]: PHP 8.0 / NodeJS 16"
+echo "[4]: PHP 8.0 / NodeJS 14"
+echo "[5]: PHP 7.4 / NodeJS 14"
+echo "[6]: PHP 7.4 / NodeJS 12"
+read VERSION
 
-echo "NODEJS: [18]"
-read NODEJS
-if [[ -z $NODEJS ]]; then
-  NODEJS=18
-fi
+case VERSION in
+
+  1)
+    PHPNODEJS="8.1-18"
+    ;;
+
+  1)
+    PHPNODEJS="8.1-16"
+    ;;
+
+  1)
+    PHPNODEJS="8.0-16"
+    ;;
+
+  1)
+    PHPNODEJS="8.0-14"
+    ;;
+
+  1)
+    PHPNODEJS="7.4-14"
+    ;;
+
+  1)
+    PHPNODEJS="7.4-12"
+    ;;
+
+  *)
+    PHPNODEJS="8.1-16"
+    ;;
+esac
 
 echo "  dev:
-    image: 16nsk/devcontainers:$PHP-$NODEJS
+    image: 16nsk/devcontainers:$PHPNODEJS
     command: sleep infinity
     volumes:
       - projects:/projects
