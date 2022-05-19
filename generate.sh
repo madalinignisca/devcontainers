@@ -1,5 +1,16 @@
 #!/usr/bin/env bash
 
+echo "Project name (must be a-z0-9):"
+read PRJNAME
+
+if [[ -z $PRJNAME ]]; then
+  echo "Must use a project name!"
+  exit 1
+fi
+
+mkdir $PRJNAME
+cd $PRJNAME
+
 echo "services:
 
 " > docker-compose.yaml
@@ -13,35 +24,36 @@ echo "[5]: PHP 7.4 / NodeJS 14"
 echo "[6]: PHP 7.4 / NodeJS 12"
 read VERSION
 
-case VERSION in
+case $VERSION in
 
   1)
     PHPNODEJS="8.1-18"
     ;;
 
-  1)
+  2)
     PHPNODEJS="8.1-16"
     ;;
 
-  1)
+  3)
     PHPNODEJS="8.0-16"
     ;;
 
-  1)
+  4)
     PHPNODEJS="8.0-14"
     ;;
 
-  1)
+  5)
     PHPNODEJS="7.4-14"
     ;;
 
-  1)
+  6)
     PHPNODEJS="7.4-12"
     ;;
 
   *)
     PHPNODEJS="8.1-16"
     ;;
+
 esac
 
 echo "  dev:
@@ -54,13 +66,33 @@ echo "  dev:
       - \"${FRONTEND_PORT:-3000}:3000\"
 " >> docker-compose.yaml
 
-echo "POSTGRESQL: (only if defined, like 14)"
+echo "POSTGRESQL:"
+echo "[1] Postgresql 14"
+echo "[2] Postgresql 14 with Postgis 3.2"
+echo "[3] Postgresql 12 with Postgis 2.5 (for old projects)"
+echo "[ ] Hit enter to skip Postgresql"
 read POSTGRESQL
+
+case $POSTGRESQL in
+
+  1)
+    POSTGRESQL="postgres:14"
+    ;;
+
+  2)
+    POSTGRESQL="postgis/postgis:14-3.2"
+    ;;
+
+  3)
+    POSTGRESQL="postgis/postgis:12-2.5"
+    ;;
+
+esac
 
 if [[ -n $POSTGRESQL ]]; then
 VOLUMES=true
 echo "  pgsql:
-    image: postgres:$POSTGRESQL
+    image: $POSTGRESQL
     environment:
       - POSTGRES_PASSWORD=developer
       - POSTGRES_USER=developer
@@ -74,8 +106,28 @@ echo "  pgsql:
 fi
 
 
-echo "MARIADB: (only if defined, like 10.7)"
+echo "MARIADB:"
+echo "[1] MariaDB 10.7"
+echo "[2] MariaDB 10.6 (LTS)"
+echo "[3] MariaDB 10.3 (Oldest supported)"
+echo "[ ] Hit enter to skip MariaDB"
 read MARIADB
+
+case $MARIADB in
+
+  1)
+    MARIADB="10.7"
+    ;;
+
+  2)
+    MARIADB="10.6"
+    ;;
+
+  3)
+    MARIADB="10.3"
+    ;;
+
+esac
 
 if [[ -n $MARIADB ]]; then
 VOLUMES=true
@@ -86,6 +138,8 @@ echo "  mariadb:
       - MARIADB_DATABASE=developer
       - MARIADB_USER=developer
       - MARIADB_PASSWORD=developer
+      - MARIADB_AUTO_UPGRADE=true
+      - MARIADB_DISABLE_UPGRADE_BACKUP=true
     volumes:
       - mariadb:/var/lib/mysql
     ports:
@@ -101,7 +155,7 @@ echo "  adminer:
 " >> docker-compose.yaml
 fi
 
-echo "Want mailhog? (cat catch smtp sent emails):"
+echo "Want mailhog?"
 read MAILHOG
 if [[ -n $MAILHOG ]]; then
 echo "  mailhog:
@@ -123,4 +177,31 @@ if [[ -n $MARIADB ]]; then
 echo "  mariadb:" >> docker-compose.yaml
 fi
 
-curl -LO https://raw.githubusercontent.com/madalinignisca/devcontainers/master/.devcontainer.json
+echo "{
+    \"name\": \"$PRJNAME\",
+    \"dockerComposeFile\": \"docker-compose.yaml\",
+    \"service\": \"dev\",
+    \"workspaceFolder\": \"/projects/workspace\",
+    \"shutdownAction\": \"stopCompose\",
+    \"settings\": {
+        \"terminal.integrated.defaultProfile.linux\": \"bash (login)\",
+        \"terminal.integrated.profiles.linux\": {
+            \"bash (login)\": {
+                \"path\": \"bash\",
+                \"args\": [\"-l\"],
+                \"icon\": \"terminal-ubuntu\"
+            }
+        }
+    },
+    \"extensions\": [
+        \"EditorConfig.EditorConfig\",
+        \"bmewburn.vscode-intelephense-client\",
+        \"calebporzio.better-phpunit\",
+        \"dbaeumer.vscode-eslint\",
+        \"eamodio.gitlens\",
+        \"octref.vetur\",
+        \"xdebug.php-debug\"
+    ]
+}" > .devcontainer.json
+
+echo "All done! Open the folder in Visual Studio Code and run in Containers."
