@@ -42,19 +42,11 @@ RUN apt-get update \
       gnupg \
       lsb-release \
       openssl \
-      software-properties-common
-      
-RUN curl 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key' | apt-key add - \
-    && echo "deb https://deb.nodesource.com/node_${NODE_VERSION}.x $(lsb_release -cs) main" > /etc/apt/sources.list.d/nodesource.list
-
-RUN add-apt-repository -n ppa:ondrej/php
-RUN add-apt-repository -n ppa:openswoole/ppa
-
-RUN apt update \
-    && apt-get install -y \
+      software-properties-common \
       bash-completion \
       build-essential \
       ffmpeg \
+      gettext-base \
       git \
       htop \
       jq \
@@ -67,8 +59,29 @@ RUN apt update \
       mc \
       nano \
       net-tools \
-      nodejs \
       openssh-client \
+      postgresql-client \
+      procps \
+      psmisc \
+      redis-tools \
+      rsync \
+      sqlite3 \
+      sudo \
+      time \
+      unzip \
+      wget \
+      whois \
+      zip
+      
+RUN curl 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key' | apt-key add - \
+    && echo "deb https://deb.nodesource.com/node_${NODE_VERSION}.x $(lsb_release -cs) main" > /etc/apt/sources.list.d/nodesource.list
+
+RUN add-apt-repository -n ppa:ondrej/php
+RUN add-apt-repository -n ppa:openswoole/ppa
+
+RUN apt update \
+    && apt-get install -y \
+      nodejs \
       php${PHP_VERSION}-apcu \
       php${PHP_VERSION}-bcmath \
       php${PHP_VERSION}-cli \
@@ -90,19 +103,7 @@ RUN apt update \
       php${PHP_VERSION}-xdebug \
       php${PHP_VERSION}-xhprof \
       php${PHP_VERSION}-xml \
-      php${PHP_VERSION}-zip \
-      postgresql-client \
-      procps \
-      psmisc \
-      redis-tools \
-      rsync \
-      sqlite3 \
-      sudo \
-      time \
-      unzip \
-      wget \
-      whois \
-      zip
+      php${PHP_VERSION}-zip
 
 RUN echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME} \
     && chmod 0440 /etc/sudoers.d/${USERNAME}
