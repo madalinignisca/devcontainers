@@ -1,4 +1,4 @@
-name: buildx-8.1
+name: buildx-8.1-16-arm64
 
 on:
   schedule:
