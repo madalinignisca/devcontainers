@@ -111,6 +111,10 @@ RUN echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME} \
 RUN mkdir -p /projects/workspace \
     && chown -R ${USER_UID}:${USER_GID} /projects
 
+# Default location of Jetbrain's IDE for the container
+RUN mkdir -p /opt/project \
+    && chown -R ${USER_UID}:${USER_GID} /opt/project
+
 RUN SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=/projects/.bash_history" \
     && echo $SNIPPET >> "/home/${USERNAME}/.bashrc"
     
