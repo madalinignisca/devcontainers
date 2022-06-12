@@ -34,8 +34,7 @@ jobs:
           cat <<'EOF' > docker-bake.hcl
           group "default" {
               targets = [
-                  "8_1-16",
-                  "8_1-18"
+                  "8_1-16"
               ]
           }
 
@@ -43,32 +42,18 @@ jobs:
               context="."
               dockerfile="Dockerfile"
               platforms = [
-                  "linux/amd64",
-                  "linux/arm64"
+                  "linux/arm64",
               ]
-              args = {
-                  PHP_VERSION="8.1",
-              }
-          }
-          
-          target "8_1-16" {
-              inherits=["default"]
-              tags = [
-                  "16nsk/devcontainers:8.1-16",
-              ]
-              args = {
-                  NODE_VERSION="16"
-              }
           }
           
           target "8_1-18" {
               inherits=["default"]
               tags = [
-                  "16nsk/devcontainers:latest",
-                  "16nsk/devcontainers:8.1-18",
+                  "16nsk/devcontainers:8.1-16",
               ]
               args = {
-                  NODE_VERSION="18"
+                  PHP_VERSION="8.1",
+                  NODE_VERSION="16"
               }
           }
           EOF
