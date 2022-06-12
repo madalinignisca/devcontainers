@@ -46,7 +46,7 @@ jobs:
               ]
           }
           
-          target "8_1-18" {
+          target "8_1-16" {
               inherits=["default"]
               tags = [
                   "16nsk/devcontainers:8.1-16",
