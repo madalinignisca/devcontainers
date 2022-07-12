@@ -129,6 +129,8 @@ RUN mkdir -p /home/${USERNAME}/.config \
 RUN mkdir -p /home/${USERNAME}/.ssh \
     && chown ${USERNAME}:${USERNAME} /home/${USERNAME}/.ssh \
     && chmod 700 /home/${USERNAME}/.ssh
+    
+RUN chown -R ${USERNAME}:${USERNAME} /opt
 
 VOLUME /projects
 VOLUME /home/${USERNAME}/.config
