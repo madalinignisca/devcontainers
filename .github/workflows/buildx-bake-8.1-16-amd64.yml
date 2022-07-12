@@ -1,6 +1,7 @@
 name: buildx-8.1-16-amd64
 
 on:
+  workflow_dispatch:
   schedule:
     - cron:  '30 2 * * 6'
   push:
