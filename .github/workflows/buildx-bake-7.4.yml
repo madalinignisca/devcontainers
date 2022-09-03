@@ -2,7 +2,7 @@ name: buildx-7.4
 
 on:
   schedule:
-    - cron:  '30 2 * * 6'
+    - cron:  '11 1 * * 1'
   push:
     branches: master
 
@@ -17,14 +17,11 @@ jobs:
         name: Checkout
         uses: actions/checkout@v2
       -
-        name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-      -  
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
       -
         name: Login to DockerHub
-        uses: docker/login-action@v1 
+        uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -36,7 +33,6 @@ jobs:
               targets = [
                   "7_4-12",
                   "7_4-14",
-                  "7_4-16",
               ]
           }
 
@@ -45,11 +41,9 @@ jobs:
               dockerfile="Dockerfile"
               platforms = [
                   "linux/amd64",
-                  "linux/arm64",
-                  "linux/arm/v7",
               ]
           }
-          
+
           target "7_4-12" {
               inherits=["default"]
               tags = [
@@ -60,7 +54,7 @@ jobs:
                   NODE_VERSION="12",
               }
           }
-          
+
           target "7_4-14" {
               inherits=["default"]
               tags = [
@@ -69,17 +63,6 @@ jobs:
               args = {
                   PHP_VERSION="7.4",
                   NODE_VERSION="14",
-              }
-          }
-          
-          target "7_4-16" {
-              inherits=["default"]
-              tags = [
-                  "16nsk/devcontainers:7.4-16",
-              ]
-              args = {
-                  PHP_VERSION="7.4",
-                  NODE_VERSION="16",
               }
           }
           EOF
