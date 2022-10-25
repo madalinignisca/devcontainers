@@ -75,23 +75,28 @@ echo "  dev:
 " >> docker-compose.yaml
 
 echo "POSTGRESQL:"
-echo "[1] Postgresql 14"
-echo "[2] Postgresql 14 with Postgis 3.2"
-echo "[3] Postgresql 12 with Postgis 2.5 (for old projects)"
+echo "[1] Postgresql 15"
+echo "[2] Postgresql 14"
+echo "[3] Postgresql 15 with Postgis 3.3"
+echo "[4] Postgresql 12 with Postgis 2.5 (for old projects)"
 echo "[ ] Hit enter to skip Postgresql"
 read POSTGRESQL
 
 case $POSTGRESQL in
 
   1)
-    POSTGRESQL="postgres:14"
+    POSTGRESQL="postgres:15"
     ;;
 
   2)
-    POSTGRESQL="postgis/postgis:14-3.2"
+    POSTGRESQL="postgres:14"
     ;;
 
   3)
+    POSTGRESQL="postgis/postgis:15-3.3"
+    ;;
+
+  4)
     POSTGRESQL="postgis/postgis:12-2.5"
     ;;
 
@@ -114,23 +119,33 @@ fi
 
 
 echo "MARIADB:"
-echo "[1] MariaDB 10.7"
-echo "[2] MariaDB 10.6 (LTS)"
-echo "[3] MariaDB 10.3 (Oldest supported)"
+echo "[1] MariaDB 10.9"
+echo "[2] MariaDB 10.8"
+echo "[3] MariaDB 10.7"
+echo "[4] MariaDB 10.6 (LTS)"
+echo "[5] MariaDB 10.3 (Oldest supported)"
 echo "[ ] Hit enter to skip MariaDB"
 read MARIADB
 
 case $MARIADB in
 
   1)
-    MARIADB="10.7"
+    MARIADB="10.9"
     ;;
 
   2)
-    MARIADB="10.6"
+    MARIADB="10.8"
     ;;
 
   3)
+    MARIADB="10.7"
+    ;;
+
+  4)
+    MARIADB="10.6"
+    ;;
+
+  5)
     MARIADB="10.3"
     ;;
 
@@ -211,23 +226,11 @@ echo "{
     \"service\": \"dev\",
     \"workspaceFolder\": \"/projects/workspace\",
     \"shutdownAction\": \"stopCompose\",
-    \"settings\": {
-        \"terminal.integrated.defaultProfile.linux\": \"bash (login)\",
-        \"terminal.integrated.profiles.linux\": {
-            \"bash (login)\": {
-                \"path\": \"bash\",
-                \"args\": [\"-l\"],
-                \"icon\": \"terminal-ubuntu\"
-            }
-        }
-    },
     \"extensions\": [
         \"EditorConfig.EditorConfig\",
         \"bmewburn.vscode-intelephense-client\",
-        \"calebporzio.better-phpunit\",
         \"dbaeumer.vscode-eslint\",
         \"eamodio.gitlens\",
-        \"octref.vetur\",
         \"xdebug.php-debug\"
     ]
 }" > .devcontainer.json

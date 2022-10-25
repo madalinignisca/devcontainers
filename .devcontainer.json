@@ -4,23 +4,11 @@
     "service": "dev",
     "workspaceFolder": "/projects/workspace",
     "shutdownAction": "stopCompose",
-    "settings": {
-        "terminal.integrated.defaultProfile.linux": "bash (login)",
-        "terminal.integrated.profiles.linux": {
-            "bash (login)": {
-                "path": "bash",
-                "args": ["-l"],
-                "icon": "terminal-ubuntu"
-            }
-        }
-    },
     "extensions": [
         "EditorConfig.EditorConfig",
         "bmewburn.vscode-intelephense-client",
-        "calebporzio.better-phpunit",
         "dbaeumer.vscode-eslint",
         "eamodio.gitlens",
-        "octref.vetur",
         "xdebug.php-debug"
     ]
 }

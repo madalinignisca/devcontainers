@@ -1,5 +1,5 @@
 ARG IMAGE=ubuntu
-ARG VERSION=20.04
+ARG VERSION=22.04
 
 FROM ${IMAGE}:${VERSION}
 
@@ -8,12 +8,12 @@ ARG USERNAME=developer
 ARG USER_UID=1000
 ARG USER_GID=1000
 ARG DEBIAN_FRONTEND=noninteractive
-ARG NODE_VERSION=16
+ARG NODE_VERSION=19
 ARG PHP_VERSION=8.1
 ENV LC_ALL=C.UTF-8
 
 LABEL maintainer="Madalin Ignisca"
-LABEL version="5.1.0"
+LABEL version="5.2.0"
 LABEL description="Development environment for the joy and pleasure of web developers"
 LABEL repo="https://github.com/madalinignisca/devcontainers"
 
@@ -23,9 +23,6 @@ RUN chmod 700 /tmp/unminimize \
 
 ADD https://getcomposer.org/composer-stable.phar /usr/local/bin/composer
 RUN chmod 755 /usr/local/bin/composer
-
-ADD https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /usr/local/bin/wp
-RUN chmod 755 /usr/local/bin/wp
 
 RUN groupadd --gid ${USER_GID} ${USERNAME} \
     && useradd --create-home --shell /bin/bash --uid ${USER_UID} --gid ${USER_GID} ${USERNAME}
@@ -37,6 +34,7 @@ RUN chown ${USERNAME}:${USERNAME} /home/${USERNAME}/.editorconfig
 RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y \
+      bind9-dnsutils \
       ca-certificates \
       curl \
       gnupg \
@@ -108,15 +106,15 @@ RUN apt update \
 RUN echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME} \
     && chmod 0440 /etc/sudoers.d/${USERNAME}
 
-RUN mkdir -p /projects/workspace \
+RUN mkdir -p /projects \
     && chown -R ${USER_UID}:${USER_GID} /projects
 
 # Default location of Jetbrain's IDE for the container
 RUN mkdir -p /opt/project \
     && chown -R ${USER_UID}:${USER_GID} /opt/project
 
-RUN SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=/projects/.bash_history" \
-    && echo $SNIPPET >> "/home/${USERNAME}/.bashrc"
+RUN echo "export PROMPT_COMMAND='history -a'" >> "/home/${USERNAME}/.bashrc" \
+    && echo "export HISTFILE=/home/${USERNAME}/.local/bash_history" >> "/home/${USERNAME}/.bashrc"
     
 COPY bashprompt /home/${USERNAME}/.bashrc    
 COPY aliases /home/${USERNAME}/.bash_aliases
@@ -126,17 +124,16 @@ RUN chown ${USERNAME}:${USERNAME} /home/${USERNAME}/.bash_aliases \
 RUN mkdir -p /home/${USERNAME}/.config \
     && chown ${USERNAME}:${USERNAME} /home/${USERNAME}/.config
 
-RUN mkdir -p /home/${USERNAME}/.ssh \
-    && chown ${USERNAME}:${USERNAME} /home/${USERNAME}/.ssh \
-    && chmod 700 /home/${USERNAME}/.ssh
+RUN mkdir -p -m 700 /home/${USERNAME}/.ssh \
+    && chown ${USERNAME}:${USERNAME} /home/${USERNAME}/.ssh
     
 RUN chown -R ${USERNAME}:${USERNAME} /opt
 
-VOLUME /projects
 VOLUME /home/${USERNAME}/.config
+VOLUME /home/${USERNAME}/.local
 VOLUME /home/${USERNAME}/.ssh
 
-WORKDIR /projects/workspace
+WORKDIR /projects
 HEALTHCHECK NONE
 
 ENV LANG en_US.utf8
