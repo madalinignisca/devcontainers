@@ -224,7 +224,7 @@ echo "{
     \"name\": \"$PRJNAME\",
     \"dockerComposeFile\": \"docker-compose.yaml\",
     \"service\": \"dev\",
-    \"workspaceFolder\": \"/projects/workspace\",
+    \"workspaceFolder\": \"/workspace\",
     \"shutdownAction\": \"stopCompose\",
     \"extensions\": [
         \"EditorConfig.EditorConfig\",
