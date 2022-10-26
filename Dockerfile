@@ -106,8 +106,8 @@ RUN apt update \
 RUN echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME} \
     && chmod 0440 /etc/sudoers.d/${USERNAME}
 
-RUN mkdir -p /projects \
-    && chown -R ${USER_UID}:${USER_GID} /projects
+RUN mkdir -p /workspace \
+    && chown -R ${USER_UID}:${USER_GID} /workspace
 
 # Default location of Jetbrain's IDE for the container
 RUN mkdir -p /opt/project \
@@ -133,7 +133,7 @@ VOLUME /home/${USERNAME}/.config
 VOLUME /home/${USERNAME}/.local
 VOLUME /home/${USERNAME}/.ssh
 
-WORKDIR /projects
+WORKDIR /workspace
 HEALTHCHECK NONE
 
 ENV LANG en_US.utf8
