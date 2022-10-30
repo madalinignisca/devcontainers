@@ -113,7 +113,9 @@ RUN mkdir -p /workspace \
 RUN mkdir -p /opt/project \
     && chown -R ${USER_UID}:${USER_GID} /opt/project
 
-RUN echo "export PROMPT_COMMAND='history -a'" >> "/home/${USERNAME}/.bashrc" \
+RUN mkdir -p /home/${USERNAME}/.local \
+    && chown ${USERNAME}:${USERNAME} /home/${USERNAME}/.local \
+    && echo "export PROMPT_COMMAND='history -a'" >> "/home/${USERNAME}/.bashrc" \
     && echo "export HISTFILE=/home/${USERNAME}/.local/bash_history" >> "/home/${USERNAME}/.bashrc"
     
 COPY bashprompt /tmp/bashprompt
