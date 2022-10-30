@@ -116,7 +116,9 @@ RUN mkdir -p /opt/project \
 RUN echo "export PROMPT_COMMAND='history -a'" >> "/home/${USERNAME}/.bashrc" \
     && echo "export HISTFILE=/home/${USERNAME}/.local/bash_history" >> "/home/${USERNAME}/.bashrc"
     
-COPY bashprompt /home/${USERNAME}/.bashrc    
+COPY bashprompt /tmp/bashprompt
+RUN cat /tmp/bashprompt >> /home/${USERNAME}/.bashrc
+
 COPY aliases /home/${USERNAME}/.bash_aliases
 RUN chown ${USERNAME}:${USERNAME} /home/${USERNAME}/.bash_aliases \
     && chown ${USERNAME}:${USERNAME} /home/${USERNAME}/.bash_aliases
