@@ -103,6 +103,8 @@ RUN apt update \
       php${PHP_VERSION}-xml \
       php${PHP_VERSION}-zip
 
+RUN corepack enable
+
 RUN echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME} \
     && chmod 0440 /etc/sudoers.d/${USERNAME}
 
