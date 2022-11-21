@@ -139,7 +139,12 @@ VOLUME /home/${USERNAME}/.config
 VOLUME /home/${USERNAME}/.local
 VOLUME /home/${USERNAME}/.ssh
 
+VOLUME /workspace
 WORKDIR /workspace
+
+EXPOSE 8000
+EXPOSE 3000
+
 HEALTHCHECK NONE
 
 ENV LANG en_US.utf8
