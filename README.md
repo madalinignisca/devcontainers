@@ -1,7 +1,7 @@
 # devcontainers
 Devcontainers or Codespace with optimizations for PHP and Nodejs development.
 
-[![buildx-8.1-16-amd64](https://github.com/madalinignisca/devcontainers/actions/workflows/buildx-bake-8.1-16-amd64.yml/badge.svg)](https://github.com/madalinignisca/devcontainers/actions/workflows/buildx-bake-8.1-16-amd64.yml) [![buildx-8.0](https://github.com/madalinignisca/devcontainers/actions/workflows/buildx-bake-8.0.yml/badge.svg)](https://github.com/madalinignisca/devcontainers/actions/workflows/buildx-bake-8.0.yml) [![buildx-7.4](https://github.com/madalinignisca/devcontainers/actions/workflows/buildx-bake-7.4.yml/badge.svg)](https://github.com/madalinignisca/devcontainers/actions/workflows/buildx-bake-7.4.yml)
+[![buildx-8.1-18](https://github.com/madalinignisca/devcontainers/actions/workflows/buildx-bake-8.1-18.yml/badge.svg)](https://github.com/madalinignisca/devcontainers/actions/workflows/buildx-bake-8.1-18.yml) [![buildx-8.0](https://github.com/madalinignisca/devcontainers/actions/workflows/buildx-bake-8.0.yml/badge.svg)](https://github.com/madalinignisca/devcontainers/actions/workflows/buildx-bake-8.0.yml) [![buildx-7.4](https://github.com/madalinignisca/devcontainers/actions/workflows/buildx-bake-7.4.yml/badge.svg)](https://github.com/madalinignisca/devcontainers/actions/workflows/buildx-bake-7.4.yml)
 
 Laravel, Symfony, CakePHP, Codeigniter, AdonisJS, NestJS, SailsJS, WordPress, Drupal, Magento,
 Prestashop, Opencart compatible or any NodeJS and PHP project.
