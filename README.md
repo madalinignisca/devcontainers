@@ -35,3 +35,8 @@ Example: I use 8GB memory limit and 0 swap to make docker behave identical like 
 and 2 cpus. Works fine on a 16GB laptop, no slowness while running devcontainers with lots of services, including
 Elastic Search. On a 8GB Windows Host, I would set 4GB memory limit, and tweak in `docker-compose.yaml` to enforce
 lower memory limits per services, but do really investigate if those services can run with extrem low memory constrains.
+
+## Sponsors:
+
+### Silver:
+- [Coder](https://coder.com/)
