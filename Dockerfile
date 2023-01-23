@@ -77,7 +77,7 @@ RUN if [ $IMAGE -eq "ubuntu" ] ; \
 RUN curl -L 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key' | apt-key add - \
     && echo "deb https://deb.nodesource.com/node_${NODE_VERSION}.x $(lsb_release -cs) main" > /etc/apt/sources.list.d/nodesource.list
 
-RUN if [ $IMAGE == "debian" ] ;
+RUN if [ $IMAGE -eq "debian" ] ; \
     then \
         curl -L "https://packages.sury.org/php/apt.gpg" | apt-key add - \
         && echo "deb https://packages.sury.org/php/ $(lsb_release -cs) main" > /etc/apt/sources.list.d/php.list ; \
