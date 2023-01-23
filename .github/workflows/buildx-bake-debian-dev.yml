@@ -50,6 +50,7 @@ jobs:
                 PHP_VERSION="8.2",
                 NODE_VERSION="19",
                 IMAGE="debian",
+                DISTRO="debian",
                 VERSION="bullseye"
               }
           }

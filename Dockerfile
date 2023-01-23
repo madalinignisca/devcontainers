@@ -3,6 +3,7 @@ ARG VERSION=20.04
 
 FROM ${IMAGE}:${VERSION}
 
+ARG DISTRO=ubuntu
 ARG USERNAME=developer
 ARG USER_UID=1000
 ARG USER_GID=1000
@@ -15,8 +16,6 @@ LABEL maintainer="Madalin Ignisca"
 LABEL version="6.0.0"
 LABEL description="Development environment for the joy and pleasure of web developers"
 LABEL repo="https://github.com/madalinignisca/devcontainers"
-
-RUN echo "$IMAGE"
 
 ADD unminimize /tmp/unminimize
 RUN chmod 700 /tmp/unminimize \
@@ -71,7 +70,7 @@ RUN apt-get update \
       whois \
       zip
 
-RUN if [ "$IMAGE" = "ubuntu" ] ; \
+RUN if [ "$DISTRO" = "ubuntu" ] ; \
     then \
         apt-get install -y language-pack-en ; \
     fi
@@ -79,7 +78,7 @@ RUN if [ "$IMAGE" = "ubuntu" ] ; \
 RUN curl -L 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key' | apt-key add - \
     && echo "deb https://deb.nodesource.com/node_${NODE_VERSION}.x $(lsb_release -cs) main" > /etc/apt/sources.list.d/nodesource.list
 
-RUN if [ "$IMAGE" = "debian" ] ; \
+RUN if [ "$DISTRO" = "debian" ] ; \
     then \
         curl -L "https://packages.sury.org/php/apt.gpg" | apt-key add - \
         && echo "deb https://packages.sury.org/php/ $(lsb_release -cs) main" > /etc/apt/sources.list.d/php.list ; \
@@ -114,7 +113,7 @@ RUN apt update \
       php${PHP_VERSION}-xml \
       php${PHP_VERSION}-zip
 
-RUN if [ "$IMAGE" = "ubuntu" ] ; then \
+RUN if [ "$DISTRO" = "ubuntu" ] ; then \
         apt-get install -y php${PHP_VERSION}-openswoole ; \
     fi
 
