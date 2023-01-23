@@ -69,7 +69,7 @@ RUN apt-get update \
       whois \
       zip
 
-RUN if [ $IMAGE -eq "ubuntu" ] ; \
+RUN if [ "$IMAGE" = "ubuntu" ] ; \
     then \
         apt-get install -y language-pack-en ; \
     fi
@@ -77,11 +77,15 @@ RUN if [ $IMAGE -eq "ubuntu" ] ; \
 RUN curl -L 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key' | apt-key add - \
     && echo "deb https://deb.nodesource.com/node_${NODE_VERSION}.x $(lsb_release -cs) main" > /etc/apt/sources.list.d/nodesource.list
 
-RUN if [ $IMAGE -eq "debian" ] ; \
+RUN if [ "$IMAGE" = "debian" ] ; \
     then \
         curl -L "https://packages.sury.org/php/apt.gpg" | apt-key add - \
         && echo "deb https://packages.sury.org/php/ $(lsb_release -cs) main" > /etc/apt/sources.list.d/php.list ; \
+    else \
+        add-apt-repository -n ppa:ondrej/php \
+        && add-apt-repository -n ppa:openswoole/ppa ; \
     fi
+
 
 RUN apt update \
     && apt-get install -y \
@@ -108,7 +112,7 @@ RUN apt update \
       php${PHP_VERSION}-xml \
       php${PHP_VERSION}-zip
 
-RUN if [ $IMAGE -eq "ubuntu" ] ; then \
+RUN if [ "$IMAGE" = "ubuntu" ] ; then \
         apt-get install -y php${PHP_VERSION}-openswoole ; \
     fi
 
