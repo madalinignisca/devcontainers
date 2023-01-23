@@ -69,8 +69,9 @@ RUN apt-get update \
       whois \
       zip
 
-RUN if [[ "$IMAGE" == "ubuntu" ]] ; then \
-        apt-get install -y language-pack-en \
+RUN if [ $IMAGE -eq "ubuntu" ] ; \
+    then \
+        apt-get install -y language-pack-en ; \
     fi
       
 RUN curl -L 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key' | apt-key add - \
@@ -109,8 +110,8 @@ RUN apt update \
       php${PHP_VERSION}-xml \
       php${PHP_VERSION}-zip
 
-RUN if [[ "$IMAGE" == "ubuntu" ]] ; then \
-        apt-get install -y php${PHP_VERSION}-openswoole \
+RUN if [ $IMAGE -eq "ubuntu" ] ; then \
+        apt-get install -y php${PHP_VERSION}-openswoole ; \
     fi
 
 RUN corepack enable
