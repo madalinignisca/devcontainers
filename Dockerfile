@@ -47,7 +47,6 @@ RUN apt-get update \
       git \
       htop \
       jq \
-      language-pack-en \
       less \
       lsof \
       man-db \
@@ -69,6 +68,10 @@ RUN apt-get update \
       wget \
       whois \
       zip
+
+RUN if [[ "$IMAGE" == "ubuntu" ]] ; then \
+        apt-get install -y language-pack-en \
+    fi
       
 RUN curl -L 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key' | apt-key add - \
     && echo "deb https://deb.nodesource.com/node_${NODE_VERSION}.x $(lsb_release -cs) main" > /etc/apt/sources.list.d/nodesource.list
