@@ -81,9 +81,6 @@ RUN if [ $IMAGE -eq "debian" ] ; \
     then \
         curl -L "https://packages.sury.org/php/apt.gpg" | apt-key add - \
         && echo "deb https://packages.sury.org/php/ $(lsb_release -cs) main" > /etc/apt/sources.list.d/php.list ; \
-    else \
-        add-apt-repository -n ppa:ondrej/php \
-        && add-apt-repository -n ppa:openswoole/ppa ; \
     fi
 
 RUN apt update \
