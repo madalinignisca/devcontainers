@@ -16,6 +16,8 @@ LABEL version="6.0.0"
 LABEL description="Development environment for the joy and pleasure of web developers"
 LABEL repo="https://github.com/madalinignisca/devcontainers"
 
+RUN echo "$IMAGE"
+
 ADD unminimize /tmp/unminimize
 RUN chmod 700 /tmp/unminimize \
     && /tmp/unminimize
