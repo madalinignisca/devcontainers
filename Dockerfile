@@ -13,7 +13,7 @@ ARG PHP_VERSION=8.1
 ENV LC_ALL=C.UTF-8
 
 LABEL maintainer="Madalin Ignisca"
-LABEL version="5.2.0"
+LABEL version="6.0.0"
 LABEL description="Development environment for the joy and pleasure of web developers"
 LABEL repo="https://github.com/madalinignisca/devcontainers"
 
@@ -48,7 +48,6 @@ RUN apt-get update \
       git \
       htop \
       jq \
-      language-pack-en \
       less \
       lsof \
       man-db \
@@ -70,12 +69,24 @@ RUN apt-get update \
       wget \
       whois \
       zip
+
+RUN if [ "$DISTRO" = "ubuntu" ] ; \
+    then \
+        apt-get install -y language-pack-en ; \
+    fi
       
-RUN curl 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key' | apt-key add - \
+RUN curl -L 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key' | apt-key add - \
     && echo "deb https://deb.nodesource.com/node_${NODE_VERSION}.x $(lsb_release -cs) main" > /etc/apt/sources.list.d/nodesource.list
 
-RUN add-apt-repository -n ppa:ondrej/php
-RUN add-apt-repository -n ppa:openswoole/ppa
+RUN if [ "$DISTRO" = "debian" ] ; \
+    then \
+        curl -L "https://packages.sury.org/php/apt.gpg" | apt-key add - \
+        && echo "deb https://packages.sury.org/php/ $(lsb_release -cs) main" > /etc/apt/sources.list.d/php.list ; \
+    else \
+        add-apt-repository -n ppa:ondrej/php \
+        && add-apt-repository -n ppa:openswoole/ppa ; \
+    fi
+
 
 RUN apt update \
     && apt-get install -y \
@@ -94,7 +105,6 @@ RUN apt update \
       php${PHP_VERSION}-memcached \
       php${PHP_VERSION}-mongodb \
       php${PHP_VERSION}-mysql \
-      php${PHP_VERSION}-openswoole \
       php${PHP_VERSION}-pgsql \
       php${PHP_VERSION}-redis \
       php${PHP_VERSION}-sqlite3 \
@@ -103,9 +113,13 @@ RUN apt update \
       php${PHP_VERSION}-xml \
       php${PHP_VERSION}-zip
 
+RUN if [ "$DISTRO" = "ubuntu" ] ; then \
+        apt-get install -y php${PHP_VERSION}-openswoole ; \
+    fi
+
 RUN corepack enable
 
-RUN echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME} \
+RUN echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/${USERNAME} \
     && chmod 0440 /etc/sudoers.d/${USERNAME}
 
 RUN mkdir -p /workspace \

@@ -4,7 +4,7 @@ services:
     image: 16nsk/devcontainers
     command: sleep infinity
     volumes:
-      - projects:/projects
+      - workspace:/workspace
     ports:
       - "${BACKEND_PORT:-8000}:8000"
       - "${FRONTEND_PORT:-3000}:3000"
@@ -66,7 +66,7 @@ services:
   #     - "${FORWARD_ADMINER_PORT:-8080}:8080"
 
 volumes:
-  projects:
+  workspace:
   # mariadb:
   # postgres:
   # redis:

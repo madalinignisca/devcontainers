@@ -1,8 +1,8 @@
-name: buildx
+name: buildx-debian-dev
 
 on:
   push:
-    branches: ubuntu
+    branches: develop
 
 jobs:
   buildx:
@@ -13,13 +13,16 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+      -  
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
       -  
         name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v2
       -
         name: Login to DockerHub
-        uses: docker/login-action@v1 
+        uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -37,16 +40,24 @@ jobs:
               context="."
               dockerfile="Dockerfile"
               platforms = [
-                  "linux/amd64"
+                  "linux/amd64",
+                  "linux/arm64"
               ]
               tags = [
                 "16nsk/devcontainers:dev"
               ]
+              args = {
+                PHP_VERSION="8.2",
+                NODE_VERSION="19",
+                IMAGE="debian",
+                DISTRO="debian",
+                VERSION="bullseye"
+              }
           }
           EOF
       -
         name: Build and push
-        uses: docker/bake-action@master
+        uses: docker/bake-action@v2
         with:
           push: true
           files: docker-bake.hcl

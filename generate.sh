@@ -24,42 +24,47 @@ echo "services:
 " > docker-compose.yaml
 
 echo "Pick a PHP-NodeJS combination":
-echo "[1]: PHP 8.1 / NodeJS 18"
-echo "[2]: PHP 8.1 / NodeJS 16 (default)"
-echo "[3]: PHP 8.0 / NodeJS 16"
-echo "[4]: PHP 8.0 / NodeJS 14"
-echo "[5]: PHP 7.4 / NodeJS 14"
-echo "[6]: PHP 7.4 / NodeJS 12"
+echo "[0]: PHP 8.2 / NodeJS 18 on Debian"
+echo "[1]: PHP 8.1 / NodeJS 18 on Debian"
+echo "[2]: PHP 8.1 / NodeJS 18 on Ubuntu (default)"
+echo "[3]: PHP 8.1 / NodeJS 16 on Ubuntu"
+echo "[4]: PHP 8.0 / NodeJS 16 on Ubuntu"
+echo "[5]: PHP 8.0 / NodeJS 14 on Ubuntu"
+echo "[6]: PHP 7.4 / NodeJS 14 on Ubuntu"
 read VERSION
 
 case $VERSION in
 
+  0)
+    PHPNODEJS="8.2-18-debian"
+    ;;
+
   1)
-    PHPNODEJS="8.1-18"
+    PHPNODEJS="8.1-18-debian"
     ;;
 
   2)
-    PHPNODEJS="8.1-16"
+    PHPNODEJS="8.1-18"
     ;;
 
   3)
-    PHPNODEJS="8.0-16"
+    PHPNODEJS="8.1-16"
     ;;
 
   4)
-    PHPNODEJS="8.0-14"
+    PHPNODEJS="8.0-16"
     ;;
 
   5)
-    PHPNODEJS="7.4-14"
+    PHPNODEJS="8.0-14"
     ;;
 
   6)
-    PHPNODEJS="7.4-12"
+    PHPNODEJS="7.4-14"
     ;;
 
   *)
-    PHPNODEJS="8.1-16"
+    PHPNODEJS="8.1-18"
     ;;
 
 esac
@@ -68,7 +73,7 @@ echo "  dev:
     image: 16nsk/devcontainers:$PHPNODEJS
     command: sleep infinity
     volumes:
-      - projects:/projects
+      - workspace:/workspace
     ports:
       - \"${BACKEND_PORT:-8000}:8000\"
       - \"${FRONTEND_PORT:-3000}:3000\"
@@ -77,8 +82,8 @@ echo "  dev:
 echo "POSTGRESQL:"
 echo "[1] Postgresql 15"
 echo "[2] Postgresql 14"
-echo "[3] Postgresql 15 with Postgis 3.3"
-echo "[4] Postgresql 12 with Postgis 2.5 (for old projects)"
+echo "[3] Postgresql 15 with Postgis 3.3 (!NO ARM64)"
+echo "[4] Postgresql 12 with Postgis 2.5 (for old projects | !NO ARM64)"
 echo "[ ] Hit enter to skip Postgresql"
 read POSTGRESQL
 
@@ -119,6 +124,7 @@ fi
 
 
 echo "MARIADB:"
+echo "[0] MariaDB 10.10"
 echo "[1] MariaDB 10.9"
 echo "[2] MariaDB 10.8"
 echo "[3] MariaDB 10.7"
@@ -128,6 +134,10 @@ echo "[ ] Hit enter to skip MariaDB"
 read MARIADB
 
 case $MARIADB in
+
+  0)
+    MARIADB="10.10"
+    ;;
 
   1)
     MARIADB="10.9"
