@@ -125,10 +125,6 @@ RUN echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/${USERNAME} \
 RUN mkdir -p /workspace \
     && chown -R ${USER_UID}:${USER_GID} /workspace
 
-# Default location of Jetbrain's IDE for the container
-RUN mkdir -p /opt/project \
-    && chown -R ${USER_UID}:${USER_GID} /opt/project
-
 RUN mkdir -p /home/${USERNAME}/.local \
     && chown ${USERNAME}:${USERNAME} /home/${USERNAME}/.local \
     && echo "export PROMPT_COMMAND='history -a'" >> "/home/${USERNAME}/.bashrc" \
@@ -141,22 +137,11 @@ COPY aliases /home/${USERNAME}/.bash_aliases
 RUN chown ${USERNAME}:${USERNAME} /home/${USERNAME}/.bash_aliases \
     && chown ${USERNAME}:${USERNAME} /home/${USERNAME}/.bash_aliases
 
-RUN mkdir -p /home/${USERNAME}/.config \
-    && chown ${USERNAME}:${USERNAME} /home/${USERNAME}/.config
-
-RUN mkdir -p -m 700 /home/${USERNAME}/.ssh \
-    && chown ${USERNAME}:${USERNAME} /home/${USERNAME}/.ssh
-    
-RUN chown -R ${USERNAME}:${USERNAME} /opt
-
-VOLUME /home/${USERNAME}/.config
-VOLUME /home/${USERNAME}/.local
-VOLUME /home/${USERNAME}/.ssh
-
 VOLUME /workspace
 WORKDIR /workspace
 
 EXPOSE 8000
+EXPOSE 8080
 EXPOSE 3000
 
 HEALTHCHECK NONE

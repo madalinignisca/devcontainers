@@ -186,7 +186,7 @@ echo "  adminer:
 " >> docker-compose.yaml
 fi
 
-echo "Want mailhog?"
+echo "Want mailhog? [ENTER to skip]"
 read MAILHOG
 if [[ -n $MAILHOG ]]; then
 echo "  mailhog:
@@ -196,7 +196,7 @@ echo "  mailhog:
 " >> docker-compose.yaml
 fi
 
-echo "Want memcached?"
+echo "Want memcached? [ENTER to skip]"
 read MEMCACHED
 if [[ -n $MEMCACHED ]]; then
 echo "  memcached:
@@ -216,7 +216,7 @@ echo "  redis:
 fi
 
 echo "volumes:
-  projects:" >> docker-compose.yaml
+  workspace:" >> docker-compose.yaml
 
 if [[ -n $POSTGRESQL ]]; then
 echo "  postgres:" >> docker-compose.yaml
