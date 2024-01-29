@@ -8,12 +8,13 @@ ARG USERNAME=developer
 ARG USER_UID=1000
 ARG USER_GID=1000
 ARG DEBIAN_FRONTEND=noninteractive
-ARG NODE_VERSION=19
-ARG PHP_VERSION=8.1
+ARG NODE_VERSION=20
+ARG NODE_DISTRO=nodistro
+ARG PHP_VERSION=8.3
 ENV LC_ALL=C.UTF-8
 
 LABEL maintainer="Madalin Ignisca"
-LABEL version="6.0.0"
+LABEL version="7.0.0"
 LABEL description="Development environment for the joy and pleasure of web developers"
 LABEL repo="https://github.com/madalinignisca/devcontainers"
 
@@ -76,7 +77,7 @@ RUN if [ "$DISTRO" = "ubuntu" ] ; \
     fi
       
 RUN curl -L 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key' | apt-key add - \
-    && echo "deb https://deb.nodesource.com/node_${NODE_VERSION}.x $(lsb_release -cs) main" > /etc/apt/sources.list.d/nodesource.list
+    && echo "deb https://deb.nodesource.com/node_${NODE_VERSION}.x ${NODE_DISTRO} main" > /etc/apt/sources.list.d/nodesource.list
 
 RUN if [ "$DISTRO" = "debian" ] ; \
     then \
@@ -101,7 +102,6 @@ RUN apt update \
       php${PHP_VERSION}-gmp \
       php${PHP_VERSION}-intl \
       php${PHP_VERSION}-mbstring \
-      php${PHP_VERSION}-mcrypt \
       php${PHP_VERSION}-memcached \
       php${PHP_VERSION}-mongodb \
       php${PHP_VERSION}-mysql \
