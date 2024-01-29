@@ -27,8 +27,6 @@ RUN chmod 755 /usr/local/bin/composer
 RUN groupadd --gid ${USER_GID} ${USERNAME} \
     && useradd --create-home --shell /bin/bash --uid ${USER_UID} --gid ${USER_GID} ${USERNAME}
 
-RUN add-apt-repository -n ppa:ondrej/php
-
 RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y \
@@ -67,7 +65,11 @@ RUN apt-get update \
       unzip \
       wget \
       whois \
-      zip \
+      zip
+
+RUN add-apt-repository -n ppa:ondrej/php \
+    && apt-get upgrade -y \
+    && apt-get install -y \
       php${PHP_VERSION}-apcu \
       php${PHP_VERSION}-bcmath \
       php${PHP_VERSION}-cli \
