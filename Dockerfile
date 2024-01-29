@@ -95,6 +95,9 @@ RUN add-apt-repository -n ppa:ondrej/php \
 RUN echo "${USERNAME} ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/${USERNAME} \
     && chmod 0440 /etc/sudoers.d/${USERNAME}
 
+RUN mkdir -p /workspace \
+    && chown ${USERNAME}:${USERNAME} /workspace
+
 HEALTHCHECK NONE
 
 ENV LANG en_US.utf8
@@ -106,8 +109,7 @@ ADD .editorconfig /home/${USERNAME}
 COPY bashprompt /tmp/bashprompt
 RUN cat /tmp/bashprompt >> /home/${USERNAME}/.bashrc
 
-RUN mkdir -p /workspace \
-    && mkdir -p /home/${USERNAME}/.local \
+RUN mkdir -p /home/${USERNAME}/.local \
     && echo "export PROMPT_COMMAND='history -a'" >> "/home/${USERNAME}/.bashrc" \
     && echo "export HISTFILE=/home/${USERNAME}/.local/bash_history" >> "/home/${USERNAME}/.bashrc"
 
