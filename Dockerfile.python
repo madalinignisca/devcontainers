@@ -1,0 +1,26 @@
+ARG IMAGE=16nsk/devcontainers
+ARG VERSION=ubuntu-22.04
+
+FROM ${IMAGE}:${VERSION}
+
+ARG DISTRO=ubuntu
+ARG USERNAME=developer
+ARG USER_UID=1000
+ARG USER_GID=1000
+ARG DEBIAN_FRONTEND=noninteractive
+ARG PYTHON_VERSION=3.12
+ENV LC_ALL=C.UTF-8
+
+USER root
+
+RUN add-apt-repository -n ppa:deadsnakes/ppa \
+    && apt-get update -y \
+    && apt-get install -y \
+      python${PYTHON_VERSION} \
+      python${PYTHON_VERSION}-venv
+
+USER ${USERNAME}
+
+RUN mkdir -p ~/.local/bin \
+    && ln -sf /usr/bin/python${PYTHON_VERSION} ~/.local/bin/python3 \
+    && ln -sf /usr/bin/python${PYTHON_VERSION} ~/.local/bin/python

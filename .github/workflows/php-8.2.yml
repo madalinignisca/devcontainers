@@ -1,11 +1,11 @@
-name: Ubuntu 22.04
+name: PHP 8.2
 
 on:
   schedule:
-    - cron:  '22 4 * * 5'
+    - cron:  '8 2 * * 6'
   push:
     branches:
-      - master
+      - develop
 
 jobs:
   buildx:
@@ -47,20 +47,20 @@ jobs:
 
           target "default" {
               context="."
-              dockerfile="Dockerfile"
+              dockerfile="Dockerfile.php"
               platforms = [
                   "linux/amd64",
                   "linux/arm64"
               ]
               tags = [
-                "16nsk/devcontainers:ubuntu-22.04",
-                "16nsk/devcontainers:ubuntu",
-                "16nsk/devcontainers:latest"
+                "16nsk/devcontainers:php-8.2",
+                "16nsk/devcontainers:php"
               ]
               args = {
-                IMAGE="ubuntu",
+                PHP_VERSION="8.2",
+                IMAGE="16nsk/devcontainers",
                 DISTRO="ubuntu",
-                VERSION="22.04"
+                VERSION="ubuntu-22.04"
               }
           }
           EOF

@@ -2,10 +2,10 @@ name: PHP 8.1
 
 on:
   schedule:
-    - cron:  '8 1 * * 4'
+    - cron:  '8 1 * * 6'
   push:
     branches:
-      - master
+      - develop
 
 jobs:
   buildx:

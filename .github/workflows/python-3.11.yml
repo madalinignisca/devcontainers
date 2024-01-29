@@ -1,11 +1,11 @@
-name: PHP 8.3
+name: Python 3.11
 
 on:
   schedule:
-    - cron:  '8 3 * * 4'
+    - cron:  '3 11 * * 6'
   push:
     branches:
-      - master
+      - develop
 
 jobs:
   buildx:
@@ -47,16 +47,16 @@ jobs:
 
           target "default" {
               context="."
-              dockerfile="Dockerfile.php"
+              dockerfile="Dockerfile.python"
               platforms = [
                   "linux/amd64",
                   "linux/arm64"
               ]
               tags = [
-                "16nsk/devcontainers:php-8.3"
+                "16nsk/devcontainers:python-3.11"
               ]
               args = {
-                PHP_VERSION="8.3",
+                PYTHON_VERSION="3.11",
                 IMAGE="16nsk/devcontainers",
                 DISTRO="ubuntu",
                 VERSION="ubuntu-22.04"
