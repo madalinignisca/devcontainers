@@ -4,11 +4,13 @@
     "service": "dev",
     "workspaceFolder": "/workspace",
     "shutdownAction": "stopCompose",
-    "extensions": [
-        "EditorConfig.EditorConfig",
-        "bmewburn.vscode-intelephense-client",
-        "dbaeumer.vscode-eslint",
-        "eamodio.gitlens",
-        "xdebug.php-debug"
-    ]
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "EditorConfig.EditorConfig",
+                "bmewburn.vscode-intelephense-client",
+                "xdebug.php-debug"
+            ]
+        }
+    }
 }

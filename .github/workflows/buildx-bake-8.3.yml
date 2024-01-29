@@ -5,7 +5,7 @@ on:
     - cron:  '8 3 * * 4'
   push:
     branches:
-      - develop
+      - master
 
 jobs:
   buildx:
@@ -54,6 +54,7 @@ jobs:
               ]
               tags = [
                 "16nsk/devcontainers:php-8.3"
+                "16nsk/devcontainers:php"
               ]
               args = {
                 PHP_VERSION="8.3",

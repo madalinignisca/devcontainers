@@ -1,32 +1,20 @@
 # devcontainers
 Devcontainers or Codespace with optimizations for PHP and Nodejs development.
 
-[![buildx-8.1-18](https://github.com/madalinignisca/devcontainers/actions/workflows/buildx-bake-8.1-18.yml/badge.svg)](https://github.com/madalinignisca/devcontainers/actions/workflows/buildx-bake-8.1-18.yml) [![buildx-8.0](https://github.com/madalinignisca/devcontainers/actions/workflows/buildx-bake-8.0.yml/badge.svg)](https://github.com/madalinignisca/devcontainers/actions/workflows/buildx-bake-8.0.yml) [![buildx-7.4](https://github.com/madalinignisca/devcontainers/actions/workflows/buildx-bake-7.4.yml/badge.svg)](https://github.com/madalinignisca/devcontainers/actions/workflows/buildx-bake-7.4.yml)
-
 Laravel, Symfony, CakePHP, Codeigniter, AdonisJS, NestJS, SailsJS, WordPress, Drupal, Magento,
 Prestashop, Opencart compatible or any NodeJS and PHP project.
 
 ## Getting started:
 
-Using a shell compatible prompt, download generate.sh and run it.
-
-PHP and Node combinations:
-|    | 7.4 | 8.0 | 8.1 | 8.2 |
-|----|-----|-----|-----|-----|
-| 14 | X   | X   |     |     |
-| 16 |     | X   | X   |     |
-| 18 |     |     | X   | X   |
-
-ARM64 users, you might need to look for supported docker images alternatives for some services. Some official providers don't look into supporting ARM64 too soon.
-More on ARM64 soon.
+Copy `.devcontainer.json` and `docker-compose.yaml` in your project root. Customize as needed.
 
 Continue with the [Wiki](https://github.com/madalinignisca/devcontainers/wiki) for advanced documentation.
 
-## Important for Windows 10 users:
+## Important for Windows 10/11 users:
 
 https://docs.microsoft.com/en-us/windows/wsl/wsl-config#configure-global-options-with-wslconfig
 
-Make sure you will set a memory limit, as the 80% default limit will allow WSL2 to do aggresive caching in ram
+Make sure you will set a memory limit, as the 50% (80% in older versions) default limit will allow WSL2 to do aggresive caching in ram
 and will simply make your system slow, sometimes even freezing minutes. This is not a bug of Docker, neither of
 Linux. It's purely a missed optimization of Microsoft in WSL2, forgetting that Linux, like Windows as well, is
 very aggressive on caching anything possible.

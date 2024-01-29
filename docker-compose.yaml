@@ -5,69 +5,35 @@ services:
     command: sleep infinity
     volumes:
       - workspace:/workspace
+      - nvm:/home/developer/.nvm/versions
     ports:
       - "${BACKEND_PORT:-8000}:8000"
       - "${FRONTEND_PORT:-3000}:3000"
 
-  # mariadb:
-  #   image: mariadb:10.6
-  #   environment:
-  #     - MYSQL_ROOT_PASSWORD=root
-  #     - MYSQL_DATABASE=developer
-  #     - MYSQL_USER=developer
-  #     - MYSQL_PASSWORD=developer
-  #   volumes:
-  #     - mariadb:/var/lib/mysql
-  #   ports:
-  #     - "${FORWARD_DB_PORT:-3306}:3306"
+  mariadb:
+    image: mariadb:10.11
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=application
+      - MYSQL_USER=developer
+      - MYSQL_PASSWORD=password
+    volumes:
+      - mariadb:/var/lib/mysql
+    ports:
+      - "${FORWARD_DB_PORT:-3306}:3306"
 
-  # postgres:
-  #   image: postgres:14-alpine
-  #   environment:
-  #     - POSTGRES_PASSWORD=developer
-  #     - POSTGRES_USER=developer
-  #     - POSTGRES_DB=developer
-  #     - PGDATA=/var/lib/postgresql/data/pgdata
-  #   ports:
-  #     - "${FORWARD_DB_PORT:-5432}:5432"
-  #   volumes:
-  #     - postgres:/var/lib/postgresql/data
+  mailpit:
+    image: axllent/mailpit
+    ports:
+      - "${FORWARD_MAILHOG_PORT:-8025}:8025"
 
-  # elasticsearch:
-  #   image: elasticsearch:7.16.3
-  #   environment:
-  #     - discovery.type=single-node
-  #   ports:
-  #     - "${FORWARD_ES_PORT:-9200}:9200"
-  #   volumes:
-  #     - elasticsearch:/usr/share/elasticsearch/data
-  
-  # kibana:
-  # image: kibana:7.16.3
-  # environment:
-  #   - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
-  # ports:
-  #   - "${FORWARD_KIBANA_PORT:-5601}:5601
-
-  # redis:
-  #   image: redis:6-alpine
-  #   volumes:
-  #     - redis:/data
-  #   command: redis-server --appendonly yes
-
-  # mailhog:
-  #   image: 16nsk/mailhog
-  #   ports:
-  #     - "${FORWARD_MAILHOG_PORT:-8025}:8025"
-
-  # adminer:
-  #   image: adminer
-  #   ports:
-  #     - "${FORWARD_ADMINER_PORT:-8080}:8080"
+  adminer:
+    image: adminer
+    ports:
+      - "${FORWARD_ADMINER_PORT:-8080}:8080"
 
 volumes:
   workspace:
-  # mariadb:
-  # postgres:
-  # redis:
-  # elasticsearch:
+  nvm:
+  mariadb:
+  postgres:
