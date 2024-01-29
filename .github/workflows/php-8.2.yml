@@ -5,7 +5,7 @@ on:
     - cron:  '8 2 * * 6'
   push:
     branches:
-      - develop
+      - master
 
 jobs:
   buildx:

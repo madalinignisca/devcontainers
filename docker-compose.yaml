@@ -1,7 +1,7 @@
 services:
 
   dev:
-    image: 16nsk/devcontainers
+    image: 16nsk/devcontainers:php-8.2
     command: sleep infinity
     volumes:
       - workspace:/workspace
