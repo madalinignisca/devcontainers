@@ -68,7 +68,7 @@ RUN apt-get update \
       zip
 
 RUN add-apt-repository -n ppa:ondrej/php \
-    && apt-get upgrade -y \
+    && apt-get update -y \
     && apt-get install -y \
       php${PHP_VERSION}-apcu \
       php${PHP_VERSION}-bcmath \
