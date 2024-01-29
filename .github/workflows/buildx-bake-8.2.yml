@@ -1,11 +1,11 @@
-name: PHP 8.3 NodeJS 20
+name: PHP 8.2
 
 on:
   schedule:
-    - cron:  '22 5 * * 4'
+    - cron:  '8 2 * * 4'
   push:
     branches:
-      - develop
+      - master
 
 jobs:
   buildx:
@@ -53,11 +53,10 @@ jobs:
                   "linux/arm64"
               ]
               tags = [
-                "16nsk/devcontainers:8.3-20"
+                "16nsk/devcontainers:php-8.2"
               ]
               args = {
-                PHP_VERSION="8.3",
-                NODE_VERSION="20",
+                PHP_VERSION="8.2",
                 IMAGE="ubuntu",
                 DISTRO="ubuntu",
                 VERSION="22.04"

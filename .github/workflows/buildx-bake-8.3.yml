@@ -1,0 +1,69 @@
+name: PHP 8.3
+
+on:
+  schedule:
+    - cron:  '8 3 * * 4'
+  push:
+    branches:
+      - develop
+
+jobs:
+  buildx:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up SSH
+        uses: MrSquaare/ssh-setup-action@v3
+        with:
+          host: ${{ secrets.SSH_ARM64_HOST }}
+          private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          private-key-name: ssh-arm64-host
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          platforms: amd64
+          append: |
+            - endpoint: ssh://${{ secrets.SSH_ARM64_USER }}@${{ secrets.SSH_ARM64_HOST }}
+              platforms: arm64
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Generate bake file
+        run: |
+          cat <<'EOF' > docker-bake.hcl
+          group "default" {
+              targets = [
+                  "default"
+              ]
+          }
+
+          target "default" {
+              context="."
+              dockerfile="Dockerfile"
+              platforms = [
+                  "linux/amd64",
+                  "linux/arm64"
+              ]
+              tags = [
+                "16nsk/devcontainers:php-8.3"
+              ]
+              args = {
+                PHP_VERSION="8.3",
+                IMAGE="ubuntu",
+                DISTRO="ubuntu",
+                VERSION="22.04"
+              }
+          }
+          EOF
+      - name: Build and push
+        uses: docker/bake-action@v4
+        with:
+          push: true
