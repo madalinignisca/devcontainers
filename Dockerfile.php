@@ -11,6 +11,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 ARG PHP_VERSION=8.3
 ENV LC_ALL=C.UTF-8
 
+USER root
+
 ADD https://getcomposer.org/composer-stable.phar /usr/local/bin/composer
 RUN chmod 755 /usr/local/bin/composer
 
@@ -37,3 +39,5 @@ RUN add-apt-repository -n ppa:ondrej/php \
       php${PHP_VERSION}-xhprof \
       php${PHP_VERSION}-xml \
       php${PHP_VERSION}-zip
+
+USER ${USERNAME}
