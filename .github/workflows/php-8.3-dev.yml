@@ -47,20 +47,19 @@ jobs:
 
           target "default" {
               context="."
-              dockerfile="Dockerfile"
+              dockerfile="Dockerfile.php"
               platforms = [
                   "linux/amd64",
                   "linux/arm64"
               ]
               tags = [
-                "16nsk/devcontainers:php-8.3",
-                "16nsk/devcontainers:php"
+                "16nsk/devcontainers:php-8.3"
               ]
               args = {
                 PHP_VERSION="8.3",
-                IMAGE="ubuntu",
+                IMAGE="16nsk/devcontainers",
                 DISTRO="ubuntu",
-                VERSION="22.04"
+                VERSION="ubuntu-22.04"
               }
           }
           EOF
