@@ -1,8 +1,8 @@
-name: Debian latest dev
+name: PHP 8.3 NodeJS 20
 
 on:
   schedule:
-    - cron:  '22 6 * * 4'
+    - cron:  '22 5 * * 4'
   push:
     branches:
       - develop
@@ -53,14 +53,14 @@ jobs:
                   "linux/arm64"
               ]
               tags = [
-                "16nsk/devcontainers:debian-dev"
+                "16nsk/devcontainers:8.3-20"
               ]
               args = {
                 PHP_VERSION="8.3",
                 NODE_VERSION="20",
-                IMAGE="debian",
-                DISTRO="debian",
-                VERSION="bookworm"
+                IMAGE="ubuntu",
+                DISTRO="ubuntu",
+                VERSION="22.04"
               }
           }
           EOF
