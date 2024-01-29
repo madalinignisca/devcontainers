@@ -19,8 +19,7 @@ RUN add-apt-repository -n ppa:deadsnakes/ppa \
       python${PYTHON_VERSION} \
       python${PYTHON_VERSION}-venv
 
-USER ${USERNAME}
+RUN ln -sf /usr/bin/python${PYTHON_VERSION} /usr/local/bin/python3 \
+    && ln -sf /usr/bin/python${PYTHON_VERSION} /usr/local/bin/python
 
-RUN mkdir -p ~/.local/bin \
-    && ln -sf /usr/bin/python${PYTHON_VERSION} ~/.local/bin/python3 \
-    && ln -sf /usr/bin/python${PYTHON_VERSION} ~/.local/bin/python
+USER ${USERNAME}
