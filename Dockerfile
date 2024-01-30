@@ -69,13 +69,14 @@ RUN echo "${USERNAME} ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/${USERNAME} \
 RUN mkdir -p /workspace \
     && chown ${USERNAME}:${USERNAME} /workspace
 
+ADD .editorconfig /home/${USERNAME}
+RUN chown ${USERNAME}:${USERNAME} /home/${USERNAME}/.editorconfig
+
 HEALTHCHECK NONE
 
 ENV LANG en_US.utf8
 
 USER ${USERNAME}
-
-ADD .editorconfig /home/${USERNAME}
 
 COPY bashprompt /tmp/bashprompt
 RUN cat /tmp/bashprompt >> /home/${USERNAME}/.bashrc
@@ -84,9 +85,12 @@ RUN mkdir -p /home/${USERNAME}/.local \
     && echo "export PROMPT_COMMAND='history -a'" >> "/home/${USERNAME}/.bashrc" \
     && echo "export HISTFILE=/home/${USERNAME}/.local/bash_history" >> "/home/${USERNAME}/.bashrc"
 
+RUN mkdir -p /home/${USERNAME}/.cache
+
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh | bash \
     && mkdir /home/${USERNAME}/.nvm/versions
 
 VOLUME /workspace
+VOLUME /home/${USERNAME}/.cache
 VOLUME /home/${USERNAME}/.nvm/versions
 WORKDIR /workspace
