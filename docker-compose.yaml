@@ -11,7 +11,7 @@ services:
       - "${FRONTEND_PORT:-3000}:3000"
 
   mariadb:
-    image: mariadb:10.11
+    image: mariadb:10.6
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=application
@@ -36,4 +36,3 @@ volumes:
   workspace:
   nvm:
   mariadb:
-  postgres:
