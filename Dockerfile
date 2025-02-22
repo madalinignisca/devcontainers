@@ -13,7 +13,7 @@ ARG NVM_VERSION=0.40.1
 ENV LC_ALL=C.UTF-8
 
 LABEL maintainer="Madalin Ignisca"
-LABEL version="8.0.0"
+LABEL version="8.1.0"
 LABEL description="Development environment for the joy and pleasure of web developers"
 LABEL repo="https://github.com/madalinignisca/devcontainers"
 
@@ -21,7 +21,7 @@ ADD unminimize /tmp/unminimize
 RUN chmod 700 /tmp/unminimize \
     && /tmp/unminimize
 
-RUN [[ -n CREATE_USER ]] && groupadd --gid ${USER_GID} ${USERNAME} \
+RUN [ -n CREATE_USER ] && groupadd --gid ${USER_GID} ${USERNAME} \
     && useradd --create-home --shell /bin/bash --uid ${USER_UID} --gid ${USER_GID} ${USERNAME}
 
 RUN apt-get update \
