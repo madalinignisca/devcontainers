@@ -21,7 +21,7 @@ ADD unminimize /tmp/unminimize
 RUN chmod 700 /tmp/unminimize \
     && /tmp/unminimize
 
-RUN if [ -n CREATE_USER ]; then \
+RUN if [ "$CREATE_USER" = 1 ]; then \
     groupadd --gid ${USER_GID} ${USERNAME} \
     && useradd --create-home --shell /bin/bash --uid ${USER_UID} --gid ${USER_GID} ${USERNAME}; \
     fi
