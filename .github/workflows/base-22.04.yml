@@ -53,9 +53,7 @@ jobs:
                   "linux/arm64"
               ]
               tags = [
-                "16nsk/devcontainers:ubuntu-22.04",
-                "16nsk/devcontainers:ubuntu",
-                "16nsk/devcontainers:latest"
+                "16nsk/devcontainers:ubuntu-22.04"
               ]
               args = {
                 IMAGE="ubuntu",
