@@ -23,7 +23,7 @@ RUN chmod 700 /tmp/unminimize \
 
 RUN if [ -n CREATE_USER ]; then \
     groupadd --gid ${USER_GID} ${USERNAME} \
-    && useradd --create-home --shell /bin/bash --uid ${USER_UID} --gid ${USER_GID} ${USERNAME};
+    && useradd --create-home --shell /bin/bash --uid ${USER_UID} --gid ${USER_GID} ${USERNAME}; \
     fi
 
 RUN apt-get update \
