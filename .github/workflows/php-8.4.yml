@@ -62,7 +62,7 @@ jobs:
                 IMAGE="16nsk/devcontainers",
                 DISTRO="ubuntu",
                 VERSION="ubuntu-24.04",
-                USERNAME=ubuntu
+                USERNAME="ubuntu"
               }
           }
           EOF
