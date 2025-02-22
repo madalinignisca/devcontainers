@@ -60,7 +60,9 @@ jobs:
               args = {
                 IMAGE="ubuntu",
                 DISTRO="ubuntu",
-                VERSION="24.04"
+                VERSION="24.04",
+                USERNAME=ubuntu,
+                CREATE_USER=0
               }
           }
           EOF

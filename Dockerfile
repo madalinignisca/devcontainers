@@ -7,6 +7,7 @@ ARG DISTRO=ubuntu
 ARG USERNAME=developer
 ARG USER_UID=1000
 ARG USER_GID=1000
+ARG CREATE_USER=1
 ARG DEBIAN_FRONTEND=noninteractive
 ARG NVM_VERSION=0.40.1
 ENV LC_ALL=C.UTF-8
@@ -20,7 +21,7 @@ ADD unminimize /tmp/unminimize
 RUN chmod 700 /tmp/unminimize \
     && /tmp/unminimize
 
-RUN groupadd --gid ${USER_GID} ${USERNAME} \
+RUN [[ -n CREATE_USER ]] && groupadd --gid ${USER_GID} ${USERNAME} \
     && useradd --create-home --shell /bin/bash --uid ${USER_UID} --gid ${USER_GID} ${USERNAME}
 
 RUN apt-get update \
