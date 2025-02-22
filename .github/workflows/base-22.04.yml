@@ -1,6 +1,7 @@
 name: Ubuntu 22.04
 
 on:
+  workflow_dispatch:
   schedule:
     - cron:  '22 4 * * 5'
   push:
