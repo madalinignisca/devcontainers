@@ -1,6 +1,7 @@
 name: Ubuntu 24.04
 
 on:
+  workflow_dispatch:
   schedule:
     - cron:  '24 4 * * 5'
   push:
