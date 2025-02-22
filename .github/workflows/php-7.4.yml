@@ -1,9 +1,9 @@
-name: PHP 8.3
+name: PHP 7.4
 
 on:
   workflow_dispatch:
   schedule:
-    - cron:  '8 3 * * 6'
+    - cron:  '7 4 * * 6'
   push:
     branches:
       - master
@@ -54,13 +54,13 @@ jobs:
                   "linux/arm64"
               ]
               tags = [
-                "16nsk/devcontainers:php-8.3"
+                "16nsk/devcontainers:php-7.4"
               ]
               args = {
-                PHP_VERSION="8.3",
+                PHP_VERSION="7.4",
                 IMAGE="16nsk/devcontainers",
                 DISTRO="ubuntu",
-                VERSION="ubuntu-24.04"
+                VERSION="ubuntu-20.04"
               }
           }
           EOF

@@ -1,9 +1,8 @@
-name: PHP 8.3
+name: Ubuntu 24.04
 
 on:
-  workflow_dispatch:
   schedule:
-    - cron:  '8 3 * * 6'
+    - cron:  '24 4 * * 5'
   push:
     branches:
       - master
@@ -48,19 +47,20 @@ jobs:
 
           target "default" {
               context="."
-              dockerfile="Dockerfile.php"
+              dockerfile="Dockerfile"
               platforms = [
                   "linux/amd64",
                   "linux/arm64"
               ]
               tags = [
-                "16nsk/devcontainers:php-8.3"
+                "16nsk/devcontainers:ubuntu-24.04",
+                "16nsk/devcontainers:ubuntu",
+                "16nsk/devcontainers:latest"
               ]
               args = {
-                PHP_VERSION="8.3",
-                IMAGE="16nsk/devcontainers",
+                IMAGE="ubuntu",
                 DISTRO="ubuntu",
-                VERSION="ubuntu-24.04"
+                VERSION="24.04"
               }
           }
           EOF
