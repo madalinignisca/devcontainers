@@ -2,7 +2,7 @@ name: Ubuntu 20.04
 
 on:
   schedule:
-    - cron:  '22 4 * * 5'
+    - cron:  '20 4 * * 5'
   push:
     branches:
       - master
@@ -53,9 +53,7 @@ jobs:
                   "linux/arm64"
               ]
               tags = [
-                "16nsk/devcontainers:ubuntu-20.04",
-                "16nsk/devcontainers:ubuntu",
-                "16nsk/devcontainers:latest"
+                "16nsk/devcontainers:ubuntu-20.04"
               ]
               args = {
                 IMAGE="ubuntu",
