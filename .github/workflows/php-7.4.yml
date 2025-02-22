@@ -1,9 +1,9 @@
-name: PHP 8.1
+name: PHP 7.4
 
 on:
   workflow_dispatch:
   schedule:
-    - cron:  '27 3 * * 6'
+    - cron:  '7 4 * * 6'
   push:
     branches:
       - master
@@ -60,7 +60,7 @@ jobs:
                 PHP_VERSION="7.4",
                 IMAGE="16nsk/devcontainers",
                 DISTRO="ubuntu",
-                VERSION="ubuntu-22.04"
+                VERSION="ubuntu-20.04"
               }
           }
           EOF
