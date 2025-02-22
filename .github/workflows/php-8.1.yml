@@ -1,6 +1,7 @@
 name: PHP 8.1
 
 on:
+  workflow_dispatch:
   schedule:
     - cron:  '8 1 * * 6'
   push:
