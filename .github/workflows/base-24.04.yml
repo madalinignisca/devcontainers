@@ -61,7 +61,7 @@ jobs:
                 IMAGE="ubuntu",
                 DISTRO="ubuntu",
                 VERSION="24.04",
-                USERNAME=ubuntu,
+                USERNAME="ubuntu",
                 CREATE_USER=0
               }
           }
