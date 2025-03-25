@@ -25,6 +25,7 @@ RUN add-apt-repository -n ppa:ondrej/php \
       php${PHP_VERSION}-curl \
       php${PHP_VERSION}-decimal \
       php${PHP_VERSION}-ds \
+      php${PHP_VERSION}-fpm \
       php${PHP_VERSION}-gd \
       php${PHP_VERSION}-gmp \
       php${PHP_VERSION}-intl \
