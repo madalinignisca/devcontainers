@@ -54,7 +54,7 @@ jobs:
                   "linux/arm64"
               ]
               tags = [
-                "16nsk/devcontainers:php-8.4"
+                "16nsk/devcontainers:php-8.4",
                 "16nsk/devcontainers:php"
               ]
               args = {
